@@ -1,0 +1,78 @@
+[submodule "ack"]
+	path = ack
+	url = ./bundle/ack
+[submodule "css-color"]
+	path = css-color
+	url = ./bundle/css-color
+[submodule "easymotion"]
+	path = easymotion
+	url = ./bundle/easymotion
+[submodule "eunuch"]
+	path = eunuch
+	url = ./bundle/eunuch
+[submodule "fish"]
+	path = fish
+	url = ./bundle/fish
+[submodule "fugitive"]
+	path = fugitive
+	url = ./bundle/fugitive
+[submodule "go"]
+	path = go
+	url = ./bundle/go
+[submodule "jedi"]
+	path = jedi
+	url = ./bundle/jedi
+[submodule "lusty"]
+	path = lusty
+	url = ./bundle/lusty
+[submodule "markdown"]
+	path = markdown
+	url = ./bundle/markdown
+[submodule "minibuffer-explorer"]
+	path = minibuffer-explorer
+	url = ./bundle/minibuffer-explorer
+[submodule "multiple-cursors"]
+	path = multiple-cursors
+	url = ./bundle/multiple-cursors
+[submodule "nerdcommenter"]
+	path = nerdcommenter
+	url = ./bundle/nerdcommenter
+[submodule "powerline"]
+	path = powerline
+	url = ./bundle/powerline
+[submodule "pydoc"]
+	path = pydoc
+	url = ./bundle/pydoc
+[submodule "rainbow-parentheses"]
+	path = rainbow-parentheses
+	url = ./bundle/rainbow-parentheses
+[submodule "repeat"]
+	path = repeat
+	url = ./bundle/repeat
+[submodule "sensible"]
+	path = sensible
+	url = ./bundle/sensible
+[submodule "snipmate"]
+	path = snipmate
+	url = ./bundle/snipmate
+[submodule "sparkup"]
+	path = sparkup
+	url = ./bundle/sparkup
+[submodule "surround"]
+	path = surround
+	url = ./bundle/surround
+[submodule "tabular"]
+	path = tabular
+	url = ./bundle/tabular
+[submodule "tagbar"]
+	path = tagbar
+	url = ./bundle/tagbar
+[submodule "textobj-entire"]
+	path = textobj-entire
+	url = ./bundle/textobj-entire
+[submodule "textobj-user"]
+	path = textobj-user
+	url = ./bundle/textobj-user
+[submodule "bundle/ack"]
+	path = bundle/ack
+	url = git://github.com/mileszs/ack.vim.git
