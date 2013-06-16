@@ -148,3 +148,9 @@
 [submodule "bundle/textobj-user"]
 	path = bundle/textobj-user
 	url = git://github.com/kana/vim-textobj-user.git
+[submodule "bundle/unimpaired"]
+	path = bundle/unimpaired
+	url = git://github.com/tpope/vim-unimpaired.git
+[submodule "bundle/yankring"]
+	path = bundle/yankring
+	url = git://github.com/vim-scripts/YankRing.vim.git

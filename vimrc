@@ -92,8 +92,19 @@
 			set pastetoggle=<F2>
 			set showmode
 
+		" Bubble single lines
+			nmap <C-Up> [e
+			nmap <C-Down> ]e
+			" Bubble multiple lines
+			vmap <C-Up> [egv
+			vmap <C-Down> ]egv
+			vmap <C-Down> ]egv
+			"
+		" Visually select the text that was last edited/pasted
+			nmap gV `[v`]
+
 		" Edit .vimrc
-			nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
+			nnoremap <leader>ev :tabedit $MYVIMRC<cr>
 
 		" Shift Window Focus
 			nnoremap <C-h> <C-w>h
@@ -130,17 +141,7 @@
 			map <M-O> m`O<Esc>`
 			map <M-o> m`o<Esc>``
 
-			function! <SID>StripTrailingWhitespaces()
-				" Preparation: save last search, and cursor position.
-				let _s=@/
-				let l = line(".")
-				let c = col(".")
-				" Do the business:
-				%s/\s\+$//e
-				" Clean up: restore previous search history, and cursor position
-				let @/=_s
-				call cursor(l, c)
-			endfunction
+
 
 	" Display
 		colorscheme molokai
@@ -150,12 +151,6 @@
 			set list
 			set listchars=tab:▸\ ,eol:¬
 
-		autocmd FocusLost * :set number
-		autocmd FocusGained * :set relativenumber
-		autocmd InsertEnter * :set number
-		autocmd InsertLeave * :set relativenumber
-
-		set relativenumber
 		set cursorline
 		set wrap
 		set textwidth=99
@@ -167,10 +162,10 @@
 		set guioptions-=r
 		set guioptions-=b
 
-
-			au InsertEnter * call InsertStatuslineColor(v:insertmode)
-			au InsertChange * call InsertStatuslineColor(v:insertmode)
-			au InsertLeave * hi statusline guibg=green
+		set relativenumber
+		au InsertEnter * call InsertStatuslineColor(v:insertmode)
+		au InsertChange * call InsertStatuslineColor(v:insertmode)
+		au InsertLeave * hi statusline guibg=green
 
 		" Change cursor color depending on mode
 			highlight Cursor guifg=white guibg=black
@@ -181,7 +176,7 @@
 			set guicursor+=i:blinkwait10
 
 	" Behaviour
-
+		set formatprg=par\ -w100
 		set autochdir
 		set splitright
 		set splitbelow
@@ -237,9 +232,13 @@
 			" Treat .rss files as XML
 			autocmd BufNewFile,BufRead *.rss setfiletype xml
 
-			" Strip trailing whitespace on save
-			autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
+		" Strip trailing whitespace on save
+		autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 
+		" Source the vimrc file after saving it
+			if has("autocmd")
+				autocmd bufwritepost .vimrc source $MYVIMRC
+			endif
 
 " ----- Plugin specific -------
 
@@ -336,25 +335,39 @@
 
 " ----- functions -----
 
-		" Custom mode color in status bar
-			function! InsertStatuslineColor(mode)
-				if a:mode == 'i'
-					hi statusline guibg=magenta
-				elseif a:mode == 'r'
-					hi statusline guibg=blue
-				else
-					hi statusline guibg=red
-				endif
-			endfunction
+	" Custom mode color in status bar
+	function! InsertStatuslineColor(mode)
+		if a:mode == 'i'
+			hi statusline guibg=magenta
+		elseif a:mode == 'r'
+			hi statusline guibg=blue
+		else
+			hi statusline guibg=red
+		endif
+	endfunction
 
-		" golang
-			if !exists("*Goformat")
-				function Goformat()
-					let regel=line(".")
-					%!~/bin/gofmt
-					call cursor(regel, 1)
-				endfunction
-			endif
+	" golang
+	if !exists("*Goformat")
+		function Goformat()
+			let regel=line(".")
+			%!~/bin/gofmt
+			call cursor(regel, 1)
+		endfunction
+	endif
+
+	" Strip trailing whitespace
+	function! <SID>StripTrailingWhitespaces()
+		" Preparation: save last search, and cursor position.
+		let _s=@/
+		let l = line(".")
+		let c = col(".")
+		" Do the business:
+		%s/\s\+$//e
+		" Clean up: restore previous search history, and cursor position
+		let @/=_s
+		call cursor(l, c)
+	endfunction
+
 	" TODO ADD delay to return to command mode
 	" after focus lost
 	" TODO Restrict search to current window
