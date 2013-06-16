@@ -76,3 +76,75 @@
 [submodule "bundle/ack"]
 	path = bundle/ack
 	url = git://github.com/mileszs/ack.vim.git
+[submodule "bundle/css-colors"]
+	path = bundle/css-colors
+	url = git://github.com/skammer/vim-css-color.git
+[submodule "bundle/easymotion"]
+	path = bundle/easymotion
+	url = git://github.com/Lokaltog/vim-easymotion.git
+[submodule "bundle/eunuch"]
+	path = bundle/eunuch
+	url = git://github.com/tpope/vim-eunuch.git
+[submodule "bundle/fish"]
+	path = bundle/fish
+	url = git://github.com/dag/vim-fish.git
+[submodule "bundle/fugitive"]
+	path = bundle/fugitive
+	url = git://github.com/tpope/vim-fugitive.git
+[submodule "bundle/golang"]
+	path = bundle/golang
+	url = git://github.com/jnwhiteh/vim-golang.git
+[submodule "bundle/gundo"]
+	path = bundle/gundo
+	url = git://github.com/vim-scripts/Gundo.git
+[submodule "bundle/jedi"]
+	path = bundle/jedi
+	url = git://github.com/davidhalter/jedi-vim.git
+[submodule "bundle/lusty"]
+	path = bundle/lusty
+	url = https://github.com/sjbach/lusty
+[submodule "bundle/markdown"]
+	path = bundle/markdown
+	url = git://github.com/tpope/vim-markdown.git
+[submodule "bundle/multiple-cursors"]
+	path = bundle/multiple-cursors
+	url = git://github.com/terryma/vim-multiple-cursors.git
+[submodule "bundle/nerdcommenter"]
+	path = bundle/nerdcommenter
+	url = git://github.com/scrooloose/nerdcommenter.git
+[submodule "bundle/powerline"]
+	path = bundle/powerline
+	url = git://github.com/Lokaltog/vim-powerline.git
+[submodule "bundle/repeat"]
+	path = bundle/repeat
+	url = git://github.com/tpope/vim-repeat.git
+[submodule "bundle/sensible"]
+	path = bundle/sensible
+	url = git://github.com/tpope/vim-sensible.git
+[submodule "bundle/snipmate"]
+	path = bundle/snipmate
+	url = git://github.com/msanders/snipmate.vim.git
+[submodule "bundle/sparkup"]
+	path = bundle/sparkup
+	url = git://github.com/tristen/vim-sparkup.git
+[submodule "bundle/surround"]
+	path = bundle/surround
+	url = git://github.com/tpope/vim-surround.git
+[submodule "bundle/tabname"]
+	path = bundle/tabname
+	url = git://github.com/vim-scripts/Tab-Name.git
+[submodule "bundle/tabular"]
+	path = bundle/tabular
+	url = git://github.com/godlygeek/tabular.git
+[submodule "bundle/tagbar"]
+	path = bundle/tagbar
+	url = git://github.com/majutsushi/tagbar.git
+[submodule "bundle/tasklist"]
+	path = bundle/tasklist
+	url = https://github.com/vim-scripts/TaskList.vim
+[submodule "bundle/textobj-entire"]
+	path = bundle/textobj-entire
+	url = git://github.com/kana/vim-textobj-entire.git
+[submodule "bundle/textobj-user"]
+	path = bundle/textobj-user
+	url = git://github.com/kana/vim-textobj-user.git

@@ -11,6 +11,9 @@
 	" Terminal
 		" Time out on key codes but not mappings.
 		" Basically this makes terminal Vim work sanely.
+		if &shell =~# 'fish$'
+			set shell=sh
+		endif
 		set notimeout
 		set ttimeout
 		set ttimeoutlen=100
