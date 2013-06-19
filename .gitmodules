@@ -154,3 +154,15 @@
 [submodule "bundle/yankring"]
 	path = bundle/yankring
 	url = git://github.com/vim-scripts/YankRing.vim.git
+[submodule "bundle/autocompletepopup"]
+	path = bundle/autocompletepopup
+	url = git://github.com/vim-scripts/AutoComplPop.git
+[submodule "bundle/xolox-misc"]
+	path = bundle/xolox-misc
+	url = git://github.com/xolox/vim-misc.git
+[submodule "bundle/easytags"]
+	path = bundle/easytags
+	url = https://github.com/xolox/vim-easytags
+[submodule "bundle/you-complete-me"]
+	path = bundle/you-complete-me
+	url = https://github.com/Valloric/YouCompleteMe.git
