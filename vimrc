@@ -1,11 +1,16 @@
 "   --- PERSONAL ---
 
+	" source ~/.vim/plugin-confs/vundle.vim
+
 	set nocompatible
 	set encoding=utf-8
-	set omnifunc=syntaxcomplete#Complete
+
+	" autocompletions
+		set completeopt=menu,preview
+		set omnifunc=syntaxcomplete#Complete
 
 	" Completion
-		set wildmode=full
+		set wildmode=longest,list:longest
 		set wildignore="*.swp,*.bak,*.pyc,*~"
 
 	" Terminal
@@ -283,16 +288,11 @@
 			\ ['red',         'firebrick3'],
 			\ ]
 
-
 	" Latex Suite
-		filetype plugin on
 		set grepprg=grep\ -nH\ $*
-		filetype indent on
-
 		let g:tex_flavor='latex'
 
 	" Goformat
-
 		autocmd Filetype go command! Fmt call Goformat()
 
 	" Yankring
@@ -310,28 +310,46 @@
 	" Gotags
 		source $HOME/.vim/plugin-confs/gotags.vim
 
-" Suggestion on indenting
-	" vmap <D-]> >gv
-	" vmap <D.[> <gv
-	" display cwd of current view on status bar
-	" display different colour when caps lock is on
-	" set hide pattern for netrw plugin to hide .files
+	" Suggestion on indenting
+		" vmap <D-]> >gv
+		" vmap <D.[> <gv
+		" display cwd of current view on status bar
+		" display different colour when caps lock is on
+		" set hide pattern for netrw plugin to hide .files
 
 	" fish-plugin
 		compiler fish
 		setlocal foldmethod=expr
 
 	" Powerline
-	"let g:Powerline_symbols = 'fancy'
+		"let g:Powerline_symbols = 'fancy'
 
 	" CtrlP
-	let g:ctrlp_map = '<c-f>'
+		let g:ctrlp_map = '<c-f>'
 
 	" easy motion
 		let g:EasyMotion_leader_key = 'æ'
 
 	" taskList
 		map <leader>t <Plug>TaskList
+
+	" autocomplpop
+		" unset because there's an error in autocomplpop
+		" let g:acp_behaviorSnipmateLength = 1
+
+	" easytags
+		let g:easytags_file = '~/.vim/tags'
+
+	" vim runtime
+		runtime macros/matchit.vim
+
+	" you complete me
+		let g:ycm_min_num_of_chars_for_completion = 2
+		let g:ycm_global_ycm_extra_conf ="~/.vim/bundle/YouCompleteMe/python/ycm/youcompleteme.py"
+
+	" vim-session
+	let g:session_autosave='no'
+	let g:session_autoload='yes'
 
 " ----- functions -----
 
