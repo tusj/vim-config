@@ -8,7 +8,7 @@
 	" autocompletions
 		set completeopt=menu,preview
 		set omnifunc=syntaxcomplete#Complete
-
+		au BufNewFile,BufRead,BufEnter *.cpp,*.hpp set omnifunc=omni#cpp#complete#Main
 	" Completion
 		set wildmode=longest,list:longest
 		set wildignore="*.swp,*.bak,*.pyc,*~"

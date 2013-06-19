@@ -99,7 +99,7 @@
 	url = git://github.com/vim-scripts/Gundo.git
 [submodule "bundle/jedi"]
 	path = bundle/jedi
-	url = git://github.com/davidhalter/jedi-vim.git
+	url = https://github.com/davidhalter/jedi-vim.git
 [submodule "bundle/lusty"]
 	path = bundle/lusty
 	url = https://github.com/sjbach/lusty
@@ -166,3 +166,9 @@
 [submodule "bundle/you-complete-me"]
 	path = bundle/you-complete-me
 	url = https://github.com/Valloric/YouCompleteMe.git
+[submodule "gocode"]
+	path = gocode
+	url = git://github.com/nsf/gocode.git
+[submodule "bundle/clang-complete"]
+	path = bundle/clang-complete
+	url = https://github.com/Rip-Rip/clang_complete.git
