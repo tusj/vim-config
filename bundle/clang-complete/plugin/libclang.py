@@ -29,6 +29,7 @@ def getBuiltinHeaderPath(library_path):
           library_path + "/../lib/clang",  # default value
           library_path + "/../clang",      # gentoo
           library_path + "/clang",         # opensuse
+          library_path + "/usr/local/lib/clang", # ubuntu
           library_path + "/",              # Google
           "/usr/lib64/clang",              # x86_64 (openSUSE, Fedora)
           "/usr/lib/clang"

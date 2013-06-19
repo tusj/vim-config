@@ -184,7 +184,7 @@
 
 	" Behaviour
 		set formatprg=par\ -w100
-		set autochdir
+		"set autochdir
 		set splitright
 		set splitbelow
 
