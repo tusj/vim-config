@@ -9,6 +9,8 @@
 		set completeopt=menu,preview
 		set omnifunc=syntaxcomplete#Complete
 		au BufNewFile,BufRead,BufEnter *.cpp,*.hpp set omnifunc=omni#cpp#complete#Main
+		set tags+=~/.vim/tags
+
 	" Completion
 		set wildmode=longest,list:longest
 		set wildignore="*.swp,*.bak,*.pyc,*~"
@@ -338,7 +340,7 @@
 		" let g:acp_behaviorSnipmateLength = 1
 
 	" easytags
-		let g:easytags_file = '~/.vim/tags'
+		"let g:easytags_file = '~/.vim/tags'
 
 	" vim runtime
 		runtime macros/matchit.vim

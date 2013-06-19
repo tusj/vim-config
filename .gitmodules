@@ -163,15 +163,6 @@
 [submodule "bundle/easytags"]
 	path = bundle/easytags
 	url = https://github.com/xolox/vim-easytags
-[submodule "bundle/you-complete-me"]
-	path = bundle/you-complete-me
-	url = https://github.com/Valloric/YouCompleteMe.git
 [submodule "gocode"]
 	path = gocode
 	url = git://github.com/nsf/gocode.git
-[submodule "bundle/clang-complete"]
-	path = bundle/clang-complete
-	url = https://github.com/Rip-Rip/clang_complete.git
-[submodule "clang_complete"]
-	path = clang_complete
-	url = https://github.com/Rip-Rip/clang_complete.git
