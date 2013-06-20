@@ -19,7 +19,7 @@
 		" Time out on key codes but not mappings.
 		" Basically this makes terminal Vim work sanely.
 		if &shell =~# 'fish$'
-			set shell=sh
+			set shell=fish
 		endif
 		set notimeout
 		set ttimeout
@@ -148,7 +148,13 @@
 			map <M-O> m`O<Esc>`
 			map <M-o> m`o<Esc>``
 
+		" make * and # search work in visual mode too
+			xnoremap * :<C-u>call <SID>VSetSearch('/')<CR>/<C-R>=@/<CR><CR>
+			xnoremap # :<C-u>call <SID>VSetSearch('?')<CR>?<C-R>=@/<CR><CR>
 
+			" recursively vimgrep for word under cursor or selection if you hit leader-star
+			nmap <leader>* :execute 'noautocmd vimgrep /\V' . substitute(escape(expand("<cword>"), '\'), '\n', '\\n', 'g') . '/ **'<CR>
+			vmap <leader>* :<C-u>call <SID>VSetSearch()<CR>:execute 'noautocmd vimgrep /' . @/ . '/ **'<CR>"
 
 	" Display
 		colorscheme molokai
@@ -207,6 +213,8 @@
 		" -- Searching --
 			set ignorecase " when searching
 			set smartcase  " case-sensitife if
+			" search without regex normally
+			nnoremap / /\V
 
 			" highlight as you type
 			set incsearch
@@ -388,6 +396,15 @@
 		call cursor(l, c)
 	endfunction
 
-	" TODO ADD delay to return to command mode
+	" Make * and # search work in visual mode too"
+	function! s:VSetSearch(cmdtype)
+		let temp = @s
+		norm! gv"sy
+		let @/ = '\V' . substitute(escape(@s, a:cmdtype.'\'), '\n', '\\n', 'g')
+		let @s = temp
+	endfunction
+
 	" after focus lost
 	" TODO Restrict search to current window
+	" makes * and # work on visual mode too.
+	" TODO ADD delay to return to command mode
