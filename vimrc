@@ -1,15 +1,33 @@
 "   --- PERSONAL ---
-
 	" source ~/.vim/plugin-confs/vundle.vim
 
 	set nocompatible
 	set encoding=utf-8
+	scriptencoding utf-8
+
+	" Minimal pathogen setup
+		execute pathogen#infect()
+		syntax on
+		filetype plugin indent on
+
+	" Allow for cursor beyond last character
+		set virtualedit=onemore
 
 	" autocompletions
 		set completeopt=menu,preview
 		set omnifunc=syntaxcomplete#Complete
 		au BufNewFile,BufRead,BufEnter *.cpp,*.hpp set omnifunc=omni#cpp#complete#Main
-		set tags+=~/.vim/tags
+		set tags=./tags,./.tags,tags;,.tags;
+		set tags+=/usr/local/go/src/pkg/tags,~/.vim/tags
+		set tags+=/usr/include/tags,/usr/local/include/tags
+
+	" Enable omni completion.
+		autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+		autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+		autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+		autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+		autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+		autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 
 	" Completion
 		set wildmode=longest,list:longest
@@ -18,9 +36,18 @@
 	" Terminal
 		" Time out on key codes but not mappings.
 		" Basically this makes terminal Vim work sanely.
-		if &shell =~# 'fish$'
-			set shell=fish
+		if !has('gui')
+			set term=$TERM          " Make arrow and other keys work
+			g:rehash256 = 1			" Set colorscheme for molokai
+			set background = dark
 		endif
+
+		if &shell =~# 'fish$'
+			set shell=/usr/bin/zsh
+		endif
+
+		set mouse=a                 " Automatically enable mouse usage
+		set mousehide               " Hide the mouse cursor while typing
 		set notimeout
 		set ttimeout
 		set ttimeoutlen=100
@@ -45,7 +72,7 @@
 			if isdirectory($HOME . '/.vim/undo') == 0
 				:silent !mkdir -p ~/.vim/undo > /dev/null 2>&1
 			endif
-			set undodir+=~/.vim/undo//
+			set undodir=~/.vim/undo/
 			set undofile
 		endif
 
@@ -53,6 +80,13 @@
 		let mapleader = "-"
 		nnoremap ø :
 		vnoremap ø :
+
+		" edit with expansion to current dir of file
+			cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<cr>
+			map <leader>ew :e %%
+			map <leader>es :sp %%
+			map <leader>ev :vsp %%
+			map <leader>et :tabe %%
 
 		" semi-colon is too hard to reach
 			nnoremap å ;
@@ -71,13 +105,25 @@
 		" open new vertical split and focus
 			nnoremap <leader>w <C-w>v<C-w>l
 
+		" Adjust viewports to the same size
+			map <Leader>= <C-w>=
+
 		" Esc remappings
 			imap jj <Esc>
 
-			map <F7> mzgg=G`z<CR>
+		map <F7> mzgg=G`z<CR>
 
+		" move visual line, not folded
 			nnoremap j gj
 			nnoremap k gk
+
+		" Visual shifting (does not exit Visual mode)
+			vnoremap < <gv
+			vnoremap > >gv
+
+		" Visual line repeat {{{2
+			xnoremap . :normal .<CR>
+			xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
 
 		" Get the right vim technique
 			nnoremap <up>    <nop>
@@ -102,7 +148,8 @@
 		" Bubble single lines
 			nmap <C-Up> [e
 			nmap <C-Down> ]e
-			" Bubble multiple lines
+
+		" Bubble multiple lines
 			vmap <C-Up> [egv
 			vmap <C-Down> ]egv
 			vmap <C-Down> ]egv
@@ -126,18 +173,18 @@
 			map <C-l> <C-W>l<C-W>_
 
 		" shift tab focus
-			map <C-S-]> gt
-			map <C-S-[> gT
-			map <C-1> 1gt
-			map <C-2> 2gt
-			map <C-3> 3gt
-			map <C-4> 4gt
-			map <C-5> 5gt
-			map <C-6> 6gt
-			map <C-7> 7gt
-			map <C-8> 8gt
-			map <C-9> 9gt
-			map <C-0> :tablast<CR>
+			nnoremap <C-]> :tabnext<CR>
+			nnoremap <C-[> :tabprevious<CR>
+			map <A-1> 1gt
+			map <A-2> 2gt
+			map <A-3> 3gt
+			map <A-4> 4gt
+			map <A-5> 5gt
+			map <A-6> 6gt
+			map <A-7> 7gt
+			map <A-8> 8gt
+			map <A-9> 9gt
+			map <A-0> :tablast<cr>
 
 		" Global copy paste shortcut
 			vnoremap <Leader>x "+d
@@ -151,6 +198,9 @@
 		" make * and # search work in visual mode too
 			xnoremap * :<C-u>call <SID>VSetSearch('/')<CR>/<C-R>=@/<CR><CR>
 			xnoremap # :<C-u>call <SID>VSetSearch('?')<CR>?<C-R>=@/<CR><CR>
+		" Session List
+			nmap <leader>sl :SessionList<CR>
+			nmap <leader>ss :SessionSave<CR>
 
 			" recursively vimgrep for word under cursor or selection if you hit leader-star
 			nmap <leader>* :execute 'noautocmd vimgrep /\V' . substitute(escape(expand("<cword>"), '\'), '\n', '\\n', 'g') . '/ **'<CR>
@@ -158,7 +208,7 @@
 
 	" Display
 		colorscheme molokai
-		set guioptions-=T "Don't display toolbar
+		set guioptions-=rT "Don't display toolbar or right-hand scrollbar
 
 		" List invisible characters
 			set list
@@ -188,6 +238,18 @@
 			set guicursor+=n-v-c:blinkon0
 			set guicursor+=i:blinkwait10
 
+		if has('statusline')
+			set laststatus=2
+
+			 "Broken down into easily includeable segments
+			"set statusline=%<%f\                      Filename
+			"set statusline+=%w%h%m%r                  Options
+			"set statusline+=%{fugitive#statusline()}  Git Hotness
+			"set statusline+=\ [%{&ff}/%Y]             Filetype
+			"set statusline+=\ [%{getcwd()}]           Current dir
+			"set statusline+=%=%-14.(%l,%c%V%)\ %p%%   Right aligned file nav info
+		endif
+
 	" Behaviour
 		set formatprg=par\ -w100
 		"set autochdir
@@ -202,6 +264,9 @@
 		" hide buffer instead of closing them
 		set hidden
 		set scrolloff=2
+		set scrolljump=5
+
+		set sessionoptions=blank,buffers,curdir,folds,tabpages,winsize
 
 		" -- Tabbing --
 			" search term contains upper case
@@ -224,11 +289,11 @@
 
 			set gdefault   " default global
 
-		" Save on lost focus if buffer has name
+		"" Save on lost focus if buffer has name
 		autocmd FocusLost * silent! wall
 
-		" Go to command mode on focus lost
-		autocmd FocusLost,TabLeave * call feedkeys("\<C-\>\<C-n>")
+		"" Go to command mode on focus lost
+		"autocmd FocusLost,TabLeave * sleep 10 | call feedkeys("\<C-\>\<C-n>")
 
 		"filetype specific
 
@@ -239,11 +304,6 @@
 			autocmd FileType make setlocal ts=4 sts=4 sw=4 noexpandtab
 			autocmd FileType yaml setlocal ts=4 sts=4 sw=4 expandtab
 
-			" Customisations based on house-style (arbitrary)
-			autocmd FileType html setlocal ts=4 sts=4 sw=4 expandtab
-			autocmd FileType css setlocal ts=4 sts=4 sw=4 expandtab
-			autocmd FileType javascript setlocal ts=4 sts=4 sw=4 noexpandtab
-
 			" Treat .rss files as XML
 			autocmd BufNewFile,BufRead *.rss setfiletype xml
 
@@ -252,15 +312,10 @@
 
 		" Source the vimrc file after saving it
 			if has("autocmd")
-				autocmd bufwritepost .vimrc source $MYVIMRC
+				autocmd bufwritepost vimrc source $MYVIMRC
 			endif
 
 " ----- Plugin specific -------
-
-	" Minimal pathogen setup
-		execute pathogen#infect()
-		syntax on
-		filetype plugin indent on
 
 	" MiniBufExplorer
 		map <Leader>b :TMiniBufExplorer<cr>
@@ -341,14 +396,18 @@
 		let g:EasyMotion_leader_key = 'æ'
 
 	" taskList
+		let g:tlTokenList = ['TODO', 'FIXME', 'BUG', 'NOTE']
 		map <leader>t <Plug>TaskList
 
 	" autocomplpop
 		" unset because there's an error in autocomplpop
 		" let g:acp_behaviorSnipmateLength = 1
+		let g:acp_behaviorFileLength = 4
+		let g:acp_behaviorKeywordLength = 4
 
 	" easytags
-		"let g:easytags_file = '~/.vim/tags'
+		let g:easytags_file = '~/.vim/tags'
+		let g:easytags_dynamic_files = 2
 
 	" vim runtime
 		runtime macros/matchit.vim
@@ -360,6 +419,7 @@
 	" vim-session
 	let g:session_autosave='no'
 	let g:session_autoload='yes'
+	set sessionoptions=blank,buffers,curdir,folds,tabpages,winsize
 
 " ----- functions -----
 
@@ -404,7 +464,21 @@
 		let @s = temp
 	endfunction
 
+	function! ExecuteMacroOverVisualRange()
+		echo "@".getcmdline()
+		execute ":'<,'>normal @".nr2char(getchar())
+	endfunction
+
 	" after focus lost
 	" TODO Restrict search to current window
 	" makes * and # work on visual mode too.
 	" TODO ADD delay to return to command mode
+	" TODO automatically resize window splits on window resizing
+	" TODO make messages display newest first
+	" TODO Make ctags for Go stdlib
+	" TODO Turn off fish autofolding
+	" TODO Remove autoclose for vimscripts
+	" TODO set dictionary completion on latex and txt files
+	" TODO some plugin causes delay when resizing windows and opening tabs
+	" TODO move ctags file to local with option set tags +=
+	" TODO cleanup: move groups of autocmd's to respective file types
