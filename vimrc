@@ -17,7 +17,9 @@
 		set completeopt=menu,preview
 		set omnifunc=syntaxcomplete#Complete
 		au BufNewFile,BufRead,BufEnter *.cpp,*.hpp set omnifunc=omni#cpp#complete#Main
-		set tags=./tags,./.tags,tags;,.tags;
+		autocmd FileType go set tags=~/.vim/tags_go_std,~/.vim/tags_go_home
+		"set tags+=~/.vim/tags
+		"set tags=./tags,./.tags,tags;,.tags;
 		"autocmd FileType go set tags+=~/programmering/go/src/tags
 		"autocmd FileType go set tags+=/usr/local/go/src/pkg/tags
 		"autocmd FileType c,h,cpp,hpp set tags+=/usr/include/tags,/usr/local/include/tags
@@ -84,6 +86,10 @@
 		let mapleader = "-"
 		nnoremap ø :
 		vnoremap ø :
+
+		" map go to tags interactively
+			map <C-]> g<C-]>
+			" map g<C-]> <C-]>
 
 		" edit with expansion to current dir of file
 			cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<cr>

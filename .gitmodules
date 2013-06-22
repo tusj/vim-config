@@ -218,8 +218,6 @@
 	path = bundle/syntastic
 	url = https://github.com/scrooloose/syntastic.git
 	ignore = dirty
-[submodule "bundle/session-manager"]
-	path = bundle/session-manager
 	url = https://github.com/vim-scripts/sessionman.vim.git
 	ignore = dirty
 [submodule "bundle/matchit"]
@@ -256,7 +254,7 @@
 	ignore = dirty
 [submodule "bundle/autocompletion-popup"]
 	path = bundle/autocompletion-popup
-[submodule "bundle/supertab"]
-	path = bundle/supertab
-	url = https://github.com/ervandew/supertab.git
 	ignore = dirty
+[submodule "bundle/obsession"]
+	path = bundle/obsession
+	url = https://github.com/tpope/vim-obsession.git
