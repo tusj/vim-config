@@ -18,8 +18,12 @@
 		set omnifunc=syntaxcomplete#Complete
 		au BufNewFile,BufRead,BufEnter *.cpp,*.hpp set omnifunc=omni#cpp#complete#Main
 		set tags=./tags,./.tags,tags;,.tags;
-		set tags+=/usr/local/go/src/pkg/tags,~/.vim/tags
-		set tags+=/usr/include/tags,/usr/local/include/tags
+		"autocmd FileType go set tags+=~/programmering/go/src/tags
+		"autocmd FileType go set tags+=/usr/local/go/src/pkg/tags
+		"autocmd FileType c,h,cpp,hpp set tags+=/usr/include/tags,/usr/local/include/tags
+		"autocmd FileType py set tags+=/usr/lib/python2.7/tags
+		"autocmd FileType py set tags+=/usr/lib/python3.2/tags
+		"set tags=~/.vim/tags
 
 	" Enable omni completion.
 		autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -173,8 +177,8 @@
 			map <C-l> <C-W>l<C-W>_
 
 		" shift tab focus
-			nnoremap <C-]> :tabnext<CR>
-			nnoremap <C-[> :tabprevious<CR>
+			"nnoremap <C-]> :tabnext<CR>
+			"nnoremap <C-[> :tabprevious<CR>
 			map <A-1> 1gt
 			map <A-2> 2gt
 			map <A-3> 3gt

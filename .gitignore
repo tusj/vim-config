@@ -1,5 +1,7 @@
-viminfo
+.netrwhist
+sessions
 .tags
 tags
-*.pyc
 undo
+viminfo
+*.pyc
