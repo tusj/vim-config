@@ -248,9 +248,6 @@
 	path = bundle/abolish
 	url = https://github.com/tpope/vim-abolish.git
 	ignore = dirty
-[submodule "bundle/molokai"]
-	path = bundle/molokai
-	url = https://github.com/tomasr/molokai.git
 	ignore = dirty
 [submodule "bundle/autocompletion-popup"]
 	path = bundle/autocompletion-popup

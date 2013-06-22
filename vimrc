@@ -17,23 +17,19 @@
 		set completeopt=menu,preview
 		set omnifunc=syntaxcomplete#Complete
 		au BufNewFile,BufRead,BufEnter *.cpp,*.hpp set omnifunc=omni#cpp#complete#Main
-		autocmd FileType go set tags=~/.vim/tags_go_std,~/.vim/tags_go_home
-		"set tags+=~/.vim/tags
-		"set tags=./tags,./.tags,tags;,.tags;
-		"autocmd FileType go set tags+=~/programmering/go/src/tags
-		"autocmd FileType go set tags+=/usr/local/go/src/pkg/tags
-		"autocmd FileType c,h,cpp,hpp set tags+=/usr/include/tags,/usr/local/include/tags
-		"autocmd FileType py set tags+=/usr/lib/python2.7/tags
-		"autocmd FileType py set tags+=/usr/lib/python3.2/tags
-		"set tags=~/.vim/tags
+		set tags+=./tags;
+		autocmd FileType go      setlocal tags+=~/.vim/tags/tags_go_std
+		autocmd FileType c,h     setlocal tags+=~/.vim/tags/tags_c_headers
+		autocmd FileType cpp,hpp setlocal tags+=~/.vim/tags/tags_c++_stl
+		autocmd FileType py      setlocal tags+=~/.vim/tags/tags_py_2.7,~/.vim/tags/tags_py_3.2
 
 	" Enable omni completion.
-		autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+		autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
 		autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-		autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-		autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-		autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-		autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+		autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
+		autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
+		autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
+		autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
 
 	" Completion
 		set wildmode=longest,list:longest
@@ -87,6 +83,7 @@
 		nnoremap ø :
 		vnoremap ø :
 
+		source ~/.vim/windowManagement.vim
 		" map go to tags interactively
 			map <C-]> g<C-]>
 			" map g<C-]> <C-]>
@@ -97,6 +94,10 @@
 			map <leader>es :sp %%
 			map <leader>ev :vsp %%
 			map <leader>et :tabe %%
+
+		" scrollColors
+			map <F3> :Nextcolor<cr>
+			map <S-F3> :Prevcolor<cr>
 
 		" semi-colon is too hard to reach
 			nnoremap å ;
@@ -176,11 +177,11 @@
 			nnoremap <C-k> <C-w>k
 			nnoremap <C-l> <C-w>l
 
-		" Maximize window on focus
-			map <C-j> <C-W>j<C-W>_
-			map <C-k> <C-W>k<C-W>_
-			map <C-h> <C-W>h<C-W>_
-			map <C-l> <C-W>l<C-W>_
+		"" Maximize window on focus
+			"map <C-j> <C-W>j<C-W>_
+			"map <C-k> <C-W>k<C-W>_
+			"map <C-h> <C-W>h<C-W>_
+			"map <C-l> <C-W>l<C-W>_
 
 		" shift tab focus
 			"nnoremap <C-]> :tabnext<CR>
@@ -222,7 +223,8 @@
 
 		" List invisible characters
 			set list
-			set listchars=tab:▸\ ,eol:¬
+			"set listchars=tab:▸\ ,eol:¬
+			set listchars=tab:▸\ ,
 
 		set cursorline
 		set wrap
@@ -262,7 +264,7 @@
 
 	" Behaviour
 		set formatprg=par\ -w100
-		"set autochdir
+		set autochdir
 		set splitright
 		set splitbelow
 
@@ -342,27 +344,6 @@
 	" Gundo
 		nnoremap <F5> :GundoToggle<CR>
 
-	" Rainbow Parentheses
-		let g:rbpt_max = 3
-		let g:rbpt_colorpairs = [
-			\ ['brown',       'RoyalBlue3'],
-			\ ['Darkblue',    'SeaGreen3'],
-			\ ['darkgray',    'DarkOrchid3'],
-			\ ['darkgreen',   'firebrick3'],
-			\ ['darkcyan',    'RoyalBlue3'],
-			\ ['darkred',     'SeaGreen3'],
-			\ ['darkmagenta', 'DarkOrchid3'],
-			\ ['brown',       'firebrick3'],
-			\ ['gray',        'RoyalBlue3'],
-			\ ['black',       'SeaGreen3'],
-			\ ['darkmagenta', 'DarkOrchid3'],
-			\ ['Darkblue',    'firebrick3'],
-			\ ['darkgreen',   'RoyalBlue3'],
-			\ ['darkcyan',    'SeaGreen3'],
-			\ ['darkred',     'DarkOrchid3'],
-			\ ['red',         'firebrick3'],
-			\ ]
-
 	" Latex Suite
 		set grepprg=grep\ -nH\ $*
 		let g:tex_flavor='latex'
@@ -385,12 +366,6 @@
 	" Gotags
 		source $HOME/.vim/plugin-confs/gotags.vim
 
-	" Suggestion on indenting
-		" vmap <D-]> >gv
-		" vmap <D.[> <gv
-		" display cwd of current view on status bar
-		" display different colour when caps lock is on
-		" set hide pattern for netrw plugin to hide .files
 
 	" fish-plugin
 		compiler fish
@@ -479,16 +454,14 @@
 		execute ":'<,'>normal @".nr2char(getchar())
 	endfunction
 
-	" after focus lost
 	" TODO Restrict search to current window
-	" makes * and # work on visual mode too.
 	" TODO ADD delay to return to command mode
 	" TODO automatically resize window splits on window resizing
 	" TODO make messages display newest first
-	" TODO Make ctags for Go stdlib
 	" TODO Turn off fish autofolding
-	" TODO Remove autoclose for vimscripts
+	" TODO Remove autoclose " comments for vimscripts
 	" TODO set dictionary completion on latex and txt files
-	" TODO some plugin causes delay when resizing windows and opening tabs
-	" TODO move ctags file to local with option set tags +=
 	" TODO cleanup: move groups of autocmd's to respective file types
+	" TODO display cwd of current view on status bar
+	" TODO display different colour when caps lock is on
+	" TODO set hide pattern for netrw plugin to hide .files
