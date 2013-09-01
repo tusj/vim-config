@@ -45,7 +45,7 @@
 		endif
 
 		if &shell =~# 'fish$'
-			set shell=/usr/bin/zsh
+			set shell=/usr/bin/bash
 		endif
 
 		set mouse=a                 " Automatically enable mouse usage
@@ -218,8 +218,13 @@
 			vmap <leader>* :<C-u>call <SID>VSetSearch()<CR>:execute 'noautocmd vimgrep /' . @/ . '/ **'<CR>"
 
 	" Display
-		colorscheme molokai
-		set guioptions-=rT "Don't display toolbar or right-hand scrollbar
+		if has('gui_running')
+			colorscheme molokai
+			set guioptions-=rT "Don't display toolbar or right-hand scrollbar
+		else
+			colorscheme vibrantink
+		endif
+
 
 		" List invisible characters
 			set list
@@ -367,9 +372,7 @@
 		source $HOME/.vim/plugin-confs/gotags.vim
 
 
-	" fish-plugin
-		compiler fish
-		setlocal foldmethod=expr
+	setlocal foldmethod=expr
 
 	" Powerline
 		"let g:Powerline_symbols = 'fancy'
