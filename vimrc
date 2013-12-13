@@ -128,7 +128,7 @@
 			autocmd BufWritePre * :call myautoloads#StripTrailingWhitespaces()
 		augroup END
 
-			" equalize window on resized
+		" equalize window on resized
 		augroup windows
 			autocmd!
 			autocmd VimResized * :wincmd =
@@ -142,14 +142,14 @@
 			autocmd FileType cpp,hpp       setlocal tags+=~/.vim/tags/c++
 			autocmd FileType py            setlocal tags+=~/.vim/tags/py_2.7,~/.vim/tags/tags_py_3.2
 
-		" Enable omni completion.
+			" Enable omni completion.
 			autocmd FileType cpp           setlocal omnifunc=omni#cpp#complete#Main
 			autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
 			autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 			autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
 			autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
-			autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
 			autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
+			autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
 			autocmd BufWritePost vimrc     source $MYVIMRC
 		augroup END
 
@@ -339,13 +339,14 @@
 	" recursively vimgrep for word under cursor or selection if you hit leader-star
 		nnoremap <leader>* :execute 'noautocmd vimgrep /\V' . substitute(escape(expand("<cword>"), '\'), '\n', '\\n', 'g') . '/ **'<CR>
 		vnoremap <leader>* :<C-u>call myautoloads#VSetSearch()<CR>:execute 'noautocmd vimgrep /' . @/ . '/ **'<CR>
+
 	" seiarch without regex normally
 		nnoremap / /\V
 
 	" Tasklist, todo, bug, issue
 		command! Issue :execute 'vimgrep ISSUE '.expand('%') | :copen | :cc
-		command! Bug :execute 'vimgrep BUG '.expand('%') | :copen | :cc
-		command! Todo :execute 'vimgrep TODO '.expand('%') | :copen | :cc
+		command! Bug   :execute 'vimgrep BUG '.expand('%')   | :copen | :cc
+		command! Todo  :execute 'vimgrep TODO '.expand('%')  | :copen | :cc
 
 	" autocomplete popup menu behavior exprimentation
 		" inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
@@ -375,8 +376,8 @@
 	" ft-lua
 		" crashes if omni is defined
 		let g:lua_define_omnifunc = 0
-		" let g:lua_check_syntax = 0
-		let g:lua_complete_omni = 1
+		" let g:lua_check_syntax  = 0
+		let g:lua_complete_omni   = 1
 
 	" AutoComplPop
 		let g:acp_behaviorCssOmniValueLength   = 2
