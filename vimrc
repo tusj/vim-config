@@ -50,7 +50,6 @@ augroup testgroup
 " Treat .rss files as XML
 	autocmd BufNewFile,BufRead *.rss setfiletype xml
 
-	autocmd FileType go            setlocal tags+=~/.vim/tags/go
 	autocmd FileType c,h           setlocal tags+=~/.vim/tags/c
 	autocmd FileType cpp,hpp       setlocal tags+=~/.vim/tags/c++
 	autocmd FileType py            setlocal tags+=~/.vim/tags/py_2.7,~/.vim/tags/tags_py_3.2
@@ -63,7 +62,7 @@ augroup testgroup
 	autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
 	autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
 	autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
-	autocmd BufWritePost vimrc source $MYVIMRC
+	autocmd BufWritePost vimrc     source $MYVIMRC
 augroup END
 
 " open url in browser
@@ -101,6 +100,10 @@ augroup END
 
 	" viminfo stores the the state of your previous editing session
 	set viminfo+=n~/.vim/viminfo
+	set sessionoptions+=localoptions
+	set sessionoptions+=resize
+	set sessionoptions+=winpos
+
 
 	if exists("+undofile")
 		" This, like swap and backups, uses .vim-undo first, then ~/.vim/undo

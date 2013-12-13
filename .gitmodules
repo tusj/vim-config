@@ -85,3 +85,6 @@
 [submodule "bundle/xolox-misc"]
 	path = bundle/xolox-misc
 	url = git@github.com:xolox/vim-misc.git
+[submodule "bundle/eunuch"]
+	path = bundle/eunuch
+	url = git@github.com:tpope/vim-eunuch.git
