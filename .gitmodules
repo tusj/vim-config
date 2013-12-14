@@ -94,3 +94,6 @@
 [submodule "bundle/haskellmode"]
 	path = bundle/haskellmode
 	url = git@github.com:lukerandall/haskellmode-vim.git
+[submodule "bundle/visual-start-search"]
+	path = bundle/visual-start-search
+	url = git@github.com:nelstrom/vim-visual-star-search.git
