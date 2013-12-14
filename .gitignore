@@ -4,3 +4,4 @@ tmp/
 tags/
 .*
 undo/
+haskellmode.config
