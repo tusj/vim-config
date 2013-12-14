@@ -23,3 +23,5 @@ set smartindent
 set makeprg=xelatex\ \-file\-line\-error\ \-interaction=nonstopmode\ \-synctex=1\ %:p
 "set makeprg=pdflatex\ \-file\-line\-error\ \-interaction=nonstopmode\ \-synctex=1\ $*\\\|\ grep\ \-P\ ':\\d{1,5}:\ $:p'
 set errorformat=%f:%l:\ %m
+
+autocmd BufNewFile 0read ~/maler/latex.template

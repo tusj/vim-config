@@ -92,7 +92,7 @@
 		set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
 	endif
 
-" Search
+	" Search
 	set showmatch
 	set matchtime=5
 
@@ -168,7 +168,7 @@
 	set scrolljump=20
 	set sessionoptions=blank,buffers,curdir,folds,tabpages,winsize
 
-	" Tabbing
+		" Tabbing
 		" search term contains upper case
 		set smarttab
 		set softtabstop=4
