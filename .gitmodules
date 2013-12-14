@@ -91,3 +91,6 @@
 [submodule "bundle/css-color"]
 	path = bundle/css-color
 	url = git@github.com:ap/vim-css-color
+[submodule "bundle/haskellmode"]
+	path = bundle/haskellmode
+	url = git@github.com:lukerandall/haskellmode-vim.git
