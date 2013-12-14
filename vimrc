@@ -362,6 +362,9 @@
 		nnoremap <leader>t :CtrlPTag<cr>
 
 " Plugins
+	" haskell
+		let g:haddock_browser="chromium"
+
 	" neocomplete
 		let g:neocomplete#enable_at_startup = 1
 
