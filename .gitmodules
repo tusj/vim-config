@@ -97,3 +97,6 @@
 [submodule "bundle/visual-start-search"]
 	path = bundle/visual-start-search
 	url = git@github.com:nelstrom/vim-visual-star-search.git
+[submodule "bundle/latex-live-preview"]
+	path = bundle/latex-live-preview
+	url = git@github.com:xuhdev/vim-latex-live-preview.git
