@@ -8,7 +8,7 @@ function! SyncTex()
 	endfor
 endfunction
 
-" autocmd CursorHold *.tex call SyncTex()
+autocmd CursorHold *.tex call SyncTex()
 " CursorHold add maybe BufWritePost,FileWritePost
 "autocmd BufWritePost,FileWritePost *.tex call CompileTex()
 
