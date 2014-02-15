@@ -1,1 +1,1 @@
-setlocal omnifunc=gocomplete#Complete
+/home/s/btsync/programmering/go/src/github.com/nsf/gocode/vim/ftplugin/go/gocomplete.vim

@@ -136,6 +136,7 @@
 		augroup END
 
 		augroup fileTypes
+			autocmd!
 			" Treat .rss files as XML
 			autocmd BufNewFile,BufRead *.rss setfiletype xml
 
@@ -153,6 +154,15 @@
 			autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
 			autocmd BufWritePost vimrc     source $MYVIMRC
 		augroup END
+
+		" templates
+		augroup templates
+			autocmd!
+			autocmd BufNewFile *.tex 0r ~/Templates/latex
+			autocmd BufNewFile *.go  0r ~/Templates/go
+		augroup END
+
+
 
 	set smartindent
 	set formatprg=par\ -w100
@@ -197,13 +207,16 @@
 
 	" nnoremap <space> za
 
+	" Yank to end of line
+	 nnoremap Y y$
+
 	" Diff
 		nnoremap do do]c
 		nnoremap dp do]c
 
 	" Symbols
-		imap ... …
-		imap ->  →
+		" imap ... …
+		" imap ->  →
 		imap :)  ☺
 		imap :-) ☺
 
@@ -231,10 +244,10 @@
 		vnoremap o ygg"_dGpkdd
 
 	" Window focus and create
-		nnoremap wwh : call myautoloads#WinMove('h')<cr>
-		nnoremap wwk : call myautoloads#WinMove('k')<cr>
-		nnoremap wwl : call myautoloads#WinMove('l')<cr>
-		nnoremap wwj : call myautoloads#WinMove('j')<cr>
+		nnoremap <Leader>wh : call myautoloads#WinMove('h')<cr>
+		nnoremap <Leader>wk : call myautoloads#WinMove('k')<cr>
+		nnoremap <Leader>wl : call myautoloads#WinMove('l')<cr>
+		nnoremap <Leader>wj : call myautoloads#WinMove('j')<cr>
 
 	" window rotate
 		nnoremap wwr <C-W>r
@@ -311,6 +324,9 @@
 	" Visually select the text that was last edited/pasted
 		nnoremap gV `[v`]
 
+	" Paste
+		nnoremap <Leader>v :Paste<CR>
+
 	" shift tab focus
 		"nnoremap <C-]> :tabnext<CR>
 		"nnoremap <C-[> :tabprevious<CR>
@@ -362,12 +378,15 @@
 		nnoremap <leader>m :CtrlPMRUFiles<cr>
 		nnoremap <leader>t :CtrlPTag<cr>
 
+
 " Plugins
 	" haskell
 		let g:haddock_browser="chromium"
 
 	" neocomplete
 		let g:neocomplete#enable_at_startup = 1
+		let g:neocomplete#enable_smart_case = 1
+		let g:neocomplete#sources#syntax#min_keyword_length = 3
 
 	" easy-align
 		" For visual mode (e.g. vip<Enter>)
@@ -451,8 +470,6 @@
 		nnoremap <Leader>tt :TagbarToggle<CR>
 		let g:tagbar_autoclose = 1
 
-	" Gotags
-		source $HOME/.vim/plugin-confs/gotags.vim
 
 	" easytags
 		let g:easytags_file = '~/.vim/tags/easytags'
