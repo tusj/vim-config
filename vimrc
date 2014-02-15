@@ -534,11 +534,8 @@
 " TODO
 	" Restrict search to current window
 	" make messages display newest first
-	" Remove autoclose " comments for vimscripts
 	" set dictionary completion on latex and txt files
-	" display cwd of current view on status bar
-	" display different colour when caps lock is on
-	" set hide pattern for netrw plugin to hide .files
 	" unset hlsearch after substitute command
+	" fix paste command
 
 " vim: set ft=vim foldmethod=indent:
