@@ -1,6 +1,3 @@
-[submodule "bundle/ack"]
-	path = bundle/ack
-	url = git@github.com:mileszs/ack.vim.git
 [submodule "bundle/autoclose"]
 	path = bundle/autoclose
 	url = git@github.com:Townk/vim-autoclose.git
@@ -22,15 +19,9 @@
 [submodule "bundle/fontzoom"]
 	path = bundle/fontzoom
 	url = git@github.com:thinca/vim-fontzoom.git
-[submodule "bundle/fugitive"]
-	path = bundle/fugitive
-	url = git@github.com:tpope/vim-fugitive.git
 [submodule "bundle/golang"]
 	path = bundle/golang
 	url = git@github.com:jnwhiteh/vim-golang.git
-[submodule "bundle/gundo"]
-	path = bundle/gundo
-	url = git@github.com:sjl/gundo.vim.git
 [submodule "bundle/jedi"]
 	path = bundle/jedi
 	url = git@github.com:davidhalter/jedi-vim.git
