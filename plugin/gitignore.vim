@@ -62,4 +62,6 @@ augroup END
 
 let &cpo = s:save_cpo
 
+call s:WildignoreFromGitignore()
+
 " vim:set ft=vim sw=2 sts=2 et:
