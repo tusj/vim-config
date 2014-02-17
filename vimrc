@@ -120,7 +120,7 @@
 			autocmd BufLeave * set nocursorline
 		augroup END
 
-		augroup testgroup
+		augroup behaviour
 			autocmd!
 			" Save all on lost focus if buffer has name
 			autocmd FocusLost * silent! wall
@@ -152,6 +152,8 @@
 			autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
 			autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
 			autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
+			" ISSUE doesn't work autocmd FileType markdown      setlocal makeprg=markdown\ %\ >%.html
+			autocmd BufEnter *.md          setlocal makeprg=markdown\ %\ >%:t:r.html
 			autocmd BufWritePost vimrc     source $MYVIMRC
 		augroup END
 
@@ -469,6 +471,33 @@
 	" Tagbar
 		nnoremap <Leader>tt :TagbarToggle<CR>
 		let g:tagbar_autoclose = 1
+		let g:tagbar_type_go = {
+			\ 'ctagstype' : 'go',
+			\ 'kinds'     : [
+				\ 'p:package',
+				\ 'i:imports:1',
+				\ 'c:constants',
+				\ 'v:variables',
+				\ 't:types',
+				\ 'n:interfaces',
+				\ 'w:fields',
+				\ 'e:embedded',
+				\ 'm:methods',
+				\ 'r:constructor',
+				\ 'f:functions'
+			\ ],
+			\ 'sro' : '.',
+			\ 'kind2scope' : {
+				\ 't' : 'ctype',
+				\ 'n' : 'ntype'
+			\ },
+			\ 'scope2kind' : {
+				\ 'ctype' : 't',
+				\ 'ntype' : 'n'
+			\ },
+			\ 'ctagsbin'  : 'gotags',
+			\ 'ctagsargs' : '-sort -silent'
+		\ }
 
 
 	" easytags
