@@ -285,6 +285,9 @@
 	" Indent whole file
 		noremap g= mzgg=G`z<CR>m'z
 
+	" delete text to black hole
+		nnoremap <Leader>d "_d
+
 	" move visual line, not folded
 		nnoremap j gj
 		nnoremap k gk
@@ -308,8 +311,8 @@
 		nnoremap k gk
 
 	" " Bubble single lines
-		" 	nmap <C-Up> ddkP
-		" 	nmap <C-Down> ddp
+		" 	nnoremap <C-Up> ddkP
+		" 	nnoremap <C-Down> ddp
 
 	" " Bubble multiple lines
 		" 	vmap <C-Up> xkP`[V`]
