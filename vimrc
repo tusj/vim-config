@@ -212,6 +212,9 @@
 	" Yank to end of line
 	 nnoremap Y y$
 
+	" Dot command in visual mode
+	vnoremap . :norm.<CR>
+
 	" Diff
 		nnoremap do do]c
 		nnoremap dp do]c
@@ -276,8 +279,8 @@
 		nnoremap R gR
 
 	" Esc remappings
-		inoremap jj <Esc>
-		cnoremap jj <Esc>
+		" inoremap jk <Esc>
+		" cnoremap jk <Esc>
 
 	" open url in browser
 		nnoremap <C-LeftMouse> :call myautoloads#Browser()<cr>
