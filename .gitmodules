@@ -91,3 +91,6 @@
 [submodule "bundle/latex-live-preview"]
 	path = bundle/latex-live-preview
 	url = git@github.com:xuhdev/vim-latex-live-preview.git
+[submodule "bundle/yankstack"]
+	path = bundle/yankstack
+	url = git@github.com:maxbrunsfeld/vim-yankstack.git
