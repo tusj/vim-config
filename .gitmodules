@@ -61,9 +61,6 @@
 [submodule "bundle/tcomment"]
 	path = bundle/tcomment
 	url = git@github.com:tomtom/tcomment_vim.git
-[submodule "bundle/ultisnips"]
-	path = bundle/ultisnips
-	url = git@github.com:SirVer/ultisnips.git
 [submodule "bundle/airline"]
 	path = bundle/airline
 	url = git@github.com:bling/vim-airline.git
@@ -88,6 +85,3 @@
 [submodule "bundle/latex-live-preview"]
 	path = bundle/latex-live-preview
 	url = git@github.com:xuhdev/vim-latex-live-preview.git
-[submodule "bundle/yankstack"]
-	path = bundle/yankstack
-	url = git@github.com:maxbrunsfeld/vim-yankstack.git
