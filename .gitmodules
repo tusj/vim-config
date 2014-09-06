@@ -89,5 +89,8 @@
 	path = bundle/yankstack
 	url = git@github.com:maxbrunsfeld/vim-yankstack.git
 [submodule "syntastic"]
-	path = syntastic
+	path = bundle/syntastic
 	url = git@github.com:scrooloose/syntastic.git
+[submodule "vim2hs"]
+	path = bundle/vim2hs
+	url = git@github.com:dag/vim2hs.git
