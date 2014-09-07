@@ -94,3 +94,6 @@
 [submodule "vim2hs"]
 	path = bundle/vim2hs
 	url = git@github.com:dag/vim2hs.git
+[submodule "bundle/neco-ghc"]
+	path = bundle/neco-ghc
+	url = git@github.com:eagletmt/neco-ghc.git
