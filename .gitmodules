@@ -97,3 +97,9 @@
 [submodule "bundle/neco-ghc"]
 	path = bundle/neco-ghc
 	url = git@github.com:eagletmt/neco-ghc.git
+[submodule "bundle/YouCompleteMe"]
+	path = bundle/YouCompleteMe
+	url = git@github.com:Valloric/YouCompleteMe.git
+[submodule "vim-swap"]
+	path = bundle/vim-swap
+	url = git@github.com:kurkale6ka/vim-swap.git

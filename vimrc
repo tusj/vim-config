@@ -59,7 +59,6 @@
 		" set runtimepath=$XDG_CONFIG_HOME/vim,$XDG_CONFIG_HOME/vim/after,$VIM,$VIMRUNTIME
 		" let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc"
 
-
 " Display
 	set showbreak=→\ " this comment must be here
 	"…
@@ -365,7 +364,7 @@
 		nnoremap <leader>* :execute 'noautocmd vimgrep /\V' . substitute(escape(expand("<cword>"), '\'), '\n', '\\n', 'g') . '/ **'<CR>
 		vnoremap <leader>* :<C-u>call myautoloads#VSetSearch()<CR>:execute 'noautocmd vimgrep /' . @/ . '/ **'<CR>
 
-	" seiarch without regex normally
+	" search without regex normally
 		nnoremap / /\V
 
 	" Tasklist, todo, bug, issue
@@ -374,18 +373,25 @@
 		command! Todo  :execute 'vimgrep TODO '.expand('%')  | :copen | :cc
 
 	" autocomplete popup menu behavior exprimentation
-		" inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-		" inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
-		" 	\ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-		" inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
-		" 	\ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+		function! OmniPopup(action)
+			if pumvisible()
+				if a:action == 'j'
+					return "\<C-N>"
+				elseif a:action == 'k'
+					return "\<C-P>"
+				endif
+			endif
+			return a:action
+		endfunction
+
+		inoremap <silent>j <C-R>=OmniPopup('j')<CR>
+		inoremap <silent>k <C-R>=OmniPopup('k')<CR>
 
 	" CtrlP
 		nnoremap <leader>f :CtrlP<cr>
 		nnoremap <leader>b :CtrlPBuffer<cr>
 		nnoremap <leader>m :CtrlPMRUFiles<cr>
 		nnoremap <leader>t :CtrlPTag<cr>
-
 
 " Plugins
 	" haskell
@@ -460,6 +466,9 @@
 	" close vim if only nerdtree is open
 	"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
+	" necoghc
+		let g:necoghc_enable_detaileed_browse = 1
+
 	" Latex Suite
 		set grepprg=grep\ -nH\ $*
 		let g:tex_flavor='latex'
@@ -524,7 +533,6 @@
 		" 	\ silent! call RedirToClipbaordFunction(<f -args>)ing settings
 
 
-
 	" tpope's live align with tabular
 		" inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
 
@@ -565,6 +573,9 @@
 			%sort
 			g/^\(.*\)$\n\1$/d
 		endfunction
+
+	" You complete me
+		let g:ycm_semantic_triggers = {'haskell' : ['.']}
 
 " TODO
 	" Restrict search to current window
