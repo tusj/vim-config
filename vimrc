@@ -1,41 +1,42 @@
-filetype off                  " required
+" Vundle setup
+	filetype off
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+	" set the runtime path to include Vundle and initialize
+	set rtp+=~/.vim/bundle/Vundle.vim
+	call vundle#begin()
 
-Plugin 'gmarik/Vundle.vim'
-Plugin 'git://github.com/bling/vim-airline'
-Plugin 'git://github.com/Townk/vim-autoclose'
-Plugin 'git://github.com/skammer/vim-css-color'
-Plugin 'git://github.com/kien/ctrlp.vim'
-Plugin 'git://github.com/tpope/vim-dispatch'
-Plugin 'git://github.com/Lokaltog/vim-easymotion'
-Plugin 'git://github.com/tpope/vim-eunuch'
-Plugin 'git://github.com/dag/vim-fish'
-Plugin 'git://github.com/tpope/vim-fugitive'
-Plugin 'git://github.com/sjl/gundo.vim'
-Plugin 'git://github.com/eagletmt/neco-ghc'
-Plugin 'git://github.com/tpope/vim-obsession'
-Plugin 'git://github.com/tpope/vim-repeat'
-Plugin 'git://github.com/goldfeld/vim-seek'
-Plugin 'git://github.com/tpope/vim-sensible'
-Plugin 'git://github.com/kshenoy/vim-signature'
-Plugin 'git://github.com/tpope/vim-surround'
-Plugin 'git://github.com/scrooloose/syntastic'
-Plugin 'git://github.com/godlygeek/tabular'
-Plugin 'git://github.com/majutsushi/tagbar'
-Plugin 'git://github.com/tomtom/tcomment_vim'
-Plugin 'git://github.com/tpope/vim-unimpaired'
-Plugin 'git://github.com/dag/vim2hs'
-Plugin 'git://github.com/eagletmt/ghcmod-vim'
-Plugin 'git://github.com/tommcdo/vim-exchange'
-Plugin 'git://github.com/bronson/vim-visual-star-search'
-Plugin 'git://github.com/xolox/vim-misc'
-Plugin 'git://github.com/Valloric/YouCompleteMe'
+	Plugin 'gmarik/Vundle.vim'
+	Plugin 'git://github.com/bling/vim-airline'
+	Plugin 'git://github.com/Townk/vim-autoclose'
+	Plugin 'git://github.com/skammer/vim-css-color'
+	Plugin 'git://github.com/wincent/command-t'
+	Plugin 'git://github.com/tpope/vim-dispatch'
+	Plugin 'git://github.com/Lokaltog/vim-easymotion'
+	Plugin 'git://github.com/tpope/vim-eunuch'
+	Plugin 'git://github.com/dag/vim-fish'
+	Plugin 'git://github.com/tpope/vim-fugitive'
+	Plugin 'git://github.com/sjl/gundo.vim'
+	Plugin 'git://github.com/eagletmt/neco-ghc'
+	Plugin 'git://github.com/tpope/vim-obsession'
+	Plugin 'git://github.com/tpope/vim-repeat'
+	Plugin 'git://github.com/goldfeld/vim-seek'
+	Plugin 'git://github.com/tpope/vim-sensible'
+	Plugin 'git://github.com/kshenoy/vim-signature'
+	Plugin 'git://github.com/tpope/vim-surround'
+	Plugin 'git://github.com/scrooloose/syntastic'
+	Plugin 'git://github.com/godlygeek/tabular'
+	Plugin 'git://github.com/majutsushi/tagbar'
+	Plugin 'git://github.com/tomtom/tcomment_vim'
+	Plugin 'git://github.com/tpope/vim-unimpaired'
+	Plugin 'git://github.com/dag/vim2hs'
+	Plugin 'git://github.com/eagletmt/ghcmod-vim'
+	Plugin 'git://github.com/tommcdo/vim-exchange'
+	Plugin 'git://github.com/bronson/vim-visual-star-search'
+	Plugin 'git://github.com/xolox/vim-misc'
+	Plugin 'git://github.com/Valloric/YouCompleteMe'
 
-call vundle#end()
-"
+	call vundle#end()
+
 " Basic
 	set encoding=utf-8
 	set updatetime=1000 " ms
@@ -425,15 +426,13 @@ call vundle#end()
 		inoremap <silent>j <C-R>=OmniPopup('j')<CR>
 		inoremap <silent>k <C-R>=OmniPopup('k')<CR>
 
-	" CtrlP
-		nnoremap <leader>f :CtrlP<cr>
-		nnoremap <leader>b :CtrlPBuffer<cr>
-		nnoremap <leader>m :CtrlPMRUFiles<cr>
-		nnoremap <leader>t :CtrlPTag<cr>
+	" CommandT
+		nnoremap <leader>c :CommandT<cr>
 
 " Plugins
 	" haskell
 		let g:haddock_browser="chromium"
+
 
 	" neocomplete
 		let g:neocomplete#enable_at_startup = 1
