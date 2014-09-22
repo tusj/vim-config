@@ -204,8 +204,8 @@
 		set gdefault   " default global on substitute command
 
 " Keymaps
-	let mapleader = '\'
-	let maplocalleader = "\\"
+	let mapleader = " "
+	let maplocalleader = "\ "
 
 	" nnoremap <space> za
 
