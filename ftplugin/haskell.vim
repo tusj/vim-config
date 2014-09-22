@@ -1,3 +1,2 @@
-compiler ghc
+compiler hlint
 setlocal omnifunc=necoghc#omnifunc
-autocmd BufEnter *.hs compiler ghc
