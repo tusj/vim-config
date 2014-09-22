@@ -1,3 +1,46 @@
+" Vundle init
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+Plugin 'git://github.com/bling/vim-airline'
+Plugin 'git://github.com/Townk/vim-autoclose'
+Plugin 'git://github.com/skammer/vim-css-color'
+Plugin 'git://github.com/kien/ctrlp.vim'
+Plugin 'git://github.com/tpope/vim-dispatch'
+Plugin 'git://github.com/Lokaltog/vim-easymotion'
+Plugin 'git://github.com/tpope/vim-eunuch'
+Plugin 'git://github.com/dag/vim-fish'
+Plugin 'git://github.com/tpope/vim-fugitive'
+Plugin 'git://github.com/sjl/gundo.vim'
+Plugin 'git://github.com/eagletmt/neco-ghc'
+Plugin 'git://github.com/tpope/vim-obsession'
+Plugin 'git://github.com/tpope/vim-repeat'
+Plugin 'git://github.com/goldfeld/vim-seek'
+Plugin 'git://github.com/tpope/vim-sensible'
+Plugin 'git://github.com/kshenoy/vim-signature'
+Plugin 'git://github.com/tpope/vim-surround'
+Plugin 'git://github.com/scrooloose/syntastic'
+Plugin 'git://github.com/godlygeek/tabular'
+Plugin 'git://github.com/majutsushi/tagbar'
+Plugin 'git://github.com/tomtom/tcomment_vim'
+Plugin 'git://github.com/tpope/vim-unimpaired'
+Plugin 'git://github.com/dag/vim2hs'
+Plugin 'git://github.com/eagletmt/ghcmod-vim'
+Plugin 'git://github.com/tommcdo/vim-exchange'
+Plugin 'git://github.com/bronson/vim-visual-star-search'
+Plugin 'git://github.com/xolox/vim-misc'
+Plugin 'git://github.com/Valloric/YouCompleteMe'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+"
 " Basic
 	set encoding=utf-8
 	set updatetime=1000 " ms
