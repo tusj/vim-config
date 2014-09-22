@@ -6,3 +6,4 @@ tags/
 undo/
 haskellmode.config
 bundle
+!bundle/Vundle.vim
