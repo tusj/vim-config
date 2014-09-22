@@ -85,3 +85,21 @@
 [submodule "bundle/latex-live-preview"]
 	path = bundle/latex-live-preview
 	url = git@github.com:xuhdev/vim-latex-live-preview.git
+[submodule "bundle/yankstack"]
+	path = bundle/yankstack
+	url = git@github.com:maxbrunsfeld/vim-yankstack.git
+[submodule "syntastic"]
+	path = bundle/syntastic
+	url = git@github.com:scrooloose/syntastic.git
+[submodule "vim2hs"]
+	path = bundle/vim2hs
+	url = git@github.com:dag/vim2hs.git
+[submodule "bundle/neco-ghc"]
+	path = bundle/neco-ghc
+	url = git@github.com:eagletmt/neco-ghc.git
+[submodule "bundle/YouCompleteMe"]
+	path = bundle/YouCompleteMe
+	url = git@github.com:Valloric/YouCompleteMe.git
+[submodule "vim-swap"]
+	path = bundle/vim-swap
+	url = git@github.com:kurkale6ka/vim-swap.git
