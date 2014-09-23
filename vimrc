@@ -34,6 +34,7 @@
 	Plugin 'git://github.com/bronson/vim-visual-star-search'
 	Plugin 'git://github.com/xolox/vim-misc'
 	Plugin 'git://github.com/Valloric/YouCompleteMe'
+	Plugin 'git://github.com/Twinside/vim-haskellConceal'
 
 	call vundle#end()
 
@@ -198,8 +199,9 @@
 		" templates
 		augroup templates
 			autocmd!
-			autocmd BufNewFile *.tex 0r ~/Templates/latex
-			autocmd BufNewFile *.go  0r ~/Templates/go
+			autocmd BufNewFile *.tex 0r ~/Copy/templates/latex
+			autocmd BufNewFile *.go  0r ~/Copy/templates/go
+			autocmd BufNewFile *.hs  0r ~/Copy/templates/haskell
 		augroup END
 
 
@@ -238,6 +240,11 @@
 		" highlight as you type
 			set incsearch
 			set hlsearch
+
+			augroup Search
+				autocmd InsertEnter * :setlocal nohlsearch
+				autocmd InsertLeave * :setlocal hlsearch
+			augroup END
 
 		set gdefault   " default global on substitute command
 
@@ -423,15 +430,17 @@
 			return a:action
 		endfunction
 
-		inoremap <silent>j <C-R>=OmniPopup('j')<CR>
-		inoremap <silent>k <C-R>=OmniPopup('k')<CR>
+		inoremap <silent><ctrl>j <C-R>=OmniPopup('j')<CR>
+		inoremap <silent><ctrl>k <C-R>=OmniPopup('k')<CR>
 
-	" CommandT
+	" CtrlP
 		nnoremap <leader>c :CommandT<cr>
 
 " Plugins
 	" haskell
 		let g:haddock_browser="chromium"
+		highlight HaskellType ctermbg=232
+		let g:ghcmod_type_highlight = 'HaskellType'
 
 
 	" neocomplete
