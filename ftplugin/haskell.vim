@@ -1,7 +1,5 @@
 compiler hlint
 setlocal omnifunc=necoghc#omnifunc
-augroup haskell
-	autocmd CursorHold *.hs :GhcModType
-augroup END
+setlocal <localleader>t :GhcModType
 
 " vim: set ft=vim foldmethod=indent:
