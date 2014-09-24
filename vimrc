@@ -149,7 +149,7 @@
 	" Completion
 		set wildmenu
 		set wildmode=list:full
-		set wildignore="*.swp,*.bak,*.pyc,*~,*.o,*.obj,*.bak,*.exe,*.aux,*.out,*.toc,*.jpg,*.bmp"
+		set wildignore="*.swp,*.bak,*.pyc,*~,*.o,*.obj,*.bak,*.exe,*.aux,*.out,*.toc,*.jpg,*.bmp,*.ho,*.hi"
 
 	" Autocommands
 		" set only cursorline for active window
@@ -250,7 +250,7 @@
 
 " Keymaps
 	let mapleader = " "
-	let maplocalleader = "\ "
+	let maplocalleader = "\\"
 
 	" nnoremap <space> za
 
@@ -437,16 +437,16 @@
 		nnoremap <leader>c :CommandT<cr>
 
 " Plugins
+	" neocomplete
+		let g:neocomplete#enable_at_startup = 1
+		let g:neocomplete#enable_smart_case = 1
+		let g:neocomplete#sources#syntax#min_keyword_length = 3
+
 	" haskell
 		let g:haddock_browser="chromium"
 		highlight HaskellType ctermbg=232
 		let g:ghcmod_type_highlight = 'HaskellType'
 
-
-	" neocomplete
-		let g:neocomplete#enable_at_startup = 1
-		let g:neocomplete#enable_smart_case = 1
-		let g:neocomplete#sources#syntax#min_keyword_length = 3
 
 	" easy-align
 		" For visual mode (e.g. vip<Enter>)
@@ -566,7 +566,6 @@
 		let g:easytags_dynamic_files = 2 " create tags file in projectdir
 		" let geasytags_languages
 
-
 	" redir steve losh
 		" function! RedirToClipboardFunction(cmd, ...)
 		" 	let cmd = a:cmd . " " . join(a:000, " ")
@@ -577,7 +576,6 @@
 
 		" command! -complete=command -nargs=+ RedirToClipboard
 		" 	\ silent! call RedirToClipbaordFunction(<f -args>)ing settings
-
 
 	" tpope's live align with tabular
 		" inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
@@ -622,6 +620,7 @@
 
 	" You complete me
 		let g:ycm_semantic_triggers = {'haskell' : ['.']}
+		let g:ycm_min_num_of_chars_for_completion = 3
 
 " TODO
 	" Restrict search to current window
