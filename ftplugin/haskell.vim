@@ -5,4 +5,5 @@ augroup MyHaskell
 	autocmd CursorMoved *.hs :GhcModTypeClear
 augroup END
 set foldlevel=1
+set wildignore+="*.hi,*.o"
 " vim: set ft=vim foldmethod=indent:

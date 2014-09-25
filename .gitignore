@@ -1,6 +1,7 @@
 unused/
 viminfo
 tmp/
+TAGS
 tags/
 .*
 undo/

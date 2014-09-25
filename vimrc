@@ -5,36 +5,38 @@
 	set rtp+=~/.vim/bundle/Vundle.vim
 	call vundle#begin()
 
-	Plugin 'gmarik/Vundle.vim'
-	Plugin 'git://github.com/bling/vim-airline'
-	Plugin 'git://github.com/Townk/vim-autoclose'
-	Plugin 'git://github.com/skammer/vim-css-color'
-	Plugin 'git://github.com/wincent/command-t'
-	Plugin 'git://github.com/tpope/vim-dispatch'
 	Plugin 'git://github.com/Lokaltog/vim-easymotion'
-	Plugin 'git://github.com/tpope/vim-eunuch'
+	Plugin 'git://github.com/Townk/vim-autoclose'
+	Plugin 'git://github.com/Twinside/vim-haskellConceal'
+	Plugin 'git://github.com/Valloric/YouCompleteMe'
+	Plugin 'git://github.com/airblade/vim-gitgutter'
+	Plugin 'git://github.com/bling/vim-airline'
+	Plugin 'git://github.com/bronson/vim-visual-star-search'
 	Plugin 'git://github.com/dag/vim-fish'
-	Plugin 'git://github.com/tpope/vim-fugitive'
-	Plugin 'git://github.com/sjl/gundo.vim'
-	Plugin 'git://github.com/eagletmt/neco-ghc'
-	Plugin 'git://github.com/tpope/vim-obsession'
-	Plugin 'git://github.com/tpope/vim-repeat'
-	Plugin 'git://github.com/goldfeld/vim-seek'
-	Plugin 'git://github.com/tpope/vim-sensible'
-	Plugin 'git://github.com/kshenoy/vim-signature'
-	Plugin 'git://github.com/tpope/vim-surround'
-	Plugin 'git://github.com/scrooloose/syntastic'
-	Plugin 'git://github.com/godlygeek/tabular'
-	Plugin 'git://github.com/majutsushi/tagbar'
-	Plugin 'git://github.com/tomtom/tcomment_vim'
-	Plugin 'git://github.com/tpope/vim-unimpaired'
 	Plugin 'git://github.com/dag/vim2hs'
 	Plugin 'git://github.com/eagletmt/ghcmod-vim'
+	Plugin 'git://github.com/eagletmt/neco-ghc'
+	Plugin 'git://github.com/gmarik/Vundle.vim'
+	Plugin 'git://github.com/godlygeek/tabular'
+	Plugin 'git://github.com/goldfeld/vim-seek'
+	Plugin 'git://github.com/kshenoy/vim-signature'
+	Plugin 'git://github.com/majutsushi/tagbar'
+	Plugin 'git://github.com/scrooloose/syntastic'
+	Plugin 'git://github.com/sjl/gundo.vim'
+	Plugin 'git://github.com/skammer/vim-css-color'
 	Plugin 'git://github.com/tommcdo/vim-exchange'
-	Plugin 'git://github.com/bronson/vim-visual-star-search'
+	Plugin 'git://github.com/tomtom/tcomment_vim'
+	Plugin 'git://github.com/tpope/vim-dispatch'
+	Plugin 'git://github.com/tpope/vim-eunuch'
+	Plugin 'git://github.com/tpope/vim-fugitive'
+	Plugin 'git://github.com/tpope/vim-obsession'
+	Plugin 'git://github.com/tpope/vim-repeat'
+	Plugin 'git://github.com/tpope/vim-sensible'
+	Plugin 'git://github.com/tpope/vim-surround'
+	Plugin 'git://github.com/tpope/vim-unimpaired'
+	Plugin 'git://github.com/vim-scripts/UnconditionalPaste'
+	Plugin 'git://github.com/wincent/command-t'
 	Plugin 'git://github.com/xolox/vim-misc'
-	Plugin 'git://github.com/Valloric/YouCompleteMe'
-	Plugin 'git://github.com/Twinside/vim-haskellConceal'
 
 	call vundle#end()
 
@@ -100,7 +102,19 @@
 		" let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc"
 
 " Display
-	set showbreak=→\ " this comment must be here
+	set showbreak=→\ "
+	set showbreak=⎆\ "
+	set showbreak=⇨\ "
+	set showbreak=⟸\ "
+	set showbreak=⥰\ "
+	set showbreak=⬱\ "
+	set showbreak=␊\ "
+	" set showbreak=⨭\ "
+	" set showbreak=◖\ "
+	set showbreak=𝌻\ "
+	" set showbreak=⌇\ "
+	" set showbreak=⌒\ "
+
 	"…
 	set t_Co=256 " must be before colorscheme
 
@@ -108,10 +122,12 @@
 	set background=dark
 	colorscheme molokai
 
+	" adsfds asdf asdf asdfas asfas defea dsf adsfa sdf asf adsf adsfa af adsf asdfasef adsf asdfa sefas fadsf asef asdf adfasefdas ees dsf sdfasefaesf asefa sdfasd asdfasef asdfa dsfaesf asef asefads fasdfase fafa dfadsf adsf asdf adsf
 	" List invisible characters
 		set list
-		"set listchars=tab:▸\ ,eol:¬
-		set listchars=tab:▸\ ,
+		" set listchars=tab:➝\ ,eol:¬
+		set listchars=tab:⤑\ ,
+		"·  ⇾  ⇨  ⇀  ➝  →  ⇥  ⟶  ⟼  ⤏  ⧐  ―
 
 	set cursorline
 	set wrap
@@ -148,8 +164,12 @@
 
 	" Completion
 		set wildmenu
-		set wildmode=list:full
-		set wildignore="*.swp,*.bak,*.pyc,*~,*.o,*.obj,*.bak,*.exe,*.aux,*.out,*.toc,*.jpg,*.bmp,*.ho,*.hi"
+		set wildmode=list:longest,full
+		set wildignore="*.swp,*.bak,*~,*.bak,*.exe,*.jpg,*.bmp"
+		set wildignorecase
+
+	" Fold
+		set foldclose=all
 
 	" Autocommands
 		" set only cursorline for active window
@@ -172,6 +192,10 @@
 		augroup windows
 			autocmd!
 			autocmd VimResized * :wincmd =
+		augroup END
+
+		augroup folds
+			autocmd CursorMoved * silent! foldopen
 		augroup END
 
 		augroup fileTypes
@@ -252,13 +276,14 @@
 	let mapleader = " "
 	let maplocalleader = "\\"
 
-	" nnoremap <space> za
+	" delete line focus above
+	nnoremap gdd ddk
 
 	" Yank to end of line
 	 nnoremap Y y$
 
 	" Dot command in visual mode
-	vnoremap . :norm.<CR>
+		vnoremap . :norm.<CR>
 
 	" Diff
 		nnoremap do do]c
@@ -272,9 +297,9 @@
 
 	" Insert one character before
 		nnoremap s :exec "normal i".nr2char(getchar())."\e"<CR>
-		" :nnoremap S :exec "normal a".nr2char(getchar())."\e"<CR>
+		nnoremap S :exec "normal a".nr2char(getchar())."\e"<CR>
 
-	" TABS
+	" Tabs
 		" nnoremap <2-LeftMouse> <C-w><C-]><C-w>T " open tag in new tab
 		" nnoremap <C-W>     :tabclose<CR>
 		" nnoremap <C-Tab>   :tabnext<CR>
@@ -294,10 +319,10 @@
 		vnoremap o ygg"_dGpkdd
 
 	" Window focus and create
-		nnoremap <Leader>wh : call myautoloads#WinMove('h')<cr>
-		nnoremap <Leader>wk : call myautoloads#WinMove('k')<cr>
-		nnoremap <Leader>wl : call myautoloads#WinMove('l')<cr>
-		nnoremap <Leader>wj : call myautoloads#WinMove('j')<cr>
+		nnoremap <Leader>h : call myautoloads#WinMove('h')<cr>
+		nnoremap <Leader>k : call myautoloads#WinMove('k')<cr>
+		nnoremap <Leader>l : call myautoloads#WinMove('l')<cr>
+		nnoremap <Leader>j : call myautoloads#WinMove('j')<cr>
 
 	" window rotate
 		nnoremap wwr <C-W>r
@@ -307,6 +332,10 @@
 		nnoremap <right> :12wincmd ><cr>
 		nnoremap <up>    :12wincmd +<cr>
 		nnoremap <down>  :12wincmd -<cr>
+		vnoremap <right> :12wincmd ><cr>
+		vnoremap <left>  :12wincmd <<cr>
+		vnoremap <up>    :12wincmd +<cr>
+		vnoremap <down>  :12wincmd -<cr>
 
 	" alternative resizing
 		nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
@@ -317,18 +346,26 @@
 		" noremap g<C-]> <C-]>
 
 	" remap command line scrolling
-		cnoremap <C-p> <Up>
-		cnoremap <C-n> <Down>
+		cnoremap <C-j> <Up>
+		cnoremap <C-k> <Down>
 
 	" treating tabs as several spaces
 		nnoremap R gR
 
 	" Esc remappings
-		" inoremap jk <Esc>
+		inoremap jk <Esc><Esc>
+		inoremap <Esc> <Esc><Esc>
 		" cnoremap jk <Esc>
 
 	" open url in browser
 		nnoremap <C-LeftMouse> :call myautoloads#Browser()<cr>
+
+	" if in insert, escape both potential popup menu and go to normal mode
+		" imap ^[ <esc><esc>
+		map ^[ <esc><esc>
+
+	" mark whole file
+		nnoremap  <leader>a ggVG
 
 	" Indent whole file
 		noremap g= mzgg=G`z<CR>m'z
@@ -437,6 +474,15 @@
 		nnoremap <leader>c :CommandT<cr>
 
 " Plugins
+	" Gitgutter
+		" ⊛ ⁕ ✵ ⚝ ✦ ✶ ❉ ᶯ ␡ ⎌' ⥃' ↚ ⇄
+		let g:gitgutter_sign_added = '→'
+
+		let g:gitgutter_sign_removed = '←'
+
+		let g:gitgutter_sign_modified = '↔'
+
+		let g:gitgutter_sign_modified_removed = '↜'
 	" neocomplete
 		let g:neocomplete#enable_at_startup = 1
 		let g:neocomplete#enable_smart_case = 1
@@ -486,7 +532,7 @@
 
 
 	" airline
-		"let g:airline_powerline_fonts                  = 1
+		let g:airline_powerline_fonts                  = 1
 		"let g:airline#extensions#tabline#enabled       = 1
 		"let g:airline_inactive_collapse                = 0
 		let g:airline#extensions#bufferline#enabled     = 1
@@ -530,78 +576,8 @@
 		let g:livepreview_previewer = 'okular'
 
 	" Tagbar
-		nnoremap <Leader>tt :TagbarToggle<CR>
+		nnoremap <Leader>t :TagbarToggle<CR>
 		let g:tagbar_autoclose = 1
-		let g:tagbar_type_go = {
-			\ 'ctagstype' : 'go',
-			\ 'kinds'     : [
-				\ 'p:package',
-				\ 'i:imports:1',
-				\ 'c:constants',
-				\ 'v:variables',
-				\ 't:types',
-				\ 'n:interfaces',
-				\ 'w:fields',
-				\ 'e:embedded',
-				\ 'm:methods',
-				\ 'r:constructor',
-				\ 'f:functions'
-			\ ],
-			\ 'sro' : '.',
-			\ 'kind2scope' : {
-				\ 't' : 'ctype',
-				\ 'n' : 'ntype'
-			\ },
-			\ 'scope2kind' : {
-				\ 'ctype' : 't',
-				\ 'ntype' : 'n'
-			\ },
-			\ 'ctagsbin'  : 'gotags',
-			\ 'ctagsargs' : '-sort -silent'
-		\ }
-
-
-	" easytags
-		let g:easytags_file = '~/.vim/tags/easytags'
-		let g:easytags_dynamic_files = 2 " create tags file in projectdir
-		" let geasytags_languages
-
-	" redir steve losh
-		" function! RedirToClipboardFunction(cmd, ...)
-		" 	let cmd = a:cmd . " " . join(a:000, " ")
-		" 	redir @*>
-		" 	exe cmd
-		" 	redir END
-		" endfunction
-
-		" command! -complete=command -nargs=+ RedirToClipboard
-		" 	\ silent! call RedirToClipbaordFunction(<f -args>)ing settings
-
-	" tpope's live align with tabular
-		" inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
-
-		" function! s:align()
-			" let p = '^\s*|\s.*\s|\s*$'
-			" if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
-			" 	let column = strlen(substitute(getline('.')[0:col('.')],'[^|]','','g'))
-			" 	let position = strlen(matchstr(getline('.')[0:col('.')],'.*|\s*\zs.*'))
-			" 	Tabularize/|/l1
-			" 	normal! 0
-			" 	call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
-			" endif
-		" endfunction
-
-	" populate arglist with files with search matches
-		" command! -nargs=0 -bar Qargs execute 'args' QuickfixFilenames()
-
-		" function! QuickfixFilenames()
-			" " Building a hash ensures we get each buffer only once
-			" let buffer_numbers = {}
-			" for quickfix_item in getqflist()
-			" 	let buffer_numbers[quickfix_item['bufnr']] = bufname(quickfix_item['bufnr'])
-			" endfor
-			" return join(map(values(buffer_numbers), 'fnameescape(v:val)'))
-		" endfunction
 
 	" paste convenient
 		function! Paste()
