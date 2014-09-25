@@ -9,3 +9,4 @@ haskellmode.config
 bundle
 !bundle/Vundle.vim
 !bundle/Vundle.vim/*
+mru-files

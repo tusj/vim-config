@@ -6,7 +6,9 @@
 	call vundle#begin()
 
 	Plugin 'git://github.com/Lokaltog/vim-easymotion'
+	Plugin 'git://github.com/bitc/vim-hdevtools'
 	Plugin 'git://github.com/Townk/vim-autoclose'
+	Plugin 'git://github.com/yegappan/mru'
 	Plugin 'git://github.com/Twinside/vim-haskellConceal'
 	Plugin 'git://github.com/Valloric/YouCompleteMe'
 	Plugin 'git://github.com/airblade/vim-gitgutter'
@@ -37,6 +39,9 @@
 	Plugin 'git://github.com/vim-scripts/UnconditionalPaste'
 	Plugin 'git://github.com/wincent/command-t'
 	Plugin 'git://github.com/xolox/vim-misc'
+	Plugin 'git://github.com/xolox/vim-easytags'
+
+	" vim-misc is dependency of vim-easytags
 
 	call vundle#end()
 
@@ -102,16 +107,11 @@
 		" let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc"
 
 " Display
-	set showbreak=→\ "
-	set showbreak=⎆\ "
-	set showbreak=⇨\ "
-	set showbreak=⟸\ "
-	set showbreak=⥰\ "
-	set showbreak=⬱\ "
-	set showbreak=␊\ "
+	" →\ ⎆\ ⇨\ ⟸\ ⥰\ ⬱\ ␊\ ⫘\ ⩊\ ⏖\ ↔\ ↪\
+	set showbreak=⤷\ "
 	" set showbreak=⨭\ "
 	" set showbreak=◖\ "
-	set showbreak=𝌻\ "
+	" set showbreak=𝌻\ "
 	" set showbreak=⌇\ "
 	" set showbreak=⌒\ "
 
@@ -160,16 +160,17 @@
 		set completeopt=menuone,preview
 		set complete+=kspell
 		set omnifunc=syntaxcomplete#Complete
-		set tags+=./tags;
+		set tags=./.tags,.tags,/home/s/.vim/tags;
 
 	" Completion
 		set wildmenu
 		set wildmode=list:longest,full
-		set wildignore="*.swp,*.bak,*~,*.bak,*.exe,*.jpg,*.bmp"
+		set wildignore=*.swp,*.bak,*~,*.bak,*.exe,*.jpg,*.bmp,*.o,*.hi,*.pyc
 		set wildignorecase
 
 	" Fold
-		set foldclose=all
+		" set foldclose=all
+		set foldlevel=0
 
 	" Autocommands
 		" set only cursorline for active window
@@ -195,7 +196,7 @@
 		augroup END
 
 		augroup folds
-			autocmd CursorMoved * silent! foldopen
+			" autocmd CursorMoved * silent! foldopen
 		augroup END
 
 		augroup fileTypes
@@ -284,6 +285,12 @@
 
 	" Dot command in visual mode
 		vnoremap . :norm.<CR>
+
+	" Help
+		cabbrev h vert h
+
+	" Mru
+		nnoremap <leader>m :Mru<cr>
 
 	" Diff
 		nnoremap do do]c
@@ -474,15 +481,43 @@
 		nnoremap <leader>c :CommandT<cr>
 
 " Plugins
+	" Easytags
+		let g:easytags_async = 1
+		let g:easytags_file = '~/.vim/tags'
+		let g:easytags_languages = {
+		\   'haskell': {
+		\       'cmd': '~/.cabal/bin/lushtags',
+		\       'args': [],
+		\       'fileoutput_opt': '-f',
+		\       'stdout_opt': '-f-',
+		\       'recurse_flag': '-R'
+		\   }
+		\}
+		let g:easytags_dynamic_files = 1
+
 	" Gitgutter
 		" ⊛ ⁕ ✵ ⚝ ✦ ✶ ❉ ᶯ ␡ ⎌' ⥃' ↚ ⇄
 		let g:gitgutter_sign_added = '→'
-
 		let g:gitgutter_sign_removed = '←'
-
 		let g:gitgutter_sign_modified = '↔'
-
 		let g:gitgutter_sign_modified_removed = '↜'
+
+		" nnoremap <leader>v :GitGutterPreviewHunk<cr>
+		" nnoremap <leader>n :GitGutterNextHunk<cr>
+		" nnoremap <leader>p :GitGutterPrevHunk<cr>
+		nnoremap <leader>n :call NextHunkAndView()<cr>
+		nnoremap <leader>p :call PrevHunkAndView()<cr>
+
+		function! NextHunkAndView()
+			call gitgutter#hunk#next_hunk(1)
+			call gitgutter#preview_hunk()
+		endfunction
+		function! PrevHunkAndView()
+			call gitgutter#hunk#prev_hunk(1)
+			call gitgutter#preview_hunk()
+		endfunction
+
+
 	" neocomplete
 		let g:neocomplete#enable_at_startup = 1
 		let g:neocomplete#enable_smart_case = 1
@@ -492,7 +527,6 @@
 		let g:haddock_browser="chromium"
 		highlight HaskellType ctermbg=232
 		let g:ghcmod_type_highlight = 'HaskellType'
-
 
 	" easy-align
 		" For visual mode (e.g. vip<Enter>)
@@ -529,17 +563,24 @@
 	let g:ctrlp_by_filename = 1
 	set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 
-
-
 	" airline
-		let g:airline_powerline_fonts                  = 1
-		"let g:airline#extensions#tabline#enabled       = 1
-		"let g:airline_inactive_collapse                = 0
 		let g:airline#extensions#bufferline#enabled     = 1
+		let g:airline#extensions#syntastic#enabled      = 1
 		let g:airline#extensions#tabline#buffer_nr_show = 1
 		let g:airline#extensions#tabline#enabled        = 1
+		let g:airline#extensions#tabline#fnamemod       = 1
+		let g:airline#extensions#tagbar#enabled         = 1
+		let g:airline#extensions#hunks#enabled          = 1
+		let g:airline#extensions#hunks#non_zero_only    = 0
+		" let g:airline#extensions#tagbar#flags         = 'f'
+		" let g:airline#extensions#tagbar#flags         = 's'
+		" let g:airline#extensions#tagbar#flags         = 'p'
 		let g:airline#extensions#whitespace#enabled     = 0
 		let g:airline_exclude_preview                   = 1
+		let g:airline_inactive_collapse                 = 1
+		let g:airline_powerline_fonts                   = 1
+		let g:airline_theme                             = "powerlineish"
+
 
 	" Most recently used
 		let MRU_File = $HOME . "/.vim/mru-files"
@@ -578,6 +619,19 @@
 	" Tagbar
 		nnoremap <Leader>t :TagbarToggle<CR>
 		let g:tagbar_autoclose = 1
+		let g:tagbar_autofocus = 1
+
+		" function! TagbarStatusFunc(current, sort, fname, flags, ...) abort
+		" 	let color = a:current ? '%#StatusLine#' : '%#StatusLineNC#'
+		" 	let flagstr = join(flags, '')
+		" 	if flagstr != ''
+		" 		let flagstr = '[' . flagstr . '] '
+		" 	endif
+		" 	return color . '[' . sort . ']' . flagstr . fname
+		" endfunction
+		" let g:tagbar_status_func = 'TagbarStatusFunc'
+
+
 
 	" paste convenient
 		function! Paste()

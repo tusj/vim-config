@@ -1,7 +1,7 @@
 " remove scrollbars, bug, needs to add then remove
 set guioptions+=LlRrb
 set guioptions-=LlRrb
-set guioptions-=T " toolbar
+set guioptions-=mT " toolbar
 
 " Change cursor color depending on mode
 set guicursor=n-v-c:block-Cursor
