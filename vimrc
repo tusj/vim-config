@@ -482,8 +482,10 @@
 
 " Plugins
 	" Easytags
-		let g:easytags_async = 1
-		let g:easytags_file = '~/.vim/tags'
+		let g:easytags_async         = 1
+		let g:easytags_dynamic_files = 1
+		" let g:easytags_by_filetype   = '~/.vim/filetype_tags'
+		let g:easytags_file          = '~/.vim/tags'
 		let g:easytags_languages = {
 		\   'haskell': {
 		\       'cmd': '~/.cabal/bin/lushtags',
@@ -493,7 +495,6 @@
 		\       'recurse_flag': '-R'
 		\   }
 		\}
-		let g:easytags_dynamic_files = 1
 
 	" Gitgutter
 		" ⊛ ⁕ ✵ ⚝ ✦ ✶ ❉ ᶯ ␡ ⎌' ⥃' ↚ ⇄
