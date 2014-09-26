@@ -326,10 +326,10 @@
 		vnoremap . :norm.<CR>
 
 	" Move in insert
-		inoremap <C-h> <left>
-		inoremap <C-j> <down>
-		inoremap <C-k> <up>
-		inoremap <C-l> <right>
+		" inoremap <C-h> <left>
+		" inoremap <C-j> <down>
+		" inoremap <C-k> <up>
+		" inoremap <C-l> <right>
 
 	" Help
 		cabbrev h vert h
