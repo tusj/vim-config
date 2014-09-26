@@ -313,8 +313,8 @@
 		set gdefault   " default global on substitute command
 
 " Keymaps
-	let mapleader = " "
-	let maplocalleader = "\\"
+	let mapleader = "\\"
+	let maplocalleader = "-"
 
 	" delete line focus above
 	nnoremap gdd ddk
@@ -326,10 +326,10 @@
 		vnoremap . :norm.<CR>
 
 	" Move in insert
-		" inoremap <C-h> <esc>ha
-		" inoremap <C-j> <esc>ja
-		" inoremap <C-k> <esc>ka
-		" inoremap <C-l> <esc>la
+		inoremap <C-h> <left>
+		inoremap <C-j> <down>
+		inoremap <C-k> <up>
+		inoremap <C-l> <right>
 
 	" Help
 		cabbrev h vert h
@@ -414,7 +414,6 @@
 
 	" if in insert, escape both potential popup menu and go to normal mode
 		" imap ^[ <esc><esc>
-		map ^[ <esc><esc>
 
 	" mark whole file
 		nnoremap  <leader>a ggVG
@@ -438,10 +437,11 @@
 		xnoremap @ :<C-u>call myautoloads#ExecuteMacroOverVisualRange()<CR>
 
 	" Get the right vim technique
-		inoremap <up>    <nop>
-		inoremap <down>  <nop>
-		inoremap <left>  <nop>
-		inoremap <right> <nop>
+	"
+		" inoremap <up>    <nop>
+		" inoremap <down>  <nop>
+		" inoremap <left>  <nop>
+		" inoremap <right> <nop>
 
 	" Count folded lines as several
 		nnoremap j gj
@@ -550,9 +550,6 @@
 		let g:gitgutter_sign_modified = '↔'
 		let g:gitgutter_sign_modified_removed = '↜'
 
-		" nnoremap <leader>v :GitGutterPreviewHunk<cr>
-		" nnoremap <leader>n :GitGutterNextHunk<cr>
-		" nnoremap <leader>p :GitGutterPrevHunk<cr>
 		nnoremap <leader>n :call NextHunkAndView()<cr>
 		nnoremap <leader>p :call PrevHunkAndView()<cr>
 
