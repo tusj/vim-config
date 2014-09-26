@@ -325,6 +325,12 @@
 	" Dot command in visual mode
 		vnoremap . :norm.<CR>
 
+	" Move in insert
+		inoremap <C-h> <esc>ha
+		inoremap <C-j> <esc>ja
+		inoremap <C-k> <esc>ka
+		inoremap <C-l> <esc>la
+
 	" Help
 		cabbrev h vert h
 
