@@ -5,13 +5,13 @@
 	set rtp+=~/.vim/bundle/Vundle.vim
 	call vundle#begin()
 
+
 	Plugin 'git://github.com/Lokaltog/vim-easymotion'
-	Plugin 'git://github.com/bitc/vim-hdevtools'
 	Plugin 'git://github.com/Townk/vim-autoclose'
-	Plugin 'git://github.com/yegappan/mru'
 	Plugin 'git://github.com/Twinside/vim-haskellConceal'
 	Plugin 'git://github.com/Valloric/YouCompleteMe'
 	Plugin 'git://github.com/airblade/vim-gitgutter'
+	Plugin 'git://github.com/bitc/vim-hdevtools'
 	Plugin 'git://github.com/bling/vim-airline'
 	Plugin 'git://github.com/bronson/vim-visual-star-search'
 	Plugin 'git://github.com/dag/vim-fish'
@@ -37,10 +37,11 @@
 	Plugin 'git://github.com/tpope/vim-surround'
 	Plugin 'git://github.com/tpope/vim-unimpaired'
 	Plugin 'git://github.com/vim-scripts/UnconditionalPaste'
+	Plugin 'git://github.com/vim-scripts/YankRing.vim'
 	Plugin 'git://github.com/wincent/command-t'
-	Plugin 'git://github.com/xolox/vim-misc'
 	Plugin 'git://github.com/xolox/vim-easytags'
-
+	Plugin 'git://github.com/xolox/vim-misc'
+	Plugin 'git://github.com/yegappan/mru'
 	" vim-misc is dependency of vim-easytags
 
 	call vundle#end()
