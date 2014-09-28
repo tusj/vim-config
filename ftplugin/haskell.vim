@@ -6,4 +6,6 @@ augroup MyHaskell
 	autocmd CursorMoved *.hs :HdevtoolsClear
 augroup END
 set foldlevel=1
+
+syntax match hsNiceOperator "!!" conceal cchar=‼
 " vim: set ft=vim foldmethod=indent:
