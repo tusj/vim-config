@@ -1,4 +1,5 @@
 " Vundle setup
+	filetype off
 	set rtp+=~/.vim/bundle/Vundle.vim
 	call vundle#begin()
 	" Plugin 'git://github.com/Valloric/YouCompleteMe'
@@ -48,7 +49,8 @@
 	Plugin 'git://github.com/yegappan/mru'
 	Plugin 'git://github.com/zeis/vim-kolor'
 	call vundle#end()
-	filetype off
+
+	call yankstack#setup() " initialization to hijack key bindings
 
 " Basic
 	set encoding=utf-8
@@ -642,6 +644,11 @@
 
 		set cpoptions+=y
 
+	" YankStack
+	let g:yankstack_map_keys = 0
+	nmap <c-p> <Plug>yankstack_substitute_older_paste
+	nmap <c-n> <Plug>yankstack_substitute_newer_paste
+
 	" nerdtree
 		" autocmd vimenter * if !argc() | NERDTree | endif
 		noremap qnn :NERDTreeToggle<CR>
@@ -681,8 +688,6 @@
 		" endfunction
 		" let g:tagbar_status_func = 'TagbarStatusFunc'
 
-
-
 	" paste convenient
 		function! Paste()
 			set paste
@@ -690,7 +695,6 @@
 			set nopaste
 		endfunction
 		command! Paste call Paste()<CR>
-
 
 	" remove duplicates
 		function! RemoveDuplicates()
