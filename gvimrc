@@ -1,7 +1,8 @@
 " remove scrollbars, bug, needs to add then remove
 set guioptions+=LlRrb
 set guioptions-=LlRrb
-set guioptions-=mT " toolbar
+set guioptions-=T " toolbar
+set guioptions-=m " menu
 
 " Change cursor color depending on mode
 set guicursor=n-v-c:block-Cursor
@@ -31,5 +32,6 @@ end
 " set guifont=Ubuntu\ Mono\ derivative\ Powerline\ for\ Powerline
 " set guifont=Inconsolata-g\ Medium\ 12
 set guifont=Inconsolata-dz\ \for\ Powerline\ Medium\ 11
+set guifont=monofur\ 13
 
 " vim: set ft=vim:
