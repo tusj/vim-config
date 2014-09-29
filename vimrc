@@ -1,16 +1,16 @@
 " Vundle setup
-	filetype off
-
-	" set the runtime path to include Vundle and initialize
 	set rtp+=~/.vim/bundle/Vundle.vim
 	call vundle#begin()
-
-
+	" Plugin 'git://github.com/Valloric/YouCompleteMe'
+	" Plugin 'git://github.com/xolox/vim-easytags'
+	" set the runtime path to include Vundle and initialize
+	" vim-misc is dependency of vim-easytags
 	Plugin 'git://github.com/Lokaltog/vim-easymotion'
+	Plugin 'git://github.com/SirVer/ultisnips'
 	Plugin 'git://github.com/Townk/vim-autoclose'
 	Plugin 'git://github.com/Twinside/vim-haskellConceal'
-	" Plugin 'git://github.com/Valloric/YouCompleteMe'
 	Plugin 'git://github.com/airblade/vim-gitgutter'
+	Plugin 'git://github.com/altercation/vim-colors-solarized'
 	Plugin 'git://github.com/bitc/vim-hdevtools'
 	Plugin 'git://github.com/bling/vim-airline'
 	Plugin 'git://github.com/bronson/vim-visual-star-search'
@@ -18,16 +18,17 @@
 	Plugin 'git://github.com/dag/vim2hs'
 	Plugin 'git://github.com/eagletmt/ghcmod-vim'
 	Plugin 'git://github.com/eagletmt/neco-ghc'
+	Plugin 'git://github.com/endel/vim-github-colorscheme'
 	Plugin 'git://github.com/gmarik/Vundle.vim'
 	Plugin 'git://github.com/godlygeek/tabular'
 	Plugin 'git://github.com/goldfeld/vim-seek'
 	Plugin 'git://github.com/justinmk/vim-sneak'
 	Plugin 'git://github.com/kshenoy/vim-signature'
 	Plugin 'git://github.com/majutsushi/tagbar'
+	Plugin 'git://github.com/nanotech/jellybeans.vim'
 	Plugin 'git://github.com/scrooloose/syntastic'
 	Plugin 'git://github.com/sjl/gundo.vim'
 	Plugin 'git://github.com/skammer/vim-css-color'
-	Plugin 'git://github.com/SirVer/ultisnips'
 	Plugin 'git://github.com/tommcdo/vim-exchange'
 	Plugin 'git://github.com/tomtom/tcomment_vim'
 	Plugin 'git://github.com/tpope/vim-dispatch'
@@ -40,13 +41,13 @@
 	Plugin 'git://github.com/tpope/vim-unimpaired'
 	Plugin 'git://github.com/vim-scripts/UnconditionalPaste'
 	Plugin 'git://github.com/vim-scripts/YankRing.vim'
+	Plugin 'git://github.com/vim-scripts/candycode.vim'
 	Plugin 'git://github.com/wincent/command-t'
-	" Plugin 'git://github.com/xolox/vim-easytags'
 	Plugin 'git://github.com/xolox/vim-misc'
 	Plugin 'git://github.com/yegappan/mru'
-	" vim-misc is dependency of vim-easytags
-
+	Plugin 'git://github.com/zeis/vim-kolor'
 	call vundle#end()
+	filetype off
 
 " Basic
 	set encoding=utf-8
@@ -123,7 +124,7 @@
 
 
 	set background=dark
-	colorscheme molokai
+	colorscheme kolor
 
 	" adsfds asdf asdf asdfas asfas defea dsf adsfa sdf asf adsf adsfa af adsf asdfasef adsf asdfa sefas fadsf asef asdf adfasefdas ees dsf sdfasefaesf asefa sdfasd asdfasef asdfa dsfaesf asef asefads fasdfase fafa dfadsf adsf asdf adsf
 	" List invisible characters
