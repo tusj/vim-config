@@ -128,6 +128,7 @@
 
 	set background=dark
 	colorscheme kolor
+	highlight normal ctermbg=234
 
 	" adsfds asdf asdf asdfas asfas defea dsf adsfa sdf asf adsf adsfa af adsf asdfasef adsf asdfa sefas fadsf asef asdf adfasefdas ees dsf sdfasefaesf asefa sdfasd asdfasef asdfa dsfaesf asef asefads fasdfase fafa dfadsf adsf asdf adsf
 	" List invisible characters
@@ -193,7 +194,7 @@
 			let fold_w = getwinvar( 0, '&foldcolumn' )
 			" ↲ ↪ ⧽ 【 ▛ ▟ 】 ⤹ ⬇ ∋ 𝌞 ■ ▌ ▟ ▚ ▼ ◤ ┏ ⎩ ⎝ ⤥ ( ❨ ⟮ ⟫ ⎡ ▏ ▍ ▐
 			let rsign = '⤶'
-			let lsign = '▐'
+			let lsign = '𝌻'
 			let sub = lsign .  strpart( sub, 0, winwidth(0) - strlen( info ) - num_w - fold_w - 1 )
 			return sub . rsign . info
 		endfunction
