@@ -6,6 +6,7 @@
 	" set the runtime path to include Vundle and initialize
 	" vim-misc is dependency of vim-easytags
 	Plugin 'git://github.com/Lokaltog/vim-easymotion'
+	Plugin 'git://github.com/maxbrunsfeld/vim-yankstack'
 	Plugin 'git://github.com/SirVer/ultisnips'
 	Plugin 'git://github.com/Townk/vim-autoclose'
 	Plugin 'git://github.com/Twinside/vim-haskellConceal'
@@ -40,7 +41,7 @@
 	Plugin 'git://github.com/tpope/vim-surround'
 	Plugin 'git://github.com/tpope/vim-unimpaired'
 	Plugin 'git://github.com/vim-scripts/UnconditionalPaste'
-	Plugin 'git://github.com/vim-scripts/YankRing.vim'
+	" Plugin 'git://github.com/vim-scripts/YankRing.vim'
 	Plugin 'git://github.com/vim-scripts/candycode.vim'
 	Plugin 'git://github.com/wincent/command-t'
 	Plugin 'git://github.com/xolox/vim-misc'
@@ -97,7 +98,7 @@
 			" :help undo-persistence
 			" This is only present in 7.3+
 			if isdirectory($HOME . '/.vim/undo') == 0
-				:silent !mkdir -p ~/.vim/undo > /dev/null 2>&1
+				silent !mkdir -p ~/.vim/undo > /dev/null 2>&1
 			endif
 			set undodir=~/.vim/undo/
 			set undofile
@@ -700,6 +701,12 @@
 	" You complete me
 		let g:ycm_semantic_triggers = {'haskell' : ['.']}
 		let g:ycm_min_num_of_chars_for_completion = 3
+
+" Startup
+	if glob("Session.vim") != ''
+		silent source Session.vim
+	endif
+
 
 " TODO
 	" Restrict search to current window
