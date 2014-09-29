@@ -27,5 +27,9 @@ au InsertChange * call SetColor()
 if !has('gui_running')
 	let g:rehash256=1
 end
+
 " set guifont=Ubuntu\ Mono\ derivative\ Powerline\ for\ Powerline
+" set guifont=Inconsolata-g\ Medium\ 12
+set guifont=Inconsolata-dz\ \for\ Powerline\ Medium\ 11
+
 " vim: set ft=vim:
