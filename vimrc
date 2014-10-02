@@ -17,7 +17,8 @@
 	Plugin 'git://github.com/Twinside/vim-haskellConceal'
 	Plugin 'git://github.com/airblade/vim-gitgutter'
 	Plugin 'git://github.com/bitc/vim-hdevtools'
-	Plugin 'git://github.com/bling/vim-bufferline'
+	Plugin 'git://github.com/bkad/CamelCaseMotion'
+	" Plugin 'git://github.com/bling/vim-bufferline'
 	Plugin 'git://github.com/bronson/vim-visual-star-search'
 	Plugin 'git://github.com/dag/vim-fish'
 	Plugin 'git://github.com/dag/vim2hs'
@@ -30,6 +31,7 @@
 	Plugin 'git://github.com/kshenoy/vim-signature'
 	Plugin 'git://github.com/majutsushi/tagbar'
 	Plugin 'git://github.com/maxbrunsfeld/vim-yankstack'
+	Plugin 'git://github.com/michaeljsmith/vim-indent-object'
 	Plugin 'git://github.com/nanotech/jellybeans.vim'
 	Plugin 'git://github.com/scrooloose/syntastic'
 	Plugin 'git://github.com/sjl/gundo.vim'
@@ -45,12 +47,13 @@
 	Plugin 'git://github.com/tpope/vim-surround'
 	Plugin 'git://github.com/tpope/vim-unimpaired'
 	Plugin 'git://github.com/vim-scripts/UnconditionalPaste'
+	Plugin 'git://github.com/vim-scripts/argtextobj.vim'
 	Plugin 'git://github.com/wincent/command-t'
 	Plugin 'git://github.com/xolox/vim-misc'
 	Plugin 'git://github.com/yegappan/mru'
 	Plugin 'git://github.com/zeis/vim-kolor'
-	call vundle#end()
 
+	call vundle#end()
 	call yankstack#setup() " initialization to hijack key bindings
 
 " Basic
@@ -277,6 +280,9 @@
 			autocmd BufNewFile *.hs  0r ~/Copy/templates/haskell
 		augroup END
 
+	" Par
+		set formatprg=par\ -w80
+
 
 
 	set smartindent
@@ -324,6 +330,29 @@
 " Keymaps
 	let mapleader = "\\"
 	let maplocalleader = "-"
+
+	" Complete word from line above / under
+		"<Esc>gi ensures Insert (not Replace) mode
+		inoremap <C-l> <Esc>gi<Space><Esc>gkywgjvpa
+		inoremap <C-b> <Esc>gi<Space><Esc>gjywgkvpa
+
+	" Dmenu integration
+		map <c-t> :call DmenuOpen("tabe")<cr>
+		map <c-f> :call DmenuOpen("e")<cr>
+
+		" Strip the newline from the end of a string
+		function! Chomp(str)
+			return substitute(a:str, '\n$', '', '')
+		endfunction
+
+		" Find a file and pass it to cmd
+		function! DmenuOpen(cmd)
+			let fname = Chomp(system("locate `pwd` | dmenu -i -l 20 -p " . a:cmd))
+			if empty(fname)
+				return
+			endif
+			execute a:cmd . " " . fname
+		endfunction
 
 	" delete line focus above
 	nnoremap gdd ddk
@@ -571,6 +600,30 @@
 			call gitgutter#preview_hunk()
 		endfunction
 
+	" Lightline
+		let g:lightline = {
+		\ 'component': {
+		\   'lineinfo': ' %3l:%-2v',
+		\ },
+		\ 'component_function': {
+		\   'readonly': 'MyReadonly',
+		\   'fugitive': 'MyFugitive'
+		\ },
+		\ 'subseparator': { 'left': '', 'right': '' }
+		\ }
+
+		function! MyReadonly()
+			return &readonly ? '' : ''
+		endfunction
+
+		function! MyFugitive()
+			if exists("*fugitive#head")
+				let _ = fugitive#head()
+				" return strlen(_) ? '⎇'._ : ''
+				return strlen(_) ? '⎇'._ : ''
+			endif
+			return ''
+		endfunction
 
 	" neocomplete
 		let g:neocomplete#enable_at_startup = 1
@@ -712,7 +765,6 @@
 	if glob("Session.vim") != ''
 		silent source Session.vim
 	endif
-
 
 " TODO
 	" Restrict search to current window
