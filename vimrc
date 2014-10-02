@@ -566,6 +566,9 @@
 		nnoremap <leader>c :CommandT<cr>
 
 " Plugins
+	" Syntastic
+		let g:syntastic_haskell_checkers = ['hdevtools']
+
 	" Easytags
 		let g:easytags_async         = 1
 		let g:easytags_dynamic_files = 1
