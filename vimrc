@@ -1,24 +1,24 @@
 " Vundle setup
 	filetype off
+	" set the runtime path to include Vundle and initialize
 	set rtp+=~/.vim/bundle/Vundle.vim
 	call vundle#begin()
+
 	" Plugin 'git://github.com/Valloric/YouCompleteMe'
-	" Plugin 'git://github.com/altercation/vim-colors-solarized'
 	" Plugin 'git://github.com/eagletmt/ghcmod-vim'
 	" Plugin 'git://github.com/endel/vim-github-colorscheme'
 	" Plugin 'git://github.com/vim-scripts/YankRing.vim'
 	" Plugin 'git://github.com/vim-scripts/candycode.vim'
 	" Plugin 'git://github.com/xolox/vim-easytags'
-	" set the runtime path to include Vundle and initialize
-	" vim-misc is dependency of vim-easytags
+	" Plugin 'git://github.com/bling/vim-bufferline'
 	Plugin 'git://github.com/Lokaltog/vim-easymotion'
 	Plugin 'git://github.com/SirVer/ultisnips'
 	Plugin 'git://github.com/Townk/vim-autoclose'
 	Plugin 'git://github.com/Twinside/vim-haskellConceal'
 	Plugin 'git://github.com/airblade/vim-gitgutter'
+	Plugin 'git://github.com/altercation/vim-colors-solarized'
 	Plugin 'git://github.com/bitc/vim-hdevtools'
 	Plugin 'git://github.com/bkad/CamelCaseMotion'
-	" Plugin 'git://github.com/bling/vim-bufferline'
 	Plugin 'git://github.com/bronson/vim-visual-star-search'
 	Plugin 'git://github.com/dag/vim-fish'
 	Plugin 'git://github.com/dag/vim2hs'
@@ -29,6 +29,7 @@
 	Plugin 'git://github.com/itchyny/lightline.vim'
 	Plugin 'git://github.com/justinmk/vim-sneak'
 	Plugin 'git://github.com/kshenoy/vim-signature'
+	Plugin 'git://github.com/lervag/vim-latex'
 	Plugin 'git://github.com/majutsushi/tagbar'
 	Plugin 'git://github.com/maxbrunsfeld/vim-yankstack'
 	Plugin 'git://github.com/michaeljsmith/vim-indent-object'
