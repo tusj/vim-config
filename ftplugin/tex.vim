@@ -32,7 +32,7 @@ augroup Tex
 
 	autocmd BufEnter *.tex call SyncTexEvince()
 	autocmd BufLeave *.tex exec "silent !pkill okular"
-	autocmd BufWritePost *.tex silent Dispatch!
+	autocmd BufWritePost *.tex silent Make!
 	autocmd BufWritePost *.tex call SyncTexEvince()
 augroup END
 
