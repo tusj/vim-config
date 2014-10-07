@@ -5,19 +5,21 @@
 	call vundle#begin()
 
 	" Plugin 'git://github.com/Valloric/YouCompleteMe'
+	" Plugin 'git://github.com/bling/vim-bufferline'
 	" Plugin 'git://github.com/eagletmt/ghcmod-vim'
 	" Plugin 'git://github.com/endel/vim-github-colorscheme'
 	" Plugin 'git://github.com/vim-scripts/YankRing.vim'
 	" Plugin 'git://github.com/vim-scripts/candycode.vim'
 	" Plugin 'git://github.com/xolox/vim-easytags'
-	" Plugin 'git://github.com/bling/vim-bufferline'
 	Plugin 'git://github.com/Lokaltog/vim-easymotion'
+	Plugin 'git://github.com/Raimondi/delimitMate'
+	Plugin 'git://github.com/Shougo/neocomplete.vim'
 	Plugin 'git://github.com/SirVer/ultisnips'
 	Plugin 'git://github.com/Townk/vim-autoclose'
 	Plugin 'git://github.com/Twinside/vim-haskellConceal'
 	Plugin 'git://github.com/airblade/vim-gitgutter'
 	Plugin 'git://github.com/altercation/vim-colors-solarized'
-	Plugin 'git://github.com/bitc/vim-hdevtools'
+	Plugin 'git://github.com/dan-t/vim-hdevtools'
 	Plugin 'git://github.com/bkad/CamelCaseMotion'
 	Plugin 'git://github.com/bronson/vim-visual-star-search'
 	Plugin 'git://github.com/dag/vim-fish'
@@ -28,6 +30,7 @@
 	Plugin 'git://github.com/goldfeld/vim-seek'
 	Plugin 'git://github.com/itchyny/lightline.vim'
 	Plugin 'git://github.com/justinmk/vim-sneak'
+	Plugin 'git://github.com/kana/vim-smartword'
 	Plugin 'git://github.com/kshenoy/vim-signature'
 	Plugin 'git://github.com/lervag/vim-latex'
 	Plugin 'git://github.com/majutsushi/tagbar'
@@ -332,6 +335,8 @@
 	let mapleader = "\\"
 	let maplocalleader = "-"
 
+	inoremap <C-W> <esc>:w<CR>
+
 	" Complete word from line above / under
 		"<Esc>gi ensures Insert (not Replace) mode
 		inoremap <C-l> <Esc>gi<Space><Esc>gkywgjvpa
@@ -567,6 +572,12 @@
 		nnoremap <leader>c :CommandT<cr>
 
 " Plugins
+	" Smartword
+		map w  <Plug>(smartword-w)
+		map b  <Plug>(smartword-b)
+		map e  <Plug>(smartword-e)
+		map ge <Plug>(smartword-ge)
+
 	" Syntastic
 		let g:syntastic_haskell_checkers = ['hdevtools']
 
@@ -633,6 +644,19 @@
 		let g:neocomplete#enable_at_startup = 1
 		let g:neocomplete#enable_smart_case = 1
 		let g:neocomplete#sources#syntax#min_keyword_length = 3
+
+		inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+		function! s:my_cr_function()
+			return neocomplete#close_popup() . "\<CR>"
+		endfunction
+
+		inoremap <expr><C-g> neocomplete#undo_completion()
+		inoremap <expr><C-l> neocomplete#complete_common_string()
+		inoremap <expr><Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+		inoremap <expr><C-H> neocomplete#smart_close_popup()."\<C-h>"
+		inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+		inoremap <expr><C-y> neocomplete#close_popup()
+		inoremap <expr><C-e> neocomplete#cancel_popup()
 
 	" haskell
 		let g:haddock_browser="chromium"
