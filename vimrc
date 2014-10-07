@@ -12,6 +12,7 @@
 	" Plugin 'git://github.com/xolox/vim-easytags'
 	" Plugin 'git://github.com/bling/vim-bufferline'
 	Plugin 'git://github.com/Lokaltog/vim-easymotion'
+	Plugin 'git://github.com/mileszs/ack.vim'
 	Plugin 'git://github.com/SirVer/ultisnips'
 	Plugin 'git://github.com/Townk/vim-autoclose'
 	Plugin 'git://github.com/Twinside/vim-haskellConceal'
@@ -117,25 +118,17 @@
 		" set viminfo+=$XDG_CACHE_HOME/vim/viminfo
 		" set runtimepath=$XDG_CONFIG_HOME/vim,$XDG_CONFIG_HOME/vim/after,$VIM,$VIMRUNTIME
 		" let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc"
-
 " Display
-	" →\ ⎆\ ⇨\ ⟸\ ⥰\ ⬱\ ␊\ ⫘\ ⩊\ ⏖\ ↔\ ↪\
-	set showbreak=⤷\ "
-	" set showbreak=⨭\ "
-	" set showbreak=◖\ "
-	" set showbreak=𝌻\ "
-	" set showbreak=⌇\ "
-	" set showbreak=⌒\ "
-
-	"…
+	" → ⎆ ⇨ ⟸ ⥰ ⬱ ␊ ⫘ ⩊ ⏖ ↔ ↪ ⨭ ◖ 𝌻 ⌇ ⌒ …
+	" adsf asdf asdf asdfa sfe aesf aesfa esf asef aesf asef sefa esfasef asef asef asef asef asef asef asef asef asef asef asef asef asef asef asef asef aesf
+	set showbreak=…
 	set t_Co=256 " must be before colorscheme
-
 
 	set background=dark
 	colorscheme kolor
 	highlight normal ctermbg=234
 
-	" adsfds asdf asdf asdfas asfas defea dsf adsfa sdf asf adsf adsfa af adsf asdfasef adsf asdfa sefas fadsf asef asdf adfasefdas ees dsf sdfasefaesf asefa sdfasd asdfasef asdfa dsfaesf asef asefads fasdfase fafa dfadsf adsf asdf adsf
+
 	" List invisible characters
 		set list
 		" set listchars=tab:➝\ ,eol:¬
