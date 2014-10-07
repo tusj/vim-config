@@ -43,11 +43,20 @@ nnoremap <LocalLeader>s :call SyncTexEvince()<CR>
 	highlight Conceal guifg=#F8F8F2 guibg=#1B1D1E
 compiler tex
 set smartindent
+
 silent !mkdir build > /dev/null 2>&1
-silent !ln -s build/%:r.pdf
+silent !ln -s build/%:r.pdf > /dev/null 2>&1
+
 set makeprg=lualatex\ \-file\-line\-error\ \-output-directory=build\ \-interaction=nonstopmode\ \-synctex=1\ %:p
 "set makeprg=pdflatex\ \-file\-line\-error\ \-interaction=nonstopmode\ \-synctex=1\ $*\\\|\ grep\ \-P\ ':\\d{1,5}:\ $:p'
 set errorformat=%f:%l:\ %m
 
+function! Labels()
+	set grepprg=ack\ \-o
+	silent !grep "\\label\{(.*?)\}" %
+	copen
+endfunction
+
+nnoremap <LocalLeader>l :call Labels()<CR>
 set wildignore+="*.aux,*.out,*.toc"
 " vim: set ft=vim
