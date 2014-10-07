@@ -19,11 +19,11 @@
 	Plugin 'git://github.com/Twinside/vim-haskellConceal'
 	Plugin 'git://github.com/airblade/vim-gitgutter'
 	Plugin 'git://github.com/altercation/vim-colors-solarized'
-	Plugin 'git://github.com/dan-t/vim-hdevtools'
 	Plugin 'git://github.com/bkad/CamelCaseMotion'
 	Plugin 'git://github.com/bronson/vim-visual-star-search'
 	Plugin 'git://github.com/dag/vim-fish'
 	Plugin 'git://github.com/dag/vim2hs'
+	Plugin 'git://github.com/dan-t/vim-hdevtools'
 	Plugin 'git://github.com/eagletmt/neco-ghc'
 	Plugin 'git://github.com/gmarik/Vundle.vim'
 	Plugin 'git://github.com/godlygeek/tabular'
@@ -36,6 +36,7 @@
 	Plugin 'git://github.com/majutsushi/tagbar'
 	Plugin 'git://github.com/maxbrunsfeld/vim-yankstack'
 	Plugin 'git://github.com/michaeljsmith/vim-indent-object'
+	Plugin 'git://github.com/mileszs/ack.vim'
 	Plugin 'git://github.com/nanotech/jellybeans.vim'
 	Plugin 'git://github.com/scrooloose/syntastic'
 	Plugin 'git://github.com/sjl/gundo.vim'
@@ -120,25 +121,17 @@
 		" set viminfo+=$XDG_CACHE_HOME/vim/viminfo
 		" set runtimepath=$XDG_CONFIG_HOME/vim,$XDG_CONFIG_HOME/vim/after,$VIM,$VIMRUNTIME
 		" let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc"
-
 " Display
-	" →\ ⎆\ ⇨\ ⟸\ ⥰\ ⬱\ ␊\ ⫘\ ⩊\ ⏖\ ↔\ ↪\
-	set showbreak=⤷\ "
-	" set showbreak=⨭\ "
-	" set showbreak=◖\ "
-	" set showbreak=𝌻\ "
-	" set showbreak=⌇\ "
-	" set showbreak=⌒\ "
-
-	"…
+	" → ⎆ ⇨ ⟸ ⥰ ⬱ ␊ ⫘ ⩊ ⏖ ↔ ↪ ⨭ ◖ 𝌻 ⌇ ⌒ …
+	" adsf asdf asdf asdfa sfe aesf aesfa esf asef aesf asef sefa esfasef asef asef asef asef asef asef asef asef asef asef asef asef asef asef asef asef aesf
+	set showbreak=…
 	set t_Co=256 " must be before colorscheme
-
 
 	set background=dark
 	colorscheme kolor
 	highlight normal ctermbg=234
 
-	" adsfds asdf asdf asdfas asfas defea dsf adsfa sdf asf adsf adsfa af adsf asdfasef adsf asdfa sefas fadsf asef asdf adfasefdas ees dsf sdfasefaesf asefa sdfasd asdfasef asdfa dsfaesf asef asefads fasdfase fafa dfadsf adsf asdf adsf
+
 	" List invisible characters
 		set list
 		" set listchars=tab:➝\ ,eol:¬
