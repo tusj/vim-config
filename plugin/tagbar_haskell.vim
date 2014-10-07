@@ -1,16 +1,3 @@
-" This is a Haskell configuration for the Vim Tagbar plugin that uses
-" lushtags.
-"
-" Tagbar can be found at:
-" http://www.vim.org/scripts/script.php?script_id=3465
-" http://majutsushi.github.com/tagbar/
-"
-" Paste this in to your vimrc file
-" OR copy this file into your .vim/plugin directory
-" OR load it from your vimrc file by adding a line like:
-"
-" source /path/to/tagbar-haskell.vim
-
 if executable('lushtags')
     let g:tagbar_type_haskell = {
         \ 'ctagsbin' : 'lushtags',
