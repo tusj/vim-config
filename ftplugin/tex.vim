@@ -47,7 +47,7 @@ set smartindent
 silent !mkdir build > /dev/null 2>&1
 silent !ln -s build/%:r.pdf > /dev/null 2>&1
 
-set makeprg=lualatex\ \-file\-line\-error\ \-output-directory=build\ \-interaction=nonstopmode\ \-synctex=1\ %:p
+set makeprg=lualatex\ \-file\-line\-error\ \-output-directory=build\ \-interaction=nonstopmode\ \-synctex=1\ %:t
 "set makeprg=pdflatex\ \-file\-line\-error\ \-interaction=nonstopmode\ \-synctex=1\ $*\\\|\ grep\ \-P\ ':\\d{1,5}:\ $:p'
 set errorformat=%f:%l:\ %m
 
