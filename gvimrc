@@ -25,8 +25,9 @@ au InsertEnter * call SetColor()
 au InsertChange * call SetColor()
 "au InsertLeave * hi CursorLine guifg= guibg=
 
-set bg=light
-colorscheme solarized
+" set bg=light
+" colorscheme solarized
+colorscheme molokai
 
 if !has('gui_running')
 	let g:rehash256=1
