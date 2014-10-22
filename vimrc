@@ -275,13 +275,8 @@
 			autocmd BufNewFile *.hs  0r ~/Copy/templates/haskell
 		augroup END
 
-	" Par
-		set formatprg=par\ -w80
-
-
-
+	set formatprg=par\ -w70
 	set smartindent
-	set formatprg=par\ -w100
 	"set autochdir
 	set splitright
 	set splitbelow
