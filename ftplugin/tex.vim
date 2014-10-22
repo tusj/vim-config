@@ -30,7 +30,7 @@ augroup Tex
 	" autocmd CursorHold *.tex call SyncTex()
 	" CursorHold add maybe BufWritePost,FileWritePost
 
-	autocmd BufEnter *.tex call SyncTexEvince()
+	autocmd BufEnter *.tex silent! call SyncTexEvince()
 	autocmd BufLeave *.tex exec "silent !pkill okular"
 	autocmd BufWritePost *.tex silent Make!
 	autocmd BufWritePost *.tex call SyncTexEvince()
