@@ -138,7 +138,7 @@
 
 	set cursorline
 	set wrap
-	set textwidth=120
+	set textwidth=80
 	set formatoptions=qrn1
 	set relativenumber
 

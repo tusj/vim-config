@@ -59,4 +59,5 @@ endfunction
 
 nnoremap <LocalLeader>l :call Labels()<CR>
 set wildignore+="*.aux,*.out,*.toc"
+set formatoptions+=t " automatic hard line wrap
 " vim: set ft=vim
