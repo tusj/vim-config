@@ -12,7 +12,7 @@
 	" Plugin 'git://github.com/vim-scripts/candycode.vim'
 	" Plugin 'git://github.com/xolox/vim-easytags'
 	Plugin 'git://github.com/Lokaltog/vim-easymotion'
-	Plugin 'git://github.com/Raimondi/delimitMate'
+	" Plugin 'git://github.com/Raimondi/delimitMate'
 	Plugin 'git://github.com/Shougo/neocomplete.vim'
 	Plugin 'git://github.com/SirVer/ultisnips'
 	Plugin 'git://github.com/Townk/vim-autoclose'
@@ -30,7 +30,7 @@
 	Plugin 'git://github.com/goldfeld/vim-seek'
 	Plugin 'git://github.com/itchyny/lightline.vim'
 	Plugin 'git://github.com/justinmk/vim-sneak'
-	Plugin 'git://github.com/kana/vim-smartword'
+	" Plugin 'git://github.com/kana/vim-smartword'
 	Plugin 'git://github.com/kshenoy/vim-signature'
 	Plugin 'git://github.com/lervag/vim-latex'
 	Plugin 'git://github.com/majutsushi/tagbar'
@@ -53,7 +53,7 @@
 	Plugin 'git://github.com/tpope/vim-unimpaired'
 	Plugin 'git://github.com/vim-scripts/UnconditionalPaste'
 	Plugin 'git://github.com/vim-scripts/argtextobj.vim'
-	Plugin 'git://github.com/wincent/command-t'
+	" Plugin 'git://github.com/wincent/command-t'
 	Plugin 'git://github.com/xolox/vim-misc'
 	Plugin 'git://github.com/yegappan/mru'
 	Plugin 'git://github.com/zeis/vim-kolor'
@@ -121,12 +121,10 @@
 		" set viminfo+=$XDG_CACHE_HOME/vim/viminfo
 		" set runtimepath=$XDG_CONFIG_HOME/vim,$XDG_CONFIG_HOME/vim/after,$VIM,$VIMRUNTIME
 		" let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc"
-" Display
+ " Display
 	" → ⎆ ⇨ ⟸ ⥰ ⬱ ␊ ⫘ ⩊ ⏖ ↔ ↪ ⨭ ◖ 𝌻 ⌇ ⌒ …
-	" adsf asdf asdf asdfa sfe aesf aesfa esf asef aesf asef sefa esfasef asef asef asef asef asef asef asef asef asef asef asef asef asef asef asef asef aesf
 	set showbreak=…
 	set t_Co=256 " must be before colorscheme
-
 	set background=dark
 	colorscheme kolor
 	highlight normal ctermbg=234
@@ -146,15 +144,15 @@
 
 
 	if has('statusline')
-		set laststatus=2 " always display
+ 		set laststatus=2 " always display
 
-		"Broken down into easily includeable segments
-		set statusline=%<%f\                     " Filename
-		set statusline+=%w%h%m%r                 " Options
-		set statusline+=%{fugitive#statusline()} " Git Hotness
-		set statusline+=\ [%{&ff}/%Y]            " Filetype
-		set statusline+=\ [%{getcwd()}]          " Current dir
-		set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
+ 		"Broken down into easily includeable segments
+ 		set statusline=%<%f\                     " Filename
+ 		set statusline+=%w%h%m%r                 " Options
+ 		set statusline+=%{fugitive#statusline()} " Git Hotness
+ 		set statusline+=\ [%{&ff}/%Y]            " Filetype
+ 		set statusline+=\ [%{getcwd()}]          " Current dir
+ 		set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
 	endif
 
 	" Search
@@ -162,43 +160,43 @@
 	set matchtime=5
 
 	" Fold presentation
-		set foldtext=MyFoldText()
-		function! MyFoldText()
-			let line = getline(v:foldstart)
-			if match( line, '^[ \t]*\(\/\*\|\/\/\)[*/\\]*[ \t]*$' ) == 0
-				let initial = substitute( line, '^\([ \t]\)*\(\/\*\|\/\/\)\(.*\)', '\1\2', '' )
-				let linenum = v:foldstart + 1
-				while linenum < v:foldend
-				let line = getline( linenum )
-				let comment_content = substitute( line, '^\([ \t\/\*]*\)\(.*\)$', '\2', 'g' )
-				if comment_content != ''
-					break
-				endif
-				let linenum = linenum + 1
-				endwhile
-				let sub = initial . ' ' . comment_content
-			else
-				let sub = line
-				let startbrace = substitute( line, '^.*{[ \t]*$', '{', 'g')
-				if startbrace == '{'
-				let line = getline(v:foldend)
-				let endbrace = substitute( line, '^[ \t]*}\(.*\)$', '}', 'g')
-				if endbrace == '}'
-					let sub = sub.substitute( line, '^[ \t]*}\(.*\)$', '...}\1', 'g')
-				endif
-				endif
-			endif
-			let n = v:foldend - v:foldstart + 1
-			let info = " " . n . " lines"
-			let sub = sub . "                                                                                                                  "
-			let num_w = getwinvar( 0, '&number' ) * getwinvar( 0, '&numberwidth' )
-			let fold_w = getwinvar( 0, '&foldcolumn' )
-			" ↲ ↪ ⧽ 【 ▛ ▟ 】 ⤹ ⬇ ∋ 𝌞 ■ ▌ ▟ ▚ ▼ ◤ ┏ ⎩ ⎝ ⤥ ( ❨ ⟮ ⟫ ⎡ ▏ ▍ ▐
-			let rsign = '⤶'
-			let lsign = '𝌻'
-			let sub = lsign .  strpart( sub, 0, winwidth(0) - strlen( info ) - num_w - fold_w - 1 )
-			return sub . rsign . info
-		endfunction
+ 		set foldtext=MyFoldText()
+ 		function! MyFoldText()
+ 			let line = getline(v:foldstart)
+ 			if match( line, '^[ \t]*\(\/\*\|\/\/\)[*/\\]*[ \t]*$' ) == 0
+ 				let initial = substitute( line, '^\([ \t]\)*\(\/\*\|\/\/\)\(.*\)', '\1\2', '' )
+ 				let linenum = v:foldstart + 1
+ 				while linenum < v:foldend
+ 				let line = getline( linenum )
+ 				let comment_content = substitute( line, '^\([ \t\/\*]*\)\(.*\)$', '\2', 'g' )
+ 				if comment_content != ''
+ 					break
+ 				endif
+ 				let linenum = linenum + 1
+ 				endwhile
+ 				let sub = initial . ' ' . comment_content
+ 			else
+ 				let sub = line
+ 				let startbrace = substitute( line, '^.*{[ \t]*$', '{', 'g')
+ 				if startbrace == '{'
+ 				let line = getline(v:foldend)
+ 				let endbrace = substitute( line, '^[ \t]*}\(.*\)$', '}', 'g')
+ 				if endbrace == '}'
+ 					let sub = sub.substitute( line, '^[ \t]*}\(.*\)$', '...}\1', 'g')
+ 				endif
+ 				endif
+ 			endif
+ 			let n = v:foldend - v:foldstart + 1
+ 			let info = " " . n . " lines"
+ 			let sub = sub . "                                                                                                                  "
+ 			let num_w = getwinvar( 0, '&number' ) * getwinvar( 0, '&numberwidth' )
+ 			let fold_w = getwinvar( 0, '&foldcolumn' )
+ 			" ↲ ↪ ⧽ 【 ▛ ▟ 】 ⤹ ⬇ ∋ 𝌞 ■ ▌ ▟ ▚ ▼ ◤ ┏ ⎩ ⎝ ⤥ ( ❨ ⟮ ⟫ ⎡ ▏ ▍ ▐
+ 			let rsign = '⤶'
+ 			let lsign = '𝌻'
+ 			let sub = lsign .  strpart( sub, 0, winwidth(0) - strlen( info ) - num_w - fold_w - 1 )
+ 			return sub . rsign . info
+ 		endfunction
 
 " Behavior
 	" Allow for cursor beyond last character
@@ -566,10 +564,10 @@
 
 " Plugins
 	" Smartword
-		map w  <Plug>(smartword-w)
-		map b  <Plug>(smartword-b)
-		map e  <Plug>(smartword-e)
-		map ge <Plug>(smartword-ge)
+		" map w  <Plug>(smartword-w)
+		" map b  <Plug>(smartword-b)
+		" map e  <Plug>(smartword-e)
+		" map ge <Plug>(smartword-ge)
 
 	" Syntastic
 		let g:syntastic_haskell_checkers = ['hdevtools']
