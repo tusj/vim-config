@@ -28,6 +28,7 @@
 	Plugin 'git://github.com/gmarik/Vundle.vim'
 	Plugin 'git://github.com/godlygeek/tabular'
 	Plugin 'git://github.com/goldfeld/vim-seek'
+	Plugin 'git://github.com/honza/vim-snippets'
 	Plugin 'git://github.com/itchyny/lightline.vim'
 	Plugin 'git://github.com/justinmk/vim-sneak'
 	" Plugin 'git://github.com/kana/vim-smartword'
@@ -673,6 +674,9 @@
 
 	" ultisnips
 		set rtp+=~/.vim/bundle/ultisnips
+		let g:UltiSnipsExpandTrigger="<tab>"
+		let g:UltiSnipsJumpForwardTrigger="<c-n>"
+		let g:UltiSnipsJumpBackwardTrigger="<c-p>"
 
 	" Opa
 		set rtp+=/usr/share/opa/vim
