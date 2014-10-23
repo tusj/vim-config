@@ -213,7 +213,7 @@
 	" Completion
 		set wildmenu
 		set wildmode=list:longest,full
-		set wildignore=*.swp,*.bak,*~,*.bak,*.exe,*.jpg,*.bmp,*.o,*.hi,*.pyc
+		set wildignore=*.swp,*.bak,*~,*.bak,*.exe,*.jpg,*.bmp,*.o,*.hi,*.pyc,*.pdf,*.aux
 		set wildignorecase
 
 	" Fold
