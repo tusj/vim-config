@@ -6,7 +6,7 @@ function! SyncTexEvince()
 	echom lineno
 	for syncfile in split(system('zgrep -l "' . filenameString . '" *.synctex.gz'), "\n")
 		let pdffile = substitute(syncfile, ".synctex.gz$", ".pdf", "")
-		let callString = '!evince_dbus ' .
+		let callString = '!evince-dbus ' .
 			\ '"' . pdffile . '" ' . lineno . ' "' . filenameString . '" &'
 		echom callString
 		exec callString
@@ -21,7 +21,7 @@ endfunction
 
 " dependent on vim-latex-suit
 function! Tex_ForwardSearchLaTeX()
-	let cmd = 'evince_forward_search ' . fnamemodify(Tex_GetMainFileName(), ":p:r") .  '.pdf ' . line(".") . ' ' . expand("%:p")
+	let cmd = 'evince-forward-search ' . fnamemodify(Tex_GetMainFileName(), ":p:r") .  '.pdf ' . line(".") . ' ' . expand("%:p")
 	let output = system(cmd)
 endfunction
 
@@ -30,10 +30,10 @@ augroup Tex
 	" autocmd CursorHold *.tex call SyncTex()
 	" CursorHold add maybe BufWritePost,FileWritePost
 
-	autocmd BufEnter *.tex call SyncTexEvince()
+	autocmd BufEnter *.tex silent! call SyncTexEvince()
 	autocmd BufLeave *.tex exec "silent !pkill okular"
 	autocmd BufWritePost *.tex silent Make!
-	autocmd BufWritePost *.tex call SyncTexEvince()
+	autocmd BufWritePost *.tex silent! call SyncTexEvince()
 augroup END
 
 nnoremap <LocalLeader>s :call SyncTexEvince()<CR>
@@ -47,7 +47,7 @@ set smartindent
 silent !mkdir build > /dev/null 2>&1
 silent !ln -s build/%:r.pdf > /dev/null 2>&1
 
-set makeprg=lualatex\ \-file\-line\-error\ \-output-directory=build\ \-interaction=nonstopmode\ \-synctex=1\ %:t
+set makeprg=lualatex\ \-file\-line\-error\ \-interaction=nonstopmode\ \-synctex=1\ %:t
 "set makeprg=pdflatex\ \-file\-line\-error\ \-interaction=nonstopmode\ \-synctex=1\ $*\\\|\ grep\ \-P\ ':\\d{1,5}:\ $:p'
 set errorformat=%f:%l:\ %m
 
@@ -59,4 +59,5 @@ endfunction
 
 nnoremap <LocalLeader>l :call Labels()<CR>
 set wildignore+="*.aux,*.out,*.toc"
+set formatoptions+=t " automatic hard line wrap
 " vim: set ft=vim
