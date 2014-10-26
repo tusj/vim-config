@@ -322,6 +322,7 @@
 	let mapleader = "\\"
 	let maplocalleader = "-"
 
+	nnoremap <leader>q q:k<CR>
 	inoremap <C-W> <esc>:w<CR>
 
 	" Complete word from line above / under
