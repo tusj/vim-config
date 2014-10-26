@@ -1,0 +1,112 @@
+snippet "glo?" "New glossary entry" b
+\newglossaryentry{$1}{
+	name={${1/_/ /g}},
+	description={$2}
+}
+endsnippet
+snippet "lgl?o?" "Long new glossary entry" b
+\longnewglossaryentry{$1}{name={$2}}{%
+$3}
+endsnippet
+
+snippet "no?t?bu?t?" "Not but"
+\notbut{$1}{$2}
+endsnippet
+
+snippet nor "Neither nor"
+\neitheror{$1}{$2}
+endsnippet
+
+snippet eor "Either or"
+\eitheror{$1}{$2}
+endsnippet
+
+snippet acr "Acronym" b
+\newacronym{$1}{${1/([a-z])[a-z]+_?/\u$1/g}}{${1/([a-z]+)_|([a-z]+)/(?1:\u$1 )(?2:\u$2)/g}}
+endsnippet
+
+snippet "gls?" "Glossary lookup singular lowercase"
+\gls{$1}
+endsnippet
+
+snippet "glspl?" "Glossary lookup plural lowercase"
+\glspl{$1}
+endsnippet
+
+snippet "Gls?" "Glossary lookup singular uppercase"
+\Gls{$1}
+endsnippet
+
+snippet "Glspl?" "Glossary lookup plural uppercase"
+\Glspl{$1}
+endsnippet
+
+snippet "cre?f?" "cref"
+\cref{$1}
+endsnippet
+
+snippet "Cre?f?" "Cref"
+\Cr{$1}
+endsnippet
+
+snippet cmd "Newcommand" b
+\newcommand{$1}$2{}
+endsnippet
+
+snippet env "Newenvironment" b
+\newenvironment{$1}$2{$3}{$4}
+endsnippet
+
+snippet align "Math align" b
+\begin{align}
+	$1
+\end{align}
+endsnippet
+
+snippet "displ?a?y" "Math display" b
+\begin{display}
+	$2
+\end{display}
+endsnippet
+
+snippet "te?xt" "Math text"
+\text{$1}
+endsnippet
+
+snippet emph "Emphasize"
+\emph{$1}
+endsnippet
+
+snippet "textit" "Italic"
+\textit{$1}
+endsnippet
+
+snippet "stro?n?g?" "Strong"
+\strong{$1}
+endsnippet
+
+snippet end "End an environment" b
+\end{$1}
+endsnippet
+
+snippet use "Usepackage" b
+\usepackage$1{$2}
+endsnippet
+
+snippet "capt?i?o?n?" "caption" b
+\caption{$1}
+endsnippet
+
+snippet "abst?r?a?c?t?" "Abstract" b
+\begin{abstract}
+	$1
+\end{abstract}
+endsnippet
+
+snippet toc "Table of Contents" b
+\tableofcontents
+endsnippet
+
+snippet "titl?e?" "Title" b
+\maketitle
+endsnippet
