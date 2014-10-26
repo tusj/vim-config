@@ -212,7 +212,7 @@
 	" Completion
 		set wildmenu
 		set wildmode=list:longest,full
-		set wildignore=*.swp,*.bak,*~,*.bak,*.exe,*.jpg,*.bmp,*.o,*.hi,*.pyc,*.pdf,*.aux,*.log
+		set wildignore=*.swp,*.acn,*.aux,*.bak,*.bmp,*.exe,*.glo,*.hi,*.jpg,*.log,*.o,*.out,*.pdf,*.pyc,*.thm,*.toc,*.xdy,*~,*.gz,*.xz,*.tar
 		set wildignorecase
 
 	" Fold
@@ -322,6 +322,7 @@
 	let mapleader = "\\"
 	let maplocalleader = "-"
 
+	nnoremap <leader>q q:k<CR>
 	inoremap <C-W> <esc>:w<CR>
 
 	" Complete word from line above / under
