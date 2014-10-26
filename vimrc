@@ -675,8 +675,8 @@
 	" ultisnips
 		set rtp+=~/.vim/bundle/ultisnips
 		let g:UltiSnipsExpandTrigger="<tab>"
-		let g:UltiSnipsJumpForwardTrigger="<c-n>"
-		let g:UltiSnipsJumpBackwardTrigger="<c-p>"
+		let g:UltiSnipsJumpForwardTrigger="<tab>"
+		let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 	" Opa
 		set rtp+=/usr/share/opa/vim
