@@ -212,12 +212,12 @@
 	" Completion
 		set wildmenu
 		set wildmode=list:longest,full
-		set wildignore=*.swp,*.acn,*.aux,*.bak,*.bmp,*.exe,*.glo,*.hi,*.jpg,*.log,*.o,*.out,*.pdf,*.pyc,*.thm,*.toc,*.xdy,*~,*.gz,*.xz,*.tar
+		set wildignore=*.swp,*.acn,*.aux,*.bak,*.bmp,*.exe,*.glo,*.hi,*.jpg,*.log,*.o,*.out,*.pdf,*.pyc,*.thm,*.toc,*.xdy,*~,*.gz,*.xz,*.tar,*.zip
 		set wildignorecase
 
 	" Fold
 		" set foldclose=all
-		set foldlevel=0
+		set foldlevel=2
 
 	" Autocommands
 		" set only cursorline for active window
@@ -469,7 +469,6 @@
 		xnoremap @ :<C-u>call myautoloads#ExecuteMacroOverVisualRange()<CR>
 
 	" Get the right vim technique
-	"
 		" inoremap <up>    <nop>
 		" inoremap <down>  <nop>
 		" inoremap <left>  <nop>
@@ -478,18 +477,6 @@
 	" Count folded lines as several
 		nnoremap j gj
 		nnoremap k gk
-
-	" " Bubble single lines
-		" 	nnoremap <C-Up> ddkP
-		" 	nnoremap <C-Down> ddp
-
-	" " Bubble multiple lines
-		" 	vmap <C-Up> xkP`[V`]
-		" 	vmap <C-Down> xp`[V`]
-
-	" Bubble single lines, depending on tpope's unimpaired
-		nmap <m-k> [e
-		nmap <m-j> ]e
 
 	" Bubbl multiple lines in visual mode
 		vmap <C-k> [egv
@@ -540,21 +527,6 @@
 		command! Issue :execute 'vimgrep ISSUE '.expand('%') | :copen | :cc
 		command! Bug   :execute 'vimgrep BUG '.expand('%')   | :copen | :cc
 		command! Todo  :execute 'vimgrep TODO '.expand('%')  | :copen | :cc
-
-	" autocomplete popup menu behavior exprimentation
-		function! OmniPopup(action)
-			if pumvisible()
-				if a:action == 'j'
-					return "\<C-N>"
-				elseif a:action == 'k'
-					return "\<C-P>"
-				endif
-			endif
-			return a:action
-		endfunction
-
-		inoremap <silent><ctrl>j <C-R>=OmniPopup('j')<CR>
-		inoremap <silent><ctrl>k <C-R>=OmniPopup('k')<CR>
 
 	" CtrlP
 		nnoremap <leader>c :CommandT<cr>
@@ -674,10 +646,11 @@
 		let g:acp_behaviorXmlOmniLength        = 2
 
 	" ultisnips
-		set rtp+=~/.vim/bundle/ultisnips
-		let g:UltiSnipsExpandTrigger="<tab>"
-		let g:UltiSnipsJumpForwardTrigger="<tab>"
-		let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+		let g:UltiSnipsExpandTrigger="<C-j>"
+		let g:UltiSnipsJumpForwardTrigger="<C-j>"
+		let g:UltiSnipsJumpBackwardTrigger="<C-k>"
+		let g:UltiSnipsEditSplit="vertical"
+		set rtp+=~/.vim/UltiSnips
 
 	" Opa
 		set rtp+=/usr/share/opa/vim
@@ -687,7 +660,6 @@
 
 	" ctrlp
 	let g:ctrlp_by_filename = 1
-	set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 
 	" airline
 		let g:airline#extensions#bufferline#enabled     = 1

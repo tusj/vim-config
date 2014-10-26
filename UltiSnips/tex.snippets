@@ -1,105 +1,116 @@
-snippet "glo?" "New glossary entry" b
-\newglossaryentry{$1}{
+global !p
+import re
+def strip_square_brackets(a):
+	m = re.search('\[(.*)\]', a)
+	if m:
+		return m.group(1)
+	else:
+		return ''
+def check(a, b):
+	if b == "":
+		return ""
+	else:
+		return a
+endglobal
+
+snippet "glo?" "New glossary entry" rb
+\newglossaryentry{${1:Reference name}}{
 	name={${1/_/ /g}},
-	description={$2}
+	description={${2:${VISUAL}}}
 }
 endsnippet
-snippet "lgl?o?" "Long new glossary entry" b
-\longnewglossaryentry{$1}{name={$2}}{%
-$3}
+snippet "lgl?o?" "Long new glossary entry" rb
+\longnewglossaryentry{${1:Reference name}}{name={$2}}{%
+${3:${VISUAL}}}
 endsnippet
 
-snippet "no?t?bu?t?" "Not but"
-\notbut{$1}{$2}
+snippet "no?t?bu?t?" "Not but" r
+\notbut{${1:this}}{${2:that}}
 endsnippet
 
 snippet nor "Neither nor"
-\neitheror{$1}{$2}
+\neithernor{${1:this}}{${2:that}}
 endsnippet
 
 snippet eor "Either or"
-\eitheror{$1}{$2}
+\eitheror{${1:this}}{${2:that}}
 endsnippet
 
 snippet acr "Acronym" b
-\newacronym{$1}{${1/([a-z])[a-z]+_?/\u$1/g}}{${1/([a-z]+)_|([a-z]+)/(?1:\u$1 )(?2:\u$2)/g}}
+\newacronym{${1:Reference name}}{${1/([a-z])[a-z]+_?/\u$1/g}}{${1/([a-z]+)_|([a-z]+)/(?1:\u$1 )(?2:\u$2)/g}}
 endsnippet
 
-snippet "gls?" "Glossary lookup singular lowercase"
+snippet "gls?" "Glossary lookup singular lowercase" r
 \gls{$1}
 endsnippet
 
-snippet "glspl?" "Glossary lookup plural lowercase"
+snippet "glspl?" "Glossary lookup plural lowercase" r
 \glspl{$1}
 endsnippet
 
-snippet "Gls?" "Glossary lookup singular uppercase"
+snippet "Gls?" "Glossary lookup singular uppercase" r
 \Gls{$1}
 endsnippet
 
-snippet "Glspl?" "Glossary lookup plural uppercase"
+snippet "Glspl?" "Glossary lookup plural uppercase" r
 \Glspl{$1}
 endsnippet
 
-snippet "cre?f?" "cref"
+snippet "cre?f?" "cref" r
 \cref{$1}
 endsnippet
 
-snippet "Cre?f?" "Cref"
+snippet "Cre?f?" "Cref" r
 \Cr{$1}
 endsnippet
 
-snippet cmd "Newcommand" b
-\newcommand{$1}$2{}
-endsnippet
-
 snippet env "Newenvironment" b
-\newenvironment{$1}$2{$3}{$4}
+\newenvironment{\\${1:Command name}}${2:[Argument count]}{${3:Begin block}}{${4:End block}}
 endsnippet
 
 snippet align "Math align" b
-\begin{align}
-	$1
+\begin{align}`!p snip.rv = check("[", t[1])`$1`!p snip.rv = check("]", t[1])`
+	${2:${VISUAL}}
 \end{align}
 endsnippet
 
-snippet "displ?a?y" "Math display" b
-\begin{display}
-	$2
+snippet "displ?a?y?" "Math display" rb
+\begin{display}`!p snip.rv = check("[", t[1])`$1`!p snip.rv = check("]", t[1])`
+	${2:${VISUAL}}
 \end{display}
 endsnippet
 
-snippet "te?xt" "Math text"
-\text{$1}
+snippet "te?xt" "Math text" r
+\text{${1:${VISUAL}}}
 endsnippet
 
 snippet emph "Emphasize"
-\emph{$1}
+\emph{${1:${VISUAL}}}
 endsnippet
 
 snippet "textit" "Italic"
-\textit{$1}
+\textit{${1:${VISUAL}}}
 endsnippet
 
-snippet "stro?n?g?" "Strong"
-\strong{$1}
+snippet "stro?n?g?" "Strong" r
+\strong{${1:${VISUAL}}}
 endsnippet
 
 snippet end "End an environment" b
 \end{$1}
 endsnippet
 
-snippet use "Usepackage" b
-\usepackage$1{$2}
+snippet use "Use package"
+\usepackage`!p snip.rv = check("[", t[1])`$1`!p snip.rv = check("]", t[1])`{$2}
 endsnippet
 
-snippet "capt?i?o?n?" "caption" b
-\caption{$1}
+snippet "capt?i?o?n?" "caption" rb
+\caption{${1:${VISUAL}}}
 endsnippet
 
-snippet "abst?r?a?c?t?" "Abstract" b
+snippet "abst?r?a?c?t?" "Abstract" rb
 \begin{abstract}
-	$1
+	${2:${VISUAL}}
 \end{abstract}
 endsnippet
 
@@ -107,6 +118,6 @@ snippet toc "Table of Contents" b
 \tableofcontents
 endsnippet
 
-snippet "titl?e?" "Title" b
+snippet "tit?l?e?" "Title" rb
 \maketitle
 endsnippet
