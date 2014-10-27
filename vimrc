@@ -15,7 +15,7 @@
 	" Plugin 'git://github.com/Raimondi/delimitMate'
 	Plugin 'git://github.com/Shougo/neocomplete.vim'
 	Plugin 'git://github.com/SirVer/ultisnips'
-	Plugin 'git://github.com/Townk/vim-autoclose'
+	" Plugin 'git://github.com/Townk/vim-autoclose'
 	Plugin 'git://github.com/Twinside/vim-haskellConceal'
 	Plugin 'git://github.com/thinca/vim-textobj-between'
 	Plugin 'git://github.com/Julian/vim-textobj-brace'
@@ -208,6 +208,7 @@
  		endfunction
 
 " Behavior
+	set autochdir
 	" Allow for cursor beyond last character
 		set virtualedit="block"
 
@@ -332,6 +333,19 @@
 
 	nnoremap <leader>q q:k<CR>
 	inoremap <C-W> <esc>:w<CR>
+
+	" Brackets
+	inoremap ` `<C-R>=UltiSnips#Anon("${1:${VISUAL}}`")<CR>
+	inoremap ' '<C-R>=UltiSnips#Anon("${1:${VISUAL}}'")<CR>
+	inoremap " "<C-R>=UltiSnips#Anon('${1:${VISUAL}}"')<CR>
+	inoremap ( (<C-R>=UltiSnips#Anon('${1:${VISUAL}})')<CR>
+	inoremap [ [<C-R>=UltiSnips#Anon('${1:${VISUAL}}]')<CR>
+	inoremap { {<C-R>=UltiSnips#Anon('${1:${VISUAL}}}')<CR>
+
+	autocmd FileType tex inoremap $ $<C-R>=UltiSnips#Anon("${1:${VISUAL}}\$")<CR>
+
+	nnoremap gf $F
+
 
 	" nnoremap <C-a> 0<C-a>
 	" nnoremap <C-x> 0<C-x>
