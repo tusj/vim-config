@@ -325,6 +325,9 @@
 	nnoremap <leader>q q:k<CR>
 	inoremap <C-W> <esc>:w<CR>
 
+	nnoremap <C-a> 0<C-a>
+	nnoremap <C-x> 0<C-x>
+
 	" Complete word from line above / under
 		"<Esc>gi ensures Insert (not Replace) mode
 		inoremap <C-l> <Esc>gi<Space><Esc>gkywgjvpa
