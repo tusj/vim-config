@@ -325,8 +325,8 @@
 	nnoremap <leader>q q:k<CR>
 	inoremap <C-W> <esc>:w<CR>
 
-	nnoremap <C-a> 0<C-a>
-	nnoremap <C-x> 0<C-x>
+	" nnoremap <C-a> 0<C-a>
+	" nnoremap <C-x> 0<C-x>
 
 	" Complete word from line above / under
 		"<Esc>gi ensures Insert (not Replace) mode
@@ -607,19 +607,15 @@
 		let g:neocomplete#enable_at_startup = 1
 		let g:neocomplete#enable_smart_case = 1
 		let g:neocomplete#sources#syntax#min_keyword_length = 3
-
 		inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
 		function! s:my_cr_function()
-			return neocomplete#close_popup() . "\<CR>"
+			return pumvisible() ? "\<C-n>" . neocomplete#close_popup() . "\<Esc>" : "\<CR>"
 		endfunction
 
 		inoremap <expr><C-g> neocomplete#undo_completion()
 		inoremap <expr><C-l> neocomplete#complete_common_string()
 		inoremap <expr><Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-		inoremap <expr><C-H> neocomplete#smart_close_popup()."\<C-h>"
-		inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-		inoremap <expr><C-y> neocomplete#close_popup()
-		inoremap <expr><C-e> neocomplete#cancel_popup()
+		inoremap <expr><C-Tab> pumvisible() ? "\<C-n><esc>" : "\<Tab>"
 
 	" haskell
 		let g:haddock_browser="chromium"
