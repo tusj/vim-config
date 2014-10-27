@@ -13,6 +13,33 @@ def check(a, b):
 		return a
 endglobal
 
+snippet "sc?o?p?e" "Scope environment" rb
+\begin{scope}[$1]
+	$0
+\end{scope}
+endsnippet
+
+snippet "ti?k?z?" "Tikz environment" rb
+\begin{tikzpicture}`!p snip.rv = check("[", t[1])`$1`!p snip.rv = check("]", t[1])`
+	$0
+\end{tikzpicture}
+endsnippet
+
+snippet "fi?g?u?r?e?" "Figure environment" rb
+\begin{figure}[${1:htbp}]
+	\centering
+	$0
+	\caption{$2}
+	\label{fig:${3:${2/(\w+).*/\L$1\E/a}}}
+\end{figure}
+endsnippet
+
+snippet "be?g?i?n?" "Begin a block" rb
+\begin{${1:itemize}}`!p snip.rv = check("[", t[2])`$2`!p snip.rv = check("]", t[2])`
+	$0
+\end{$1}
+endsnippet
+
 snippet "glo?" "New glossary entry" rb
 \newglossaryentry{${1:Reference name}}{
 	name={${1/_/ /g}},
@@ -21,19 +48,19 @@ snippet "glo?" "New glossary entry" rb
 endsnippet
 snippet "lgl?o?" "Long new glossary entry" rb
 \longnewglossaryentry{${1:Reference name}}{name={$2}}{%
-${3:${VISUAL}}}
+${0:${VISUAL}}}
 endsnippet
 
 snippet "no?t?bu?t?" "Not but" r
-\notbut{${1:this}}{${2:that}}
+\notbut{${1:this}}{${0:that}}
 endsnippet
 
 snippet nor "Neither nor"
-\neithernor{${1:this}}{${2:that}}
+\neithernor{${1:this}}{${0:that}}
 endsnippet
 
 snippet eor "Either or"
-\eitheror{${1:this}}{${2:that}}
+\eitheror{${1:this}}{${0:that}}
 endsnippet
 
 snippet acr "Acronym" b
@@ -41,27 +68,27 @@ snippet acr "Acronym" b
 endsnippet
 
 snippet "gls?" "Glossary lookup singular lowercase" r
-\gls{$1}
+\gls{$0}
 endsnippet
 
 snippet "glspl?" "Glossary lookup plural lowercase" r
-\glspl{$1}
+\glspl{$0}
 endsnippet
 
 snippet "Gls?" "Glossary lookup singular uppercase" r
-\Gls{$1}
+\Gls{$0}
 endsnippet
 
 snippet "Glspl?" "Glossary lookup plural uppercase" r
-\Glspl{$1}
+\Glspl{$0}
 endsnippet
 
 snippet "cre?f?" "cref" r
-\cref{$1}
+\cref{$0}
 endsnippet
 
 snippet "Cre?f?" "Cref" r
-\Cr{$1}
+\Cr{$0}
 endsnippet
 
 snippet env "Newenvironment" b
@@ -70,34 +97,34 @@ endsnippet
 
 snippet align "Math align" b
 \begin{align}`!p snip.rv = check("[", t[1])`$1`!p snip.rv = check("]", t[1])`
-	${2:${VISUAL}}
+	${0:${VISUAL}}
 \end{align}
 endsnippet
 
 snippet "displ?a?y?" "Math display" rb
 \begin{display}`!p snip.rv = check("[", t[1])`$1`!p snip.rv = check("]", t[1])`
-	${2:${VISUAL}}
+	${0:${VISUAL}}
 \end{display}
 endsnippet
 
 snippet "te?xt" "Math text" r
-\text{${1:${VISUAL}}}
+\text{${0:${VISUAL}}}
 endsnippet
 
 snippet emph "Emphasize"
-\emph{${1:${VISUAL}}}
+\emph{${0:${VISUAL}}}
 endsnippet
 
 snippet "textit" "Italic"
-\textit{${1:${VISUAL}}}
+\textit{${0:${VISUAL}}}
 endsnippet
 
 snippet "stro?n?g?" "Strong" r
-\strong{${1:${VISUAL}}}
+\strong{${0:${VISUAL}}}
 endsnippet
 
 snippet end "End an environment" b
-\end{$1}
+\end{$0}
 endsnippet
 
 snippet use "Use package"
@@ -105,12 +132,12 @@ snippet use "Use package"
 endsnippet
 
 snippet "capt?i?o?n?" "caption" rb
-\caption{${1:${VISUAL}}}
+\caption{${0:${VISUAL}}}
 endsnippet
 
 snippet "abst?r?a?c?t?" "Abstract" rb
 \begin{abstract}
-	${2:${VISUAL}}
+	${0:${VISUAL}}
 \end{abstract}
 endsnippet
 
