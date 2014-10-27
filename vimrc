@@ -21,6 +21,7 @@
 	Plugin 'git://github.com/Julian/vim-textobj-brace'
 	Plugin 'git://github.com/kana/vim-textobj-entire'
 	Plugin 'git://github.com/kana/vim-textobj-line'
+	Plugin 'git://github.com/kana/vim-textobj-user'
 	Plugin 'git://github.com/beloglazov/vim-textobj-quotes'
 	Plugin 'git://github.com/glts/vim-textobj-comment'
 	Plugin 'git://github.com/rbonvall/vim-textobj-latex'
