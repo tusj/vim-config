@@ -344,8 +344,8 @@
 
 	autocmd FileType tex inoremap $ $<C-R>=UltiSnips#Anon("${1:${VISUAL}}\$")<CR>
 
+	" Find last match in line
 	nnoremap gf $F
-
 
 	" nnoremap <C-a> 0<C-a>
 	" nnoremap <C-x> 0<C-x>
