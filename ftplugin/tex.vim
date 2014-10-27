@@ -6,10 +6,12 @@ function! SyncTexEvince()
 	echom lineno
 	for syncfile in split(system('zgrep -l "' . filenameString . '" *.synctex.gz'), "\n")
 		let pdffile = substitute(syncfile, ".synctex.gz$", ".pdf", "")
-		let callString = '!evince-dbus ' .
+		let binary = 'evince-dbus'
+		let callString = '!' . binary . ' ' .
 			\ '"' . pdffile . '" ' . lineno . ' "' . filenameString . '" &'
-		echom callString
-		exec callString
+		if executable(binary)
+			exec callString
+		endif
 	endfor
 endfunction
 
@@ -30,10 +32,10 @@ augroup Tex
 	" autocmd CursorHold *.tex call SyncTex()
 	" CursorHold add maybe BufWritePost,FileWritePost
 
-	autocmd BufEnter *.tex silent! call SyncTexEvince()
-	autocmd BufLeave *.tex exec "silent !pkill okular"
+	" autocmd BufEnter *.tex silent! call SyncTexEvince()
+	" autocmd BufLeave *.tex exec "silent !pkill okular"
 	autocmd BufWritePost *.tex silent Make!
-	autocmd BufWritePost *.tex silent! call SyncTexEvince()
+	" autocmd BufWritePost *.tex silent! call SyncTexEvince()
 augroup END
 
 nnoremap <LocalLeader>s :call SyncTexEvince()<CR>
@@ -62,4 +64,4 @@ endfunction
 nnoremap <LocalLeader>l :call Labels()<CR>
 set wildignore+="*.aux,*.out,*.toc"
 set formatoptions+=t " automatic hard line wrap
-" vim: set ft=vim
+" vim: set ft=vim:
