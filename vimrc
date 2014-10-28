@@ -1,11 +1,10 @@
 " Vundle setup
 	filetype off
 	" set the runtime path to include Vundle and initialize
+	let g:textobj_entire_no_default_key_mappings=1
 	set rtp+=~/.vim/bundle/Vundle.vim
 	call vundle#begin()
 
-	" Plugin 'git://github.com/Raimondi/delimitMate'
-	" Plugin 'git://github.com/Townk/vim-autoclose'
 	" Plugin 'git://github.com/Valloric/YouCompleteMe'
 	" Plugin 'git://github.com/bling/vim-bufferline'
 	" Plugin 'git://github.com/eagletmt/ghcmod-vim'
@@ -28,6 +27,7 @@
 	Plugin 'git://github.com/dag/vim-fish'
 	Plugin 'git://github.com/dag/vim2hs'
 	Plugin 'git://github.com/dan-t/vim-hdevtools'
+	Plugin 'git://github.com/dhruvasagar/vim-prosession'
 	Plugin 'git://github.com/eagletmt/neco-ghc'
 	Plugin 'git://github.com/glts/vim-textobj-comment'
 	Plugin 'git://github.com/gmarik/Vundle.vim'
@@ -37,6 +37,7 @@
 	Plugin 'git://github.com/itchyny/lightline.vim'
 	Plugin 'git://github.com/justinmk/vim-sneak'
 	Plugin 'git://github.com/kana/vim-textobj-entire'
+	Plugin 'git://github.com/kana/vim-textobj-lastpat'
 	Plugin 'git://github.com/kana/vim-textobj-line'
 	Plugin 'git://github.com/kana/vim-textobj-user'
 	Plugin 'git://github.com/kshenoy/vim-signature'
@@ -48,6 +49,7 @@
 	Plugin 'git://github.com/nanotech/jellybeans.vim'
 	Plugin 'git://github.com/rbonvall/vim-textobj-latex'
 	Plugin 'git://github.com/scrooloose/syntastic'
+	Plugin 'git://github.com/sgur/vim-textobj-parameter'
 	Plugin 'git://github.com/sjl/gundo.vim'
 	Plugin 'git://github.com/skammer/vim-css-color'
 	Plugin 'git://github.com/thinca/vim-textobj-between'
@@ -57,7 +59,6 @@
 	Plugin 'git://github.com/tpope/vim-eunuch'
 	Plugin 'git://github.com/tpope/vim-fugitive'
 	Plugin 'git://github.com/tpope/vim-obsession'
-	Plugin 'git://github.com/dhruvasagar/vim-prosession'
 	Plugin 'git://github.com/tpope/vim-repeat'
 	Plugin 'git://github.com/tpope/vim-sensible'
 	Plugin 'git://github.com/tpope/vim-surround'
@@ -336,12 +337,18 @@
 	inoremap <C-W> <esc>:w<CR>
 
 	" Brackets
-	inoremap ` `<C-R>=UltiSnips#Anon("${1:${VISUAL}}`")<CR>
-	inoremap ' '<C-R>=UltiSnips#Anon("${1:${VISUAL}}'")<CR>
-	inoremap " "<C-R>=UltiSnips#Anon('${1:${VISUAL}}"')<CR>
-	inoremap ( (<C-R>=UltiSnips#Anon('${1:${VISUAL}})')<CR>
-	inoremap [ [<C-R>=UltiSnips#Anon('${1:${VISUAL}}]')<CR>
-	inoremap { {<C-R>=UltiSnips#Anon('${1:${VISUAL}}}')<CR>
+	" inoremap ` `<C-R>=UltiSnips#Anon("${1:${VISUAL}}`")<CR>
+	" inoremap ' '<C-R>=UltiSnips#Anon("${1:${VISUAL}}'")<CR>
+	" inoremap " "<C-R>=UltiSnips#Anon('${1:${VISUAL}}"')<CR>
+	" inoremap ( (<C-R>=UltiSnips#Anon('${1:${VISUAL}})')<CR>
+	" inoremap [ [<C-R>=UltiSnips#Anon('${1:${VISUAL}}]')<CR>
+	" inoremap { {<C-R>=UltiSnips#Anon('${1:${VISUAL}}}')<CR>
+
+	" Vim-textobj-entire
+		xnoremap aa <Plug>(textobj-entire-a)
+		onoremap aa <Plug>(textobj-entire-a)
+		xnoremap ia <Plug>(textobj-entire-i)
+		onoremap ia <Plug>(textobj-entire-i)
 
 	autocmd FileType tex inoremap $ $<C-R>=UltiSnips#Anon("${1:${VISUAL}}\$")<CR>
 
@@ -668,7 +675,7 @@
 		let g:acp_behaviorXmlOmniLength        = 2
 
 	" ultisnips
-		let g:UltiSnipsExpandTrigger="<C-j>"
+		let g:UltiSnipsExpandTrigger="<C-a>"
 		let g:UltiSnipsJumpForwardTrigger="<C-j>"
 		let g:UltiSnipsJumpBackwardTrigger="<C-k>"
 		let g:UltiSnipsEditSplit="vertical"

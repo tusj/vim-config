@@ -1,0 +1,82 @@
+snippet "(\d+(\.\d+)?)\+(\d+(\.\d+)?)?" "Add" ir
+`!p
+num = match.group(3)
+rest = num if num else "1"
+snip.rv = eval(match.group(1) + "+" + rest)`
+endsnippet
+
+snippet "(\d+(\.\d+)?)\-(\d+(\.\d+)?)?" "Subtract" ir
+`!p
+num = match.group(3)
+rest = num if num else "1"
+snip.rv = eval(match.group(1) + "-" + rest)`
+endsnippet
+
+snippet "(\d+(\.\d+)?)\*(\d+(\.\d+)?)?" "Multiply" ir
+`!p
+num = match.group(3)
+rest = num if num else "2"
+snip.rv = eval(match.group(1) + "*" + rest)`
+endsnippet
+
+snippet "(\d+(\.\d+)?)\/(\d+(\.\d+)?)?" "Divide" ir
+`!p from __future__ import division
+num = match.group(3)
+rest = num if num else "2"
+snip.rv = eval(match.group(1) + "/" + rest)`
+endsnippet
+
+snippet "(\d+(\.\d+)?)\%(\d+)?" "Modulus" ir
+`!p
+num = match.group(3)
+rest = num if num else "2"
+snip.rv = eval(match.group(1) + "/" + rest)`
+endsnippet
+
+
+snippet "(\d+\.\d+)fl?o?o?r?" "Floor" ir
+`!p
+snip.rv = eval("int(" + match.group(1) + ")")`
+endsnippet
+
+snippet "(\d+\.\d+)ce?i?l?" "Ceil" ir
+`!p
+snip.rv = eval("int(" + match.group(1) + "+1))")`
+endsnippet
+
+snippet "(\d+\.\d+)ro?u?n?d?(\d+)?" "Round" ir
+`!p
+precision = ", " + match.group(2) if match.group(2) else ""
+snip.rv = eval("int(round(" + match.group(1) + precision + "))")`
+endsnippet
+
+snippet "(\d+(\.\d+)?)\*\*(\d+(\.\d+)?)?" "Exponential" ir
+`!p
+num = match.group(3)
+exp = num if num else "2"
+snip.rv = eval(match.group(1) + "**" + exp)`
+endsnippet
+
+snippet "(\d+(\.\d+)?)sq?r?t?(\d+(\.\d+)?)?" "Square Root" ir
+`!p from math import sqrt
+radicand = match.group(1)
+num = match.group(3)
+degree = num if num else "2"
+snip.rv = eval("sqrt(" + radicand + ")")
+endsnippet
+
+snippet false
+true
+endsnippet
+
+snippet true
+false
+endsnippet
+
+snippet False
+True
+endsnippet
+
+snippet True
+False
+endsnippet
