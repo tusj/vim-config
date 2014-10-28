@@ -80,3 +80,10 @@ endsnippet
 snippet True
 False
 endsnippet
+
+# snippet "mod?e?l?i?n?e?" "Modeline" b
+snippet test ""
+`!v get(split(get(split(&comments), 0), ":"), 1)` vim: $1 :
+$0
+endsnippet
+
