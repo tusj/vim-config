@@ -81,9 +81,14 @@ snippet True
 False
 endsnippet
 
-# snippet "mod?e?l?i?n?e?" "Modeline" b
-snippet test ""
-`!v get(split(get(split(&comments), 0), ":"), 1)` vim: $1 :
+snippet "mod?e?l?i?n?e?" "Modeline" rb
+${1:`!v get(split(split(&comments, ",")[-1], ":"), 1)`} vim: $2 :
 $0
 endsnippet
+
+
+
+
+
+
 
