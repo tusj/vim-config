@@ -10,3 +10,4 @@ bundle
 !bundle/Vundle.vim
 !bundle/Vundle.vim/*
 mru-files
+session
