@@ -44,14 +44,14 @@ nnoremap <LocalLeader>s :call SyncTexEvince()<CR>
 	setlocal cole=2
 	highlight Conceal guifg=#F8F8F2 guibg=#1B1D1E
 compiler tex
-set smartindent
+setlocal smartindent
 
 silent !mkdir build > /dev/null 2>&1
 silent !ln -s build/%:r.pdf > /dev/null 2>&1
 
-set makeprg=lualatex\ \-file\-line\-error\ \-interaction=nonstopmode\ \-synctex=1\ %:t
+setlocal makeprg=lualatex\ \-file\-line\-error\ \-interaction=nonstopmode\ \-synctex=1\ %:t
 "set makeprg=pdflatex\ \-file\-line\-error\ \-interaction=nonstopmode\ \-synctex=1\ $*\\\|\ grep\ \-P\ ':\\d{1,5}:\ $:p'
-set errorformat=%f:%l:\ %m
+setlocal errorformat=%f:%l:\ %m
 
 function! Labels()
 	set grepprg=ack\ \-o
@@ -60,6 +60,5 @@ function! Labels()
 endfunction
 
 nnoremap <LocalLeader>l :call Labels()<CR>
-set wildignore+="*.aux,*.out,*.toc"
-set formatoptions+=t " automatic hard line wrap
+setlocal formatoptions+=t " automatic hard line wrap
 " vim: set ft=vim:
