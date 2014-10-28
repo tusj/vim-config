@@ -58,7 +58,7 @@
 	Plugin 'git://github.com/tpope/vim-eunuch'
 	Plugin 'git://github.com/tpope/vim-fugitive'
 	Plugin 'git://github.com/tpope/vim-obsession'
-	Plugin 'git://github.com/dhruvasagar/vim-prosession'
+	" Plugin 'git://github.com/dhruvasagar/vim-prosession'
 	Plugin 'git://github.com/tpope/vim-repeat'
 	Plugin 'git://github.com/tpope/vim-sensible'
 	Plugin 'git://github.com/tpope/vim-surround'
@@ -346,10 +346,10 @@
 		" inoremap { {<C-R>=UltiSnips#Anon('${1:${VISUAL}}}')<CR>
 
 	" Vim-textobj-entire
-		xmap aa <Plug>(textobj-entire-a)
-		omap aa <Plug>(textobj-entire-a)
-		xmap ia <Plug>(textobj-entire-i)
-		omap ia <Plug>(textobj-entire-i)
+		xmap aE <Plug>(textobj-entire-a)
+		omap aE <Plug>(textobj-entire-a)
+		xmap iE <Plug>(textobj-entire-i)
+		omap iE <Plug>(textobj-entire-i)
 
 
 	autocmd FileType tex inoremap $ $<C-R>=UltiSnips#Anon("${1:${VISUAL}}\$")<CR>
@@ -739,34 +739,10 @@
 	" necoghc
 		let g:necoghc_enable_detailed_browse = 1
 
-	" Latex Suite
-		set grepprg=grep\ -nH\ $*
-		let g:tex_flavor='latex'
-		let g:Tex_CompileRule_dvi = 'latex -src-specials -interaction=nonstopmode $*'
-		let g:Tex_CompileRule_pdf = 'pdflatex -synctex=1 --interaction=nonstopmode $*'
-		let g:Tex_ViewRule_pdf = 'evince_dbus.py'
-		let g:Tex_DefaultTargetFormat = 'pdf'
-
-	" latex
-		let b:tex_flavor = 'pdflatex'
-
-	" live latex preview
-		let g:livepreview_previewer = 'okular'
-
 	" Tagbar
 		nnoremap <Leader>t :TagbarToggle<CR>
 		let g:tagbar_autoclose = 1
 		let g:tagbar_autofocus = 1
-
-		" function! TagbarStatusFunc(current, sort, fname, flags, ...) abort
-		" 	let color = a:current ? '%#StatusLine#' : '%#StatusLineNC#'
-		" 	let flagstr = join(flags, '')
-		" 	if flagstr != ''
-		" 		let flagstr = '[' . flagstr . '] '
-		" 	endif
-		" 	return color . '[' . sort . ']' . flagstr . fname
-		" endfunction
-		" let g:tagbar_status_func = 'TagbarStatusFunc'
 
 	" paste convenient
 		function! Paste()
