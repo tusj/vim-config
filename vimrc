@@ -337,23 +337,24 @@
 	inoremap <C-W> <esc>:w<CR>
 
 	" Brackets
-	" inoremap ` `<C-R>=UltiSnips#Anon("${1:${VISUAL}}`")<CR>
-	" inoremap ' '<C-R>=UltiSnips#Anon("${1:${VISUAL}}'")<CR>
-	" inoremap " "<C-R>=UltiSnips#Anon('${1:${VISUAL}}"')<CR>
-	" inoremap ( (<C-R>=UltiSnips#Anon('${1:${VISUAL}})')<CR>
-	" inoremap [ [<C-R>=UltiSnips#Anon('${1:${VISUAL}}]')<CR>
-	" inoremap { {<C-R>=UltiSnips#Anon('${1:${VISUAL}}}')<CR>
+		" inoremap ` `<C-R>=UltiSnips#Anon("${1:${VISUAL}}`")<CR>
+		" inoremap ' '<C-R>=UltiSnips#Anon("${1:${VISUAL}}'")<CR>
+		" inoremap " "<C-R>=UltiSnips#Anon('${1:${VISUAL}}"')<CR>
+		" inoremap ( (<C-R>=UltiSnips#Anon('${1:${VISUAL}})')<CR>
+		" inoremap [ [<C-R>=UltiSnips#Anon('${1:${VISUAL}}]')<CR>
+		" inoremap { {<C-R>=UltiSnips#Anon('${1:${VISUAL}}}')<CR>
 
 	" Vim-textobj-entire
-		xnoremap aa <Plug>(textobj-entire-a)
-		onoremap aa <Plug>(textobj-entire-a)
-		xnoremap ia <Plug>(textobj-entire-i)
-		onoremap ia <Plug>(textobj-entire-i)
+		xmap aa <Plug>(textobj-entire-a)
+		omap aa <Plug>(textobj-entire-a)
+		xmap ia <Plug>(textobj-entire-i)
+		omap ia <Plug>(textobj-entire-i)
+
 
 	autocmd FileType tex inoremap $ $<C-R>=UltiSnips#Anon("${1:${VISUAL}}\$")<CR>
 
 	" Find last match in line
-	nnoremap gf $F
+		nnoremap gf $F
 
 	" nnoremap <C-a> 0<C-a>
 	" nnoremap <C-x> 0<C-x>
