@@ -767,6 +767,29 @@
 		silent source Session.vim
 	endif
 
+" Text objects
+	call textobj#user#plugin('number', {
+	\   'natural': {
+	\     'pattern': '\v\d+',
+	\     'select': ['ad', 'id'],
+	\   },
+	\   'frac': {
+	\     'pattern': '\v\d+(\.\d+)?\/\d+(\.\d+)?',
+	\     'select': ['af', 'if'],
+	\   },
+	\   'real': {
+	\     'pattern': '\v\d+(\.\d+)?',
+	\     'select': ['an', 'in'],
+	\   }
+	\ })
+
+	" call textobj#user#plugin('coordinate', {
+	" \   'coordinate': {
+	" \     'pattern': '\v\(\s*\zs\d+(\.\d+)?\s*(,\s*\d+(\.\d+)?)+\ze\s*\)',
+	" \     'select': ['ak', 'ik'],
+	" \   }
+	" \ })
+
 " TODO
 	" Restrict search to current window
 	" make messages display newest first
