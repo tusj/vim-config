@@ -210,9 +210,10 @@
  		endfunction
 
 " Behavior
-	set autochdir
-	" Allow for cursor beyond last character
-		set virtualedit="block"
+	set autochdir " sync current directory with current file
+	set lazyredraw " avoid redrawing screen while macro is running
+
+	set virtualedit="block" " Allow for cursor beyond last character
 
 	" autocompletions
 		set completeopt=menuone,preview
@@ -555,7 +556,10 @@
 		vnoremap <leader>* :<C-u>call myautoloads#VSetSearch()<CR>:execute 'noautocmd vimgrep /' . @/ . '/ **'<CR>
 
 	" search without regex normally
-		nnoremap / /\V
+		nnoremap / /\v
+
+	" Tabular.vim
+		cabbrev tab Tabularize /
 
 	" Tasklist, todo, bug, issue
 		command! Issue :execute 'vimgrep ISSUE '.expand('%') | :copen | :cc
