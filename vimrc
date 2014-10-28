@@ -1,9 +1,9 @@
 " Vundle setup
 	filetype off
 	" set the runtime path to include Vundle and initialize
+	let g:textobj_entire_no_default_key_mappings=1
 	set rtp+=~/.vim/bundle/Vundle.vim
 	call vundle#begin()
-
 	" Plugin 'git://github.com/Valloric/YouCompleteMe'
 	" Plugin 'git://github.com/bling/vim-bufferline'
 	" Plugin 'git://github.com/eagletmt/ghcmod-vim'
@@ -20,7 +20,9 @@
 	Plugin 'git://github.com/thinca/vim-textobj-between'
 	Plugin 'git://github.com/Julian/vim-textobj-brace'
 	Plugin 'git://github.com/kana/vim-textobj-entire'
+	Plugin 'git://github.com/kana/vim-textobj-lastpat'
 	Plugin 'git://github.com/kana/vim-textobj-line'
+	Plugin 'git://github.com/sgur/vim-textobj-parameter'
 	Plugin 'git://github.com/kana/vim-textobj-user'
 	Plugin 'git://github.com/beloglazov/vim-textobj-quotes'
 	Plugin 'git://github.com/glts/vim-textobj-comment'
@@ -335,12 +337,18 @@
 	inoremap <C-W> <esc>:w<CR>
 
 	" Brackets
-	inoremap ` `<C-R>=UltiSnips#Anon("${1:${VISUAL}}`")<CR>
-	inoremap ' '<C-R>=UltiSnips#Anon("${1:${VISUAL}}'")<CR>
-	inoremap " "<C-R>=UltiSnips#Anon('${1:${VISUAL}}"')<CR>
-	inoremap ( (<C-R>=UltiSnips#Anon('${1:${VISUAL}})')<CR>
-	inoremap [ [<C-R>=UltiSnips#Anon('${1:${VISUAL}}]')<CR>
-	inoremap { {<C-R>=UltiSnips#Anon('${1:${VISUAL}}}')<CR>
+	" inoremap ` `<C-R>=UltiSnips#Anon("${1:${VISUAL}}`")<CR>
+	" inoremap ' '<C-R>=UltiSnips#Anon("${1:${VISUAL}}'")<CR>
+	" inoremap " "<C-R>=UltiSnips#Anon('${1:${VISUAL}}"')<CR>
+	" inoremap ( (<C-R>=UltiSnips#Anon('${1:${VISUAL}})')<CR>
+	" inoremap [ [<C-R>=UltiSnips#Anon('${1:${VISUAL}}]')<CR>
+	" inoremap { {<C-R>=UltiSnips#Anon('${1:${VISUAL}}}')<CR>
+
+	" Vim-textobj-entire
+		xnoremap aa <Plug>(textobj-entire-a)
+		onoremap aa <Plug>(textobj-entire-a)
+		xnoremap ia <Plug>(textobj-entire-i)
+		onoremap ia <Plug>(textobj-entire-i)
 
 	autocmd FileType tex inoremap $ $<C-R>=UltiSnips#Anon("${1:${VISUAL}}\$")<CR>
 
@@ -667,7 +675,7 @@
 		let g:acp_behaviorXmlOmniLength        = 2
 
 	" ultisnips
-		let g:UltiSnipsExpandTrigger="<C-j>"
+		let g:UltiSnipsExpandTrigger="<C-a>"
 		let g:UltiSnipsJumpForwardTrigger="<C-j>"
 		let g:UltiSnipsJumpBackwardTrigger="<C-k>"
 		let g:UltiSnipsEditSplit="vertical"
