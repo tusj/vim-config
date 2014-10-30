@@ -5,16 +5,11 @@
 	set rtp+=~/.vim/bundle/Vundle.vim
 	call vundle#begin()
 
-	" Plugin 'git://github.com/Valloric/YouCompleteMe'
 	" Plugin 'git://github.com/bling/vim-bufferline'
-	" Plugin 'git://github.com/eagletmt/ghcmod-vim'
-	" Plugin 'git://github.com/endel/vim-github-colorscheme'
 	" Plugin 'git://github.com/kana/vim-smartword'
-	" Plugin 'git://github.com/vim-scripts/YankRing.vim'
-	" Plugin 'git://github.com/vim-scripts/candycode.vim'
-	" Plugin 'git://github.com/wincent/command-t'
 	" Plugin 'git://github.com/xolox/vim-easytags'
 	Plugin 'git://github.com/Julian/vim-textobj-brace'
+	" Plugin 'git://github.com/svermeulen/vim-easyclip'
 	Plugin 'git://github.com/Lokaltog/vim-easymotion'
 	Plugin 'git://github.com/Shougo/neocomplete.vim'
 	Plugin 'git://github.com/SirVer/ultisnips'
@@ -31,18 +26,18 @@
 	Plugin 'git://github.com/glts/vim-textobj-comment'
 	Plugin 'git://github.com/gmarik/Vundle.vim'
 	Plugin 'git://github.com/godlygeek/tabular'
-	Plugin 'git://github.com/goldfeld/vim-seek'
+	" Plugin 'git://github.com/goldfeld/vim-seek'
 	Plugin 'git://github.com/honza/vim-snippets'
 	Plugin 'git://github.com/itchyny/lightline.vim'
-	Plugin 'git://github.com/justinmk/vim-sneak'
+	" Plugin 'git://github.com/justinmk/vim-sneak'
 	Plugin 'git://github.com/kana/vim-textobj-entire'
 	Plugin 'git://github.com/kana/vim-textobj-lastpat'
 	Plugin 'git://github.com/kana/vim-textobj-line'
 	Plugin 'git://github.com/kana/vim-textobj-user'
-	Plugin 'git://github.com/kshenoy/vim-signature'
+	" Plugin 'git://github.com/kshenoy/vim-signature'
 	Plugin 'git://github.com/lervag/vim-latex'
 	Plugin 'git://github.com/majutsushi/tagbar'
-	Plugin 'git://github.com/maxbrunsfeld/vim-yankstack'
+	" Plugin 'git://github.com/maxbrunsfeld/vim-yankstack'
 	Plugin 'git://github.com/michaeljsmith/vim-indent-object'
 	Plugin 'git://github.com/mileszs/ack.vim'
 	Plugin 'git://github.com/nanotech/jellybeans.vim'
@@ -58,7 +53,6 @@
 	Plugin 'git://github.com/tpope/vim-eunuch'
 	Plugin 'git://github.com/tpope/vim-fugitive'
 	Plugin 'git://github.com/tpope/vim-obsession'
-	" Plugin 'git://github.com/dhruvasagar/vim-prosession'
 	Plugin 'git://github.com/tpope/vim-repeat'
 	Plugin 'git://github.com/tpope/vim-sensible'
 	Plugin 'git://github.com/tpope/vim-surround'
@@ -70,7 +64,7 @@
 	Plugin 'git://github.com/zeis/vim-kolor'
 
 	call vundle#end()
-	call yankstack#setup() " initialization to hijack key bindings
+	" call yankstack#setup() " initialization to hijack key bindings
 
 " Basic
 	set encoding=utf-8
@@ -126,12 +120,6 @@
 			set undofile
 		endif
 
-	" make Vim respect XDG
-		" set directory=$XDG_CACHE_HOME/vim,~/,/var/tmp
-		" set backupdir=$XDG_CACHE_HOME/vim,~/,/var/tmp
-		" set viminfo+=$XDG_CACHE_HOME/vim/viminfo
-		" set runtimepath=$XDG_CONFIG_HOME/vim,$XDG_CONFIG_HOME/vim/after,$VIM,$VIMRUNTIME
-		" let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc"
  " Display
 	" → ⎆ ⇨ ⟸ ⥰ ⬱ ␊ ⫘ ⩊ ⏖ ↔ ↪ ⨭ ◖ 𝌻 ⌇ ⌒ …
 	set showbreak=…
@@ -144,27 +132,24 @@
 	" List invisible characters
 		set list
 		" set listchars=tab:➝\ ,eol:¬
-		set listchars=tab:⤑\ ,
+		set listchars=tab:⤑\ ,extends:❯,precedes:❮
 		"·  ⇾  ⇨  ⇀  ➝  →  ⇥  ⟶  ⟼  ⤏  ⧐  ―
 
+
 	set cursorline
-	set wrap
+	set nowrap
 	set textwidth=80
-	set formatoptions=qrn1
+
+	" c: autowrap comments
+	" t: autowrap text
+	" r: automatically insert comment leader
+	" q: allow formatting of comments with gq
+	" a: autoformat paragraphs
+	" n: recognize numbered lists
+	" 1: avoid line break after 1-letter word.
+	" j: remove superflous comments when joining lines
+	set formatoptions=cqrn1lj
 	set relativenumber
-
-
-	if has('statusline')
- 		set laststatus=2 " always display
-
- 		"Broken down into easily includeable segments
- 		set statusline=%<%f\                     " Filename
- 		set statusline+=%w%h%m%r                 " Options
- 		set statusline+=%{fugitive#statusline()} " Git Hotness
- 		set statusline+=\ [%{&ff}/%Y]            " Filetype
- 		set statusline+=\ [%{getcwd()}]          " Current dir
- 		set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
-	endif
 
 	" Search
 	set showmatch
@@ -213,7 +198,7 @@
 	set autochdir " sync current directory with current file
 	set lazyredraw " avoid redrawing screen while macro is running
 
-	set virtualedit="block" " Allow for cursor beyond last character
+	set virtualedit=onemore,block " Allow for cursor beyond last character
 
 	" autocompletions
 		set completeopt=menuone,preview
@@ -232,6 +217,13 @@
 		set foldlevel=2
 
 	" Autocommands
+		" hide cursorline when inserting
+		augroup cline
+			autocmd!
+			autocmd InsertEnter * set nocursorline
+			autocmd FocusGained * set cursorline
+		augroup END
+
 		" set only cursorline for active window
 		augroup showActiveWindow
 			autocmd!
@@ -245,17 +237,13 @@
 			autocmd FocusLost * silent! wall
 
 			" Strip trailing whitespace on save
-			autocmd BufWritePre * :call myautoloads#StripTrailingWhitespaces()
+			autocmd BufWritePre * call myautoloads#StripTrailingWhitespaces()
 		augroup END
 
 		" equalize window on resized
 		augroup windows
 			autocmd!
-			autocmd VimResized * :wincmd =
-		augroup END
-
-		augroup folds
-			" autocmd CursorMoved * silent! foldopen
+			autocmd VimResized * wincmd =
 		augroup END
 
 		augroup fileTypes
@@ -280,27 +268,21 @@
 			autocmd BufWritePost vimrc     source $MYVIMRC
 		augroup END
 
-		" templates
-		augroup templates
-			autocmd!
-			autocmd BufNewFile *.tex 0r ~/Copy/templates/latex
-			autocmd BufNewFile *.go  0r ~/Copy/templates/go
-			autocmd BufNewFile *.hs  0r ~/Copy/templates/haskell
-		augroup END
-
 	set formatprg=par\ -w70
 	set smartindent
-	"set autochdir
 	set splitright
 	set splitbelow
 
 	" Automatically update file if it has been modified outside vim
 		set autoread
+		set autowrite
 
 	" hide buffer instead of closing them
 		set hidden
 
 	set scrolljump=20
+	set sidescroll=1
+	set sidescrolloff=10
 	set sessionoptions=blank,buffers,curdir,folds,tabpages,winsize
 
 		" Tabbing
@@ -317,16 +299,10 @@
 
 	" searching
 		set ignorecase " when searching
-		set smartcase  " case-sensitife if
+		set smartcase  " case-sensitife if uppercase in expression
 
 		" highlight as you type
 			set incsearch
-			set hlsearch
-
-			augroup Search
-				autocmd InsertEnter * :setlocal nohlsearch
-				autocmd InsertLeave * :setlocal hlsearch
-			augroup END
 
 		set gdefault   " default global on substitute command
 
@@ -334,8 +310,38 @@
 	let mapleader = "\\"
 	let maplocalleader = "-"
 
-	nnoremap <leader>q q:k<CR>
-	inoremap <C-W> <esc>:w<CR>
+	" Repeat last Ex command
+		nnoremap <leader>q q:k<CR>
+
+	" Exit insert mode and write
+		inoremap <C-W> <esc>:w<CR>
+
+	" Kill window
+		nnoremap K :q<CR>
+
+	" Go to matching
+		nnoremap <Tab> %
+
+	" Display search matches in center of screen
+		nnoremap n nzzzv
+		nnoremap N Nzzzv
+
+	" Same when jumping around
+		nnoremap g; g;zz
+		nnoremap g, g,zz
+		nnoremap <c-o> <c-o>zz
+		nnoremap <c-i> <c-i>zz
+
+	" Easier start / end move in line
+		noremap H ^
+		noremap L g_
+
+	" Format
+		nnoremap Q gqip
+		vnoremap Q gq
+
+	" Sudo write
+		cnoremap w!! SudoWrite
 
 	" Brackets
 		" inoremap ` `<C-R>=UltiSnips#Anon("${1:${VISUAL}}`")<CR>
@@ -357,17 +363,14 @@
 	" Find last match in line
 		nnoremap gf $F
 
-	" nnoremap <C-a> 0<C-a>
-	" nnoremap <C-x> 0<C-x>
-
 	" Complete word from line above / under
 		"<Esc>gi ensures Insert (not Replace) mode
-		inoremap <C-l> <Esc>gi<Space><Esc>gkywgjvpa
-		inoremap <C-b> <Esc>gi<Space><Esc>gjywgkvpa
+		" inoremap <C-l> <Esc>gi<Space><Esc>gkywgjvpa
+		" inoremap <C-b> <Esc>gi<Space><Esc>gjywgkvpa
 
 	" Dmenu integration
-		map <c-t> :call DmenuOpen("tabe")<cr>
-		map <c-f> :call DmenuOpen("e")<cr>
+		" map <leader-t> :call DmenuOpen("tabe")<cr>
+		" map <leader-f> :call DmenuOpen("e")<cr>
 
 		" Strip the newline from the end of a string
 		function! Chomp(str)
@@ -383,20 +386,20 @@
 			execute a:cmd . " " . fname
 		endfunction
 
-	" delete line focus above
-	nnoremap gdd ddk
-
 	" Yank to end of line
-	 nnoremap Y y$
+	 nnoremap Y yg_
 
 	" Dot command in visual mode
 		vnoremap . :norm.<CR>
 
 	" Move in insert
-		" inoremap <C-h> <left>
-		" inoremap <C-j> <down>
-		" inoremap <C-k> <up>
-		" inoremap <C-l> <right>
+		inoremap <C-O>b <Esc>bi
+		inoremap <C-O>w <Esc>wi
+		inoremap <C-O>e <Esc>ei
+		inoremap <C-O>h <Esc>eh
+		inoremap <C-O>j <Esc>ej
+		inoremap <C-O>k <Esc>ek
+		inoremap <C-O>l <Esc>el
 
 	" Help
 		cabbrev h vert h
@@ -413,16 +416,6 @@
 		" imap ->  →
 		imap :)  ☺
 		imap :-) ☺
-
-	" Insert one character before
-		nnoremap s :exec "normal i".nr2char(getchar())."\e"<CR>
-		nnoremap S :exec "normal a".nr2char(getchar())."\e"<CR>
-
-	" Tabs
-		" nnoremap <2-LeftMouse> <C-w><C-]><C-w>T " open tag in new tab
-		" nnoremap <C-W>     :tabclose<CR>
-		" nnoremap <C-Tab>   :tabnext<CR>
-		" nnoremap <C-S-Tab> :tabprev<CR>
 
 	" I use the colon more often than the semicolon
 		nnoremap : ;
@@ -444,7 +437,7 @@
 		nnoremap <Leader>j : call myautoloads#WinMove('j')<cr>
 
 	" window rotate
-		nnoremap wwr <C-W>r
+		nnoremap <A-w>r <C-W>r
 
 	" Window resize
 		nnoremap <left>  :12wincmd <<cr>
@@ -462,38 +455,26 @@
 
 	" map go to tags interactively
 		noremap <C-]> g<C-]>
-		" noremap g<C-]> <C-]>
 
-	" remap command line scrolling
+	" remap command line serch
 		cnoremap <C-j> <Up>
 		cnoremap <C-k> <Down>
 
-	" treating tabs as several spaces
+	" replace mode: treat tabs as several spaces
 		nnoremap R gR
 
 	" Esc remappings
-		inoremap jk <Esc><Esc>
-		inoremap <Esc> <Esc><Esc>
-		" cnoremap jk <Esc>
+		inoremap jk <Esc>
+		inoremap <Esc> <Esc>
 
 	" open url in browser
 		nnoremap <C-LeftMouse> :call myautoloads#Browser()<cr>
-
-	" if in insert, escape both potential popup menu and go to normal mode
-		" imap ^[ <esc><esc>
-
-	" mark whole file
-		nnoremap  <leader>a ggVG
 
 	" Indent whole file
 		noremap g= mzgg=G`z<CR>m'z
 
 	" delete text to black hole
 		nnoremap <Leader>d "_d
-
-	" move visual line, not folded
-		nnoremap j gj
-		nnoremap k gk
 
 	" Visual shifting (does not exit Visual mode)
 		vnoremap < <gv
@@ -502,12 +483,6 @@
 	" Visual line repeat {{{2
 		xnoremap . :normal .<CR>
 		xnoremap @ :<C-u>call myautoloads#ExecuteMacroOverVisualRange()<CR>
-
-	" Get the right vim technique
-		" inoremap <up>    <nop>
-		" inoremap <down>  <nop>
-		" inoremap <left>  <nop>
-		" inoremap <right> <nop>
 
 	" Count folded lines as several
 		nnoremap j gj
@@ -522,8 +497,7 @@
 
 	" Paste
 		nnoremap <Leader>v :Paste<CR>
-		inoremap <Leader>v <esc>:Paste<CR>a
-
+		imap <c-v> <plug>EasyClipInsertModePaste
 
 	" shift tab focus
 		"nnoremap <C-]> :tabnext<CR>
@@ -539,14 +513,6 @@
 		noremap <A-9> 9gt
 		noremap <A-0> :tablast<cr>
 
-	" Global copy paste shortcut
-		" vnoremap <leader>X "+d
-		" vnoremap <leader>C "+y
-		" nnoremap <leader>V "+gP
-
-	" Insert new line above and below cursor
-		noremap <leader-o> m`o<Esc>``
-
 	" make * and # search work in visual mode too
 		xnoremap * :<C-u>call myautoloads#VSetSearch('/')<CR>/<C-R>=@/<CR><CR>
 		xnoremap # :<C-u>call myautoloads#VSetSearch('?')<CR>?<C-R>=@/<CR><CR>
@@ -557,6 +523,7 @@
 
 	" search without regex normally
 		nnoremap / /\v
+		vnoremap / /\v
 
 	" Tabular.vim
 		cabbrev tab Tabularize /
@@ -566,15 +533,13 @@
 		command! Bug   :execute 'vimgrep BUG '.expand('%')   | :copen | :cc
 		command! Todo  :execute 'vimgrep TODO '.expand('%')  | :copen | :cc
 
-	" CtrlP
-		nnoremap <leader>c :CommandT<cr>
-
 " Plugins
-	" Smartword
-		" map w  <Plug>(smartword-w)
-		" map b  <Plug>(smartword-b)
-		" map e  <Plug>(smartword-e)
-		" map ge <Plug>(smartword-ge)
+	" Easyclip
+		let g:EasyClipUseSubstituteDefaults = 1
+		let g:EasyClipDoSystemSync = 0
+
+		" Reenable marks
+		nnoremap gm m
 
 	" Syntastic
 		let g:syntastic_haskell_checkers = ['hdevtools']
@@ -597,7 +562,7 @@
 	" Gitgutter
 		" ⊛ ⁕ ✵ ⚝ ✦ ✶ ❉ ᶯ ␡ ⎌' ⥃' ↚ ⇄
 		let g:gitgutter_sign_added = '→'
-		let g:gitgutter_sign_removed = '←'
+		let g:gitgutter_sign_removed = '␡'
 		let g:gitgutter_sign_modified = '↔'
 		let g:gitgutter_sign_modified_removed = '↜'
 
@@ -653,31 +618,8 @@
 		inoremap <expr><C-Tab> pumvisible() ? "\<C-n><esc>" : "\<Tab>"
 
 	" haskell
-		let g:haddock_browser="chromium"
 		highlight HaskellType ctermbg=232
 		let g:ghcmod_type_highlight = 'HaskellType'
-
-	" easy-align
-		" For visual mode (e.g. vip<Enter>)
-		vnoremap <Enter>   <Plug>(EasyAlign)
-		" For normal mode, with Vim movement (e.g. <Leader>aip)
-		nnoremap <Leader>a <Plug>(EasyAlign)
-		" Repeat alignment in visual mode with . key
-		vmap . <Plug>(EasyAlignRepeat)
-
-	" ft-lua
-		" crashes if omni is defined
-		let g:lua_define_omnifunc = 0
-		" let g:lua_check_syntax  = 0
-		let g:lua_complete_omni   = 1
-
-	" AutoComplPop
-		let g:acp_behaviorCssOmniValueLength   = 2
-		let g:acp_behaviorFileLength           = 2
-		let g:acp_behaviorHtmlOmniLength       = 2
-		let g:acp_behaviorPythonOmniLength     = 2
-		let g:acp_behaviorRubyOmniMethodLength = 2
-		let g:acp_behaviorXmlOmniLength        = 2
 
 	" ultisnips
 		let g:UltiSnipsExpandTrigger="<C-a>"
@@ -685,15 +627,6 @@
 		let g:UltiSnipsJumpBackwardTrigger="<C-k>"
 		let g:UltiSnipsEditSplit="vertical"
 		set rtp+=~/.vim/UltiSnips
-
-	" Opa
-		set rtp+=/usr/share/opa/vim
-
-	" golden ratio
-		let g:golden_ratio_exclude_nonmodifiable = 1
-
-	" ctrlp
-	let g:ctrlp_by_filename = 1
 
 	" airline
 		let g:airline#extensions#bufferline#enabled     = 1
@@ -717,17 +650,10 @@
 	" Most recently used
 		let MRU_File = $HOME . "/.vim/mru-files"
 
-	" YankRing
-		nnoremap qyy :YRShow<CR>
-		" let g:yankring_history_dir = $XDG_CACHE_HOME
-		let g:yankring_history_dir = "~/.cache"
-
-		set cpoptions+=y
-
 	" YankStack
 	let g:yankstack_map_keys = 0
-	nmap <c-p> <Plug>yankstack_substitute_older_paste
-	nmap <c-n> <Plug>yankstack_substitute_newer_paste
+	" nmap <c-p> <Plug>yankstack_substitute_older_paste
+	" nmap <c-n> <Plug>yankstack_substitute_newer_paste
 
 	" nerdtree
 		" autocmd vimenter * if !argc() | NERDTree | endif
@@ -758,10 +684,6 @@
 			g/^\(.*\)$\n\1$/d
 		endfunction
 
-	" You complete me
-		let g:ycm_semantic_triggers = {'haskell' : ['.']}
-		let g:ycm_min_num_of_chars_for_completion = 3
-
 " Startup
 	if glob("Session.vim") != ''
 		silent source Session.vim
@@ -771,18 +693,19 @@
 	call textobj#user#plugin('number', {
 	\   'natural': {
 	\     'pattern': '\v\d+',
-	\     'select': ['ad', 'id'],
+	\     'select': ['ad', 'id']
 	\   },
 	\   'frac': {
 	\     'pattern': '\v\d+(\.\d+)?\/\d+(\.\d+)?',
 	\     'select': ['af', 'if'],
 	\   },
 	\   'real': {
-	\     'pattern': '\v\d+(\.\d+)?',
+	\     'pattern': '\d\+\(\.\d\+\)\?',
 	\     'select': ['an', 'in'],
 	\   }
 	\ })
-
+	"    2.adfasdfa 2\bladfd
+	" \     'pattern': '\v\d+(\.\d+)?',
 	" call textobj#user#plugin('coordinate', {
 	" \   'coordinate': {
 	" \     'pattern': '\v\(\s*\zs\d+(\.\d+)?\s*(,\s*\d+(\.\d+)?)+\ze\s*\)',
@@ -791,9 +714,6 @@
 	" \ })
 
 " TODO
-	" Restrict search to current window
-	" make messages display newest first
-	" set dictionary completion on latex and txt files
 	" unset hlsearch after substitute command
 	" fix paste command
 
