@@ -784,11 +784,17 @@
 	\   }
 	\ })
 	call textobj#user#plugin('block', {
-	\   '-': {
-	\     'select-a-function': 'VerticalBlockInner',
-	\     'select-a': 'iC',
+	\   'vertical': {
+	\     'select-a-function': 'VerticalBlockOuter',
+	\     'select-a': 'aV',
+	\     'select-i-function': 'VerticalBlockInner',
+	\     'select-i': 'iV',
+	\   },
+	\   'horizontal': {
+	\     'select-a-function': 'HorizontalBlockOuter',
+	\     'select-a': 'aH',
 	\     'select-i-function': 'HorizontalBlockInner',
-	\     'select-i': 'iR',
+	\     'select-i': 'iH',
 	\   },
 	\ })
 
@@ -918,13 +924,17 @@ def search(begin, end, checks, matcher):
 			stop = i
 	return stop
 
-def make_region(finder, search_start, last, make_checks, matcher, make_points):
-	points  = finder()
-	checks  = make_checks(*points)
-	begin   = search(search_start,   -1, checks, matcher)
-	end     = search(search_start, last, checks, matcher)
-	points  = make_points(begin, end, *points)
-	vim.command("return [\"\\<C-v>\",%s, %s]" % points)
+def make_region(finder, search_start, last, make_checks, matcher, make_points, outer):
+	points    = finder()
+	checks    = make_checks(*points)
+	begin     = search(search_start,   -1, checks, matcher)
+	end       = search(search_start, last, checks, matcher)
+	points    = make_points(begin, end, *points)
+	mode      = "\\<C-v>"
+	if outer:
+		mode  = "V"
+
+	vim.command("return [\"%s\",%s, %s]" % ((mode,) + (points)))
 
 def posser(head, tail):
 	return (pos(*head), pos(*tail))
@@ -947,42 +957,53 @@ def make_checks_horizontal(point_start, point_end):
 	buf             = vim.current.buffer
 	return (point_start, buf[cursor_row][point_start:point_end])
 
-def find_block_horizontal():
-	(cursor_row, _) = get_cursor()
-	buf             = vim.current.buffer
-	last            = len(buf)
-	finder          = find_region_horizontal
-	search_start    = cursor_row
-	matcher         = match_horizontal
-	make_points     = make_points_horizontal
-	make_checks     = make_checks_horizontal
 
-	make_region(finder, search_start, last, make_checks, matcher, make_points)
+def find_block(vertical = True, outer = False):
+	(cursor_row, cursor_col) = get_cursor()
+	buf                      = vim.current.buffer
 
-def find_block_vertical():
-	(_, cursor_col) = get_cursor()
-	buf             = vim.current.buffer
-	last            = len(max(buf, key     = len))
-	finder          = find_region_vertical
-	search_start    = cursor_col
-	matcher         = match_vertical
-	make_points     = make_points_vertical
-	make_checks     = make_checks_vertical
+	if vertical:
+		last                 = len(max(buf, key       = len))
+		finder               = find_region_vertical
+		search_start         = cursor_col
+		matcher              = match_vertical
+		make_points          = make_points_vertical
+		make_checks          = make_checks_vertical
+	else:
+		last                 = len(buf)
+		finder               = find_region_horizontal
+		search_start         = cursor_row
+		matcher              = match_horizontal
+		make_points          = make_points_horizontal
+		make_checks          = make_checks_horizontal
 
-	make_region(finder, search_start, last, make_checks, matcher, make_points)
+	make_region(finder, search_start, last, make_checks, matcher, make_points, outer)
 endpython
 
 function! VerticalBlockInner()
 python << endpython
-find_block_vertical()
+find_block()
 endpython
 endfunction
 
 function! HorizontalBlockInner()
 python << endpython
-find_block_horizontal()
+find_block(vertical = False)
 endpython
 endfunction
+
+function! VerticalBlockOuter()
+python << endpython
+find_block(outer = True)
+endpython
+endfunction
+
+function! HorizontalBlockOuter()
+python << endpython
+find_block(vertical = False, outer = True)
+endpython
+endfunction
+
 
 " TODO
 	" unset hlsearch after substitute command
