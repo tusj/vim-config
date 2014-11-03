@@ -811,6 +811,11 @@ def getcol(i):
 
 	return "".join(ret)
 
+def get_cursor():
+	(cursor_row, cursor_col) = vim.current.window.cursor
+	cursor_row = cursor_row - 1
+	return (cursor_row, cursor_col)
+
 def getmatch(line, region):
 	return line[region[0]:region[1]]
 
@@ -915,20 +920,18 @@ def search(begin, end, check_first, check_second, matcher):
 			stop = i
 	return stop
 
-(cursor_row, cursor_col) = vim.current.window.cursor
-cursor_row = cursor_row - 1
-buf = vim.current.buffer
-
 def find_block(finder):
+	(cursor_row, cursor_col) = get_cursor()
 	return finder(cursor_row, cursor_col)
 
-def make_return(head, tail):
-	vim.command("return [\"\\<C-v>\",%s, %s]" % (head, tail))
 
-def make_region(search_start, last, check_1, check_2, matcher):
+def make_region(finder, search_start, last, make_checks, matcher, make_points):
+	(point_start, point_end) = find_block(finder)
+	(check_1, check_2) = make_checks(point_start, point_end)
 	begin = search(search_start,   -1, check_1, check_2, matcher)
 	end   = search(search_start, last, check_1, check_2, matcher)
-	return (begin, end)
+	(head, tail) = make_points(begin, end, point_start, point_end)
+	vim.command("return [\"\\<C-v>\",%s, %s]" % (head, tail))
 
 def make_points_vertical(begin, end, point_start, point_end):
 	head_row = point_start + 1
@@ -948,41 +951,34 @@ def make_checks_vertical(point_start, point_end):
 	return (point_start, point_end)
 
 def make_checks_horizontal(point_start, point_end):
+	(cursor_row, _) = get_cursor()
 	buf = vim.current.buffer
 	return (point_start, buf[cursor_row][point_start:point_end])
 
 def find_block_horizontal():
+	buf = vim.current.buffer
+	(cursor_row, _) = get_cursor()
 	last = len(buf)
 	finder = find_region_horizontal
 	search_start = cursor_row
 	matcher = match_horizontal
 	make_points = make_points_horizontal
+	make_checks = make_checks_horizontal
 
-	(point_start, point_end) = find_block(finder)
-
-	check_1 = point_start
-	check_2 = buf[cursor_row][point_start:point_end]
-
-	(begin, end) = make_region(search_start, last, check_1, check_2, matcher)
-	(head, tail) = make_points_horizontal(begin, end, point_start, point_end)
-
-	return make_return(head, tail)
+	make_region(finder, search_start, last, make_checks, matcher, make_points)
 
 def find_block_vertical():
-	last         = len(max(buf, key       = len))
+	(_, cursor_col) = get_cursor()
+	buf          = vim.current.buffer
+	last         = len(max(buf, key = len))
 	finder       = find_region_vertical
 	search_start = cursor_col
 	matcher      = match_vertical
-	make_points  = make_points_horizontal
+	make_points  = make_points_vertical
+	make_checks  = make_checks_vertical
 
-	(point_start, point_end) = find_block(finder)
-	check_1 = point_start
-	check_2 = point_end
+	make_region(finder, search_start, last, make_checks, matcher, make_points)
 
-	(begin, end) = make_region(search_start, last, check_1, check_2, matcher)
-	(head, tail) = make_points_vertical(begin, end, point_start, point_end)
-
-	return make_return(head, tail)
 
 find_block_vertical()
 # find_block_horizontal()
