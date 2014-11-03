@@ -1,6 +1,14 @@
 global !p
 def check(a, b):
-	snip.rv = a if t[b] != "" else ""
+	try:
+		last = t[b+1]
+	except:
+		last = t[0]
+	if last and not t[b]:
+			snip.rv = ""
+	else:
+		snip.rv = a
+
 
 def lb(a):
 	check("[", a)
@@ -56,14 +64,11 @@ endglobal
 
 snippet \ "LaTeX command" i
 \\${1:begin}`!p snip.rv = command_complete(1)`{$2}`!p lb(3)`$3`!p rb(3)`
-$4 `!p
-m = re.search("begin", t[1])
-snip.rv = "\\end{" + t[2] + "}\n" if m else "\n"
-`
+$4
 endsnippet
 
 snippet "begin\{(\w+)?" "LaTeX environment" ir
-\\begin{${1:`!p
+begin{${1:`!p
 if match:
 	if match.group(1):
 		snip.rv = match.group(1)
@@ -72,7 +77,7 @@ if match:
 else:
 	snip.rv = "itemize"
 `}`!p snip.rv = environment_complete(1)`}`!p lb(2)`$2`!p rb(2)`
-	$0
+	${0:${VISUAL}}
 \\end{$1`!p snip.rv = environment_complete(1)`}
 endsnippet
 
@@ -226,4 +231,12 @@ endsnippet
 
 snippet "tit?l?e?" "Title" rb
 \maketitle
+endsnippet
+
+snippet "$\w+" "Inline math" ri
+`!p snip.rv = match.group(0)`\$
+endsnippet
+
+snippet $ "Inline math" i
+`!p snip.rv = match.group(0)`$1\$
 endsnippet
