@@ -213,6 +213,7 @@
 	set autochdir " sync current directory with current file
 	set lazyredraw " avoid redrawing screen while macro is running
 
+	set iskeyword-=_ " treat _ as a word boundary
 	set virtualedit="block" " Allow for cursor beyond last character
 
 	" autocompletions
@@ -224,7 +225,7 @@
 	" Completion
 		set wildmenu
 		set wildmode=list:longest,full
-		set wildignore=*.swp,*.acn,*.aux,*.bak,*.bmp,*.exe,*.glo,*.hi,*.jpg,*.log,*.o,*.out,*.pdf,*.pyc,*.thm,*.toc,*.xdy,*~,*.gz,*.xz,*.tar,*.zip
+		set wildignore=*.swp,*.acn,*.aux,*.bak,*.bmp,*.exe,*.glo,*.hi,*.jpg,*.log,*.o,*.out,*.pdf,*.pyc,*.thm,*.toc,*.xdy,*~,*.gz,*.xz,*.tar,*.zip,*.gz(busy)
 		set wildignorecase
 
 	" Fold
@@ -273,6 +274,7 @@
 			autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 			autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
 			autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
+			autocmd FileType python        setlocal tabstop=4 noexpandtab shiftwidth=4
 			autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
 			autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
 			" ISSUE doesn't work autocmd FileType markdown      setlocal makeprg=markdown\ %\ >%.html
@@ -344,6 +346,7 @@
 		" inoremap ( (<C-R>=UltiSnips#Anon('${1:${VISUAL}})')<CR>
 		" inoremap [ [<C-R>=UltiSnips#Anon('${1:${VISUAL}}]')<CR>
 		" inoremap { {<C-R>=UltiSnips#Anon('${1:${VISUAL}}}')<CR>
+		" autocmd FileType tex inoremap $ $<C-R>=UltiSnips#Anon("${1:${VISUAL}}\$")<CR>
 
 	" Vim-textobj-entire
 		xmap aE <Plug>(textobj-entire-a)
@@ -352,7 +355,6 @@
 		omap iE <Plug>(textobj-entire-i)
 
 
-	autocmd FileType tex inoremap $ $<C-R>=UltiSnips#Anon("${1:${VISUAL}}\$")<CR>
 
 	" Find last match in line
 		nnoremap gf $F
@@ -556,6 +558,7 @@
 		vnoremap <leader>* :<C-u>call myautoloads#VSetSearch()<CR>:execute 'noautocmd vimgrep /' . @/ . '/ **'<CR>
 
 	" search without regex normally
+		cnoremap s/ s/\v
 		nnoremap / /\v
 
 	" Tabular.vim
@@ -686,14 +689,8 @@
 		let g:UltiSnipsEditSplit="vertical"
 		set rtp+=~/.vim/UltiSnips
 
-	" Opa
-		set rtp+=/usr/share/opa/vim
-
 	" golden ratio
 		let g:golden_ratio_exclude_nonmodifiable = 1
-
-	" ctrlp
-	let g:ctrlp_by_filename = 1
 
 	" airline
 		let g:airline#extensions#bufferline#enabled     = 1
@@ -717,13 +714,6 @@
 	" Most recently used
 		let MRU_File = $HOME . "/.vim/mru-files"
 
-	" YankRing
-		nnoremap qyy :YRShow<CR>
-		" let g:yankring_history_dir = $XDG_CACHE_HOME
-		let g:yankring_history_dir = "~/.cache"
-
-		set cpoptions+=y
-
 	" YankStack
 	let g:yankstack_map_keys = 0
 	nmap <c-p> <Plug>yankstack_substitute_older_paste
@@ -743,6 +733,17 @@
 		nnoremap <Leader>t :TagbarToggle<CR>
 		let g:tagbar_autoclose = 1
 		let g:tagbar_autofocus = 1
+
+" Functions
+	" Diff of current content with saved content
+		function! s:DiffWithSaved()
+			let filetype=&ft
+			diffthis
+			vnew | r # | normal! 1Gdd
+			diffthis
+			exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
+		endfunction
+		com! DiffSaved call s:DiffWithSaved()
 
 	" paste convenient
 		function! Paste()
@@ -782,18 +783,220 @@
 	\     'select': ['an', 'in'],
 	\   }
 	\ })
+	call textobj#user#plugin('line', {
+	\   '-': {
+	\     'select-a-function': 'CurrentLineA',
+	\     'select-a': 'al',
+	\     'select-i-function': 'CurrentLineI',
+	\     'select-i': 'il',
+	\   },
+	\ })
 
-	" call textobj#user#plugin('coordinate', {
-	" \   'coordinate': {
-	" \     'pattern': '\v\(\s*\zs\d+(\.\d+)?\s*(,\s*\d+(\.\d+)?)+\ze\s*\)',
-	" \     'select': ['ak', 'ik'],
-	" \   }
-	" \ })
+function! CurrentLineA()
+python << endpython
+import vim
+from os.path import commonprefix
 
+# cursor position compatible with getpos
+def pos(row, col):
+	return "[0, %d, %d, 0]" % (row, col)
+
+def getcol(i):
+	ret = []
+	for row in vim.current.buffer:
+		if i < len(row):
+			ret.append(row[i])
+		else:
+			ret.append("\0")
+
+	return "".join(ret)
+
+def getmatch(line, region):
+	return line[region[0]:region[1]]
+
+# Finds the biggest sub row matching either above
+# or below witht the same content, starting at (row, col)
+def find_region_horizontal(row, col):
+
+	buf = vim.current.buffer
+	match_with = buf[row]
+
+	# Check if it is valid to match above or below
+	match_above = row > 0
+	match_below = row < len(buf)
+	above_end   = below_end = col
+
+
+	# Set the maximum index, and if valid
+	# find the last common index above and below
+	if match_above:
+		above      = buf[row-1]
+		max_above  = min(len(above), len(match_with))
+
+		if col < max_above:
+			above_end = col + len(commonprefix([above[col:], match_with[col:]]))
+
+	if match_below:
+		below      = buf[row+1]
+		max_below  = min(len(below), len(match_with))
+
+		if col < max_below:
+			below_end = col + len(commonprefix([below[col:], match_with[col:]]))
+
+	# find the first common index above and below
+	above_start = col - len(commonprefix([(above[:col])[::-1], (match_with[:col])[::-1]]))
+	below_start = col - len(commonprefix([(below[:col])[::-1], (match_with[:col])[::-1]]))
+
+
+	# return the longest common range of above and below
+	above_range = above_end - above_start
+	below_range = below_end - below_start
+
+	range = above
+	region = (above_start, above_end)
+
+	if below_range > above_range:
+		range = below
+		region = (below_start, below_end)
+
+	return region
+
+# Find the index of the biggest uniform sub column from (row, col):
+def find_region_vertical(row, col):
+	column = getcol(col)
+	char = column[row]
+
+	# Separate the parts of the column
+	above = (column[:row])[::-1]
+	below = column[row:]
+
+
+	# Find the longest common part
+	above_start = row - len(commonprefix([above, len(above) * char]))
+	below_end   = row + len(commonprefix([below, len(below) * char]))
+
+	print("above_start, below_end: %d, %d" % (above_start, below_end))
+
+	return (above_start, below_end)
+
+# Checks if a sub row is equal to match_with
+def match_horizontal(row, start_col, match_with):
+	line = vim.current.buffer[row]
+	end_col = start_col + len(match_with)
+	if end_col < len(line):
+		return line[start_col:end_col] == match_with
+	return False
+
+# Checks if a vertical sub column is only containing the same character
+def match_vertical(col, start_row, end_row):
+	col = getcol(col)
+	if end_row < len(col):
+		# print("hei")
+		# print(start_row)
+		# print(end_row)
+		sub = col[start_row:end_row]
+		# print(sub)
+		return sub == len(sub) * sub[0]
+	return False
+
+	# Searches from row /column 'begin' to row / column 'end'
+	# not stopping before the 'matcher' fails.
+	# Returns the row / column end point before the matcher failed
+	# or the start if the start failed
+	# The check parameters are static parameters delegated to
+	# the 'matcher'
+def search(begin, end, check_first, check_second, matcher):
+	stop = begin
+	for i in range(begin, end, 1 if end > begin else -1 ):
+
+		if not matcher(i, check_first, check_second):
+			return stop
+		else:
+			stop = i
+	return stop
+
+(cursor_row, cursor_col) = vim.current.window.cursor
+cursor_row = cursor_row - 1
+buf = vim.current.buffer
+
+def find_block(finder):
+	return finder(cursor_row, cursor_col)
+
+def make_return(head, tail):
+	vim.command("return [\"\\<C-v>\",%s, %s]" % (head, tail))
+
+def make_region(search_start, last, check_1, check_2, matcher):
+	begin = search(search_start,   -1, check_1, check_2, matcher)
+	end   = search(search_start, last, check_1, check_2, matcher)
+	return (begin, end)
+
+def make_points_vertical(begin, end, point_start, point_end):
+	head_row = point_start + 1
+	head_col = begin + 1
+	tail_row = point_end
+	tail_col = end + 1
+	return (pos(head_row, head_col), pos(tail_row, tail_col))
+
+def make_points_horizontal(begin, end, point_start, point_end):
+	head_row = begin + 1
+	head_col = point_start + 1
+	tail_row = end + 1
+	tail_col = point_end
+	return (pos(head_row, head_col), pos(tail_row, tail_col))
+
+def make_checks_vertical(point_start, point_end):
+	return (point_start, point_end)
+
+def make_checks_horizontal(point_start, point_end):
+	buf = vim.current.buffer
+	return (point_start, buf[cursor_row][point_start:point_end])
+
+def find_block_horizontal():
+	last = len(buf)
+	finder = find_region_horizontal
+	search_start = cursor_row
+	matcher = match_horizontal
+	make_points = make_points_horizontal
+
+	(point_start, point_end) = find_block(finder)
+
+	check_1 = point_start
+	check_2 = buf[cursor_row][point_start:point_end]
+
+	(begin, end) = make_region(search_start, last, check_1, check_2, matcher)
+	(head, tail) = make_points_horizontal(begin, end, point_start, point_end)
+
+	return make_return(head, tail)
+
+def find_block_vertical():
+	last         = len(max(buf, key       = len))
+	finder       = find_region_vertical
+	search_start = cursor_col
+	matcher      = match_vertical
+	make_points  = make_points_horizontal
+
+	(point_start, point_end) = find_block(finder)
+	check_1 = point_start
+	check_2 = point_end
+
+	(begin, end) = make_region(search_start, last, check_1, check_2, matcher)
+	(head, tail) = make_points_vertical(begin, end, point_start, point_end)
+
+	return make_return(head, tail)
+
+find_block_vertical()
+# find_block_horizontal()
+endpython
+endfunction
+
+function! CurrentLineI()
+python << endpython
+# Find the biggest common column part containing row
+# of first and second
+endpython
+return
+endfunction
 " TODO
-	" Restrict search to current window
-	" make messages display newest first
-	" set dictionary completion on latex and txt files
 	" unset hlsearch after substitute command
 	" fix paste command
 
