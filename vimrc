@@ -7,14 +7,17 @@
 
 	" Plugin 'git://github.com/Valloric/YouCompleteMe'
 	" Plugin 'git://github.com/bling/vim-bufferline'
+	" Plugin 'git://github.com/dhruvasagar/vim-prosession'
 	" Plugin 'git://github.com/eagletmt/ghcmod-vim'
 	" Plugin 'git://github.com/endel/vim-github-colorscheme'
+	" Plugin 'git://github.com/justinmk/vim-sneak'
 	" Plugin 'git://github.com/kana/vim-smartword'
 	" Plugin 'git://github.com/vim-scripts/YankRing.vim'
 	" Plugin 'git://github.com/vim-scripts/candycode.vim'
 	" Plugin 'git://github.com/wincent/command-t'
 	" Plugin 'git://github.com/xolox/vim-easytags'
 	Plugin 'git://github.com/Julian/vim-textobj-brace'
+	Plugin 'git://github.com/Julian/vim-textobj-variable-segment.git'
 	Plugin 'git://github.com/Lokaltog/vim-easymotion'
 	Plugin 'git://github.com/Shougo/neocomplete.vim'
 	Plugin 'git://github.com/SirVer/ultisnips'
@@ -22,7 +25,6 @@
 	Plugin 'git://github.com/airblade/vim-gitgutter'
 	Plugin 'git://github.com/altercation/vim-colors-solarized'
 	Plugin 'git://github.com/beloglazov/vim-textobj-quotes'
-	Plugin 'git://github.com/Julian/vim-textobj-variable-segment.git'
 	Plugin 'git://github.com/bronson/vim-visual-star-search'
 	Plugin 'git://github.com/dag/vim-fish'
 	Plugin 'git://github.com/dag/vim2hs'
@@ -31,10 +33,8 @@
 	Plugin 'git://github.com/glts/vim-textobj-comment'
 	Plugin 'git://github.com/gmarik/Vundle.vim'
 	Plugin 'git://github.com/godlygeek/tabular'
-	" Plugin 'git://github.com/goldfeld/vim-seek'
 	Plugin 'git://github.com/honza/vim-snippets'
 	Plugin 'git://github.com/itchyny/lightline.vim'
-	" Plugin 'git://github.com/justinmk/vim-sneak'
 	Plugin 'git://github.com/kana/vim-textobj-entire'
 	Plugin 'git://github.com/kana/vim-textobj-lastpat'
 	Plugin 'git://github.com/kana/vim-textobj-line'
@@ -58,11 +58,11 @@
 	Plugin 'git://github.com/tpope/vim-eunuch'
 	Plugin 'git://github.com/tpope/vim-fugitive'
 	Plugin 'git://github.com/tpope/vim-obsession'
-	" Plugin 'git://github.com/dhruvasagar/vim-prosession'
 	Plugin 'git://github.com/tpope/vim-repeat'
 	Plugin 'git://github.com/tpope/vim-sensible'
 	Plugin 'git://github.com/tpope/vim-surround'
 	Plugin 'git://github.com/tpope/vim-unimpaired'
+	Plugin 'git://github.com/vim-scripts/ReplaceWithRegister'
 	Plugin 'git://github.com/vim-scripts/UnconditionalPaste'
 	Plugin 'git://github.com/vim-scripts/argtextobj.vim'
 	Plugin 'git://github.com/xolox/vim-misc'
@@ -338,16 +338,12 @@
 	let maplocalleader = "-"
 
 	nnoremap <leader>q q:k<CR>
+
+	" LEARN
 	inoremap <C-W> <esc>:w<CR>
 
-	" Brackets
-		" inoremap ` `<C-R>=UltiSnips#Anon("${1:${VISUAL}}`")<CR>
-		" inoremap ' '<C-R>=UltiSnips#Anon("${1:${VISUAL}}'")<CR>
-		" inoremap " "<C-R>=UltiSnips#Anon('${1:${VISUAL}}"')<CR>
-		" inoremap ( (<C-R>=UltiSnips#Anon('${1:${VISUAL}})')<CR>
-		" inoremap [ [<C-R>=UltiSnips#Anon('${1:${VISUAL}}]')<CR>
-		" inoremap { {<C-R>=UltiSnips#Anon('${1:${VISUAL}}}')<CR>
-		" autocmd FileType tex inoremap $ $<C-R>=UltiSnips#Anon("${1:${VISUAL}}\$")<CR>
+
+
 
 	" Vim-textobj-entire
 		xmap aE <Plug>(textobj-entire-a)
@@ -525,28 +521,7 @@
 
 	" Paste
 		nnoremap <Leader>v :Paste<CR>
-		inoremap <Leader>v <esc>:Paste<CR>a
-
-
-	" shift tab focus
-		"nnoremap <C-]> :tabnext<CR>
-		"nnoremap <C-[> :tabprevious<CR>
-		noremap <A-1> 1gt
-		noremap <A-2> 2gt
-		noremap <A-3> 3gt
-		noremap <A-4> 4gt
-		noremap <A-5> 5gt
-		noremap <A-6> 6gt
-		noremap <A-7> 7gt
-		noremap <A-8> 8gt
-		noremap <A-9> 9gt
-		noremap <A-0> :tablast<cr>
-
-	" Global copy paste shortcut
-		" vnoremap <leader>X "+d
-		" vnoremap <leader>C "+y
-		" nnoremap <leader>V "+gP
-
+		vnoremap <Leader>v :Paste<CR>
 
 	" make * and # search work in visual mode too
 		xnoremap * :<C-u>call myautoloads#VSetSearch('/')<CR>/<C-R>=@/<CR><CR>
