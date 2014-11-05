@@ -46,9 +46,6 @@ nnoremap <LocalLeader>s :call SyncTexEvince()<CR>
 compiler tex
 setlocal smartindent
 
-silent !mkdir build > /dev/null 2>&1
-silent !ln -s build/%:r.pdf > /dev/null 2>&1
-
 setlocal makeprg=lualatex\ \-file\-line\-error\ \-interaction=nonstopmode\ \-synctex=1\ %:t
 "set makeprg=pdflatex\ \-file\-line\-error\ \-interaction=nonstopmode\ \-synctex=1\ $*\\\|\ grep\ \-P\ ':\\d{1,5}:\ $:p'
 setlocal errorformat=%f:%l:\ %m

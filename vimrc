@@ -50,7 +50,8 @@
 	Plugin 'git://github.com/scrooloose/syntastic'
 	Plugin 'git://github.com/sgur/vim-textobj-parameter'
 	Plugin 'git://github.com/sjl/gundo.vim'
-	Plugin 'git://github.com/skammer/vim-css-color'
+	" Plugin 'git://github.com/skammer/vim-css-color'
+	Plugin 'git://github.com/lilydjwg/colorizer'
 	Plugin 'git://github.com/thinca/vim-textobj-between'
 	Plugin 'git://github.com/tommcdo/vim-exchange'
 	Plugin 'git://github.com/tomtom/tcomment_vim'
@@ -226,7 +227,7 @@
 	" Completion
 		set wildmenu
 		set wildmode=list:longest,full
-		set wildignore=*.swp,*.acn,*.aux,*.bak,*.bmp,*.exe,*.glo,*.hi,*.jpg,*.log,*.o,*.out,*.pdf,*.pyc,*.thm,*.toc,*.xdy,*~,*.gz,*.xz,*.tar,*.zip,*.gz(busy)
+		set wildignore=*.swp,*.acn,*.aux,*.bak,*.bmp,*.exe,*.glo,*.hi,*.jpg,*.log,*.o,*.out,*.pdf,*.pyc,*.thm,*.toc,*.xdy,*~,*.gz,*.xz,*.tar,*.zip,*.gz(busy),*.png
 		set wildignorecase
 
 	" Fold
