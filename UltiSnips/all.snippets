@@ -63,10 +63,6 @@ ${1:`!v get(split(split(&comments, ",")[-1], ":"), 1)`} vim: $2 :
 $0
 endsnippet
 
-snippet '("|'|`|\[|\{|\()' "Bracket completion without word" ir
-`!p snip.rv = match.group(0)`$1`!p snip.rv = match_bracket(match.group(1))`
-endsnippet
-
-snippet '("|'|`|\[|\{|\()[\w,!,\-,\,\s,\=,:]+' "Bracket completion with word" ir
+snippet '("|'|`|\[|\{|\()[\w,!,\-,\,\s,\=,:,\s]+' "Bracket completion with word" ir
 `!p snip.rv = match.group(0) + match_bracket(match.group(1))`
 endsnippet

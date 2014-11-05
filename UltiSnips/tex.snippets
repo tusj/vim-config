@@ -1,4 +1,43 @@
 global !p
+# from vim import *
+import re
+import os
+
+strip = 8 # maxlength per item in reference completion
+complete_length = 80 # maxlength per item in reference completion
+
+# Returns the rest of 'end' in the matching snippet name
+# For a snippet name of "get(ra?n?g?e?)?" and 'end' of
+# 'range' gives 'nge' if regex match was 'getra'
+def match_arg(end):
+	ret = match.group(0)
+	if match.group(2):
+		ret += end[len(match.group(2)):]
+	return ret
+
+#  Returns a list of all the matches in all the
+#  .tex files in the current directory
+def find_in_files(regex, group_number):
+	lines   = []
+	for f in os.listdir(os.getcwd()):
+		if f.endswith(".tex"):
+			fd = open(f)
+			lines += fd.readlines()
+			fd.close()
+
+	ref     = re.compile(regex)
+	matches  = []
+	for m in lines:
+		for mm in ref.finditer(m):
+			mmm = mm.group(group_number)
+			if mmm:
+				matches.append(mmm)
+	return matches
+
+# Helper to add square brackets in
+# latex options, where there should
+# only be square brackets if there is
+# content in the option
 def check(a, b):
 	try:
 		last = t[b+1]
@@ -16,20 +55,39 @@ def lb(a):
 def rb(a):
 	check("]", a)
 
-def complete(i, words):
-	w = t[i]
-	if w:
-		opts  = [ m[len(w):] for m in words if m.startswith(w) ]
-		if len(opts) == 1:
-			return opts[0]
-		elif len(opts) == 0:
-			return "No alternatives"
+# Prettyfies the concatenation of an array
+def join(array):
+	if len(array) == "":
+		return ""
+	if len(array) == 1:
+		return "( " + array[0] + " )"
+	return "( " + " | ".join(array) + " )"
+
+# Returns the matching 'words' with 'w', and only
+# returns the end of the matches.
+# Ex: wo: gives 'rds' and 'rld' for 'words' and 'world'
+def complete(w, words):
+	opts  = [ m[len(w):] for m in words if m.startswith(w) ]
+	if len(opts) == 1:
+		return opts[0]
+	elif len(opts) == 0:
+		return join(["No alternatives"])
+
+	truncated = []
+	for mm in opts:
+		if len(mm) > strip:
+			truncated.append(mm[:strip] + "..")
 		else:
-			return "(" + "|".join(opts) + ")"
-	return "Error"
+			truncated.append(mm)
 
+	joined = join(opts)
+	if len(joined) > complete_length:
+		return joined[:complete_length] + "..."
+	else:
+		return joined
 
-def command_complete(i):
+# Completes some of the most important command names in latex
+def command_complete(w):
 	words = [ "Cref", "Gamma", "Phi", "jmath", "linewidth", "neq",
 	"newenvironment", "paragraph", "parindent", "pi", "renewenvironment",
 	"rightarrow", "section", "sl", "succeq", "textwidth", "underbrace",
@@ -49,38 +107,38 @@ def command_complete(i):
 	"subsubsection", "succ", "sum", "sup", "supset", "supseteq",
 	"symbol", "tau", "textheight", "thanks", "theta", "tiny", "title",
 	"to", "today", "topmargin", "tt", "underline", "updownarrow",
-	"upsilon", "verb", "vfill", "vspace", "xi" ]
-	return complete(i, words)
+	"upsilon", "verb", "vfill", "vspace", "xi", "item"]
+	return complete(w, words)
 
-def environment_complete(i):
+# Completes some of the most important environment names in latex
+def environment_complete(w):
 	words = [ "description", "eqnarray", "figure", "flushleft",
 	"verbatim", "abstract", "align", "center", "displaymath", "document",
 	"enumerate", "equation", "flushright", "itemize", "list", "listing",
 	"minipage", "quotation", "quote", "scope", "table", "tabular",
 	"theorem", "tikzpicture", "titlepage" ]
-	return complete(i, words)
-
+	return complete(w, words)
 endglobal
+
+snippet \\ "LaTeX environment" i
+\\begin{$1}`!p lb(2)`$2`!p rb(2)`
+	$0$
+\\end{$1}
+endsnippet
 
 snippet \ "LaTeX command" i
 \\${1:begin}`!p snip.rv = command_complete(1)`{$2}`!p lb(3)`$3`!p rb(3)`
 $4
 endsnippet
 
-snippet "begin\{(\w+)?" "LaTeX environment" ir
-begin{${1:`!p
-if match:
-	if match.group(1):
-		snip.rv = match.group(1)
-	else:
-		snip.rv = "itemize"
-else:
-	snip.rv = "itemize"
-`}`!p snip.rv = environment_complete(1)`}`!p lb(2)`$2`!p rb(2)`
-	${0:${VISUAL}}
-\\end{$1`!p snip.rv = environment_complete(1)`}
+snippet "begin\{(\w*)" "LaTeX environment" ir
+`!p snip.rv = match.group(0)`${1:`!p
+if not match.group(1):
+	snip.rv = ""`}`!p
+snip.rv = environment_complete(t[1])`}`!p lb(2)`$2`!p rb(2)`
+	$0
+end{$1`!p snip.rv = environment_complete(t[1])`}
 endsnippet
-
 
 snippet "sc?o?p?e?" "Scope environment" rb
 \begin{scope}[$1]
@@ -138,30 +196,6 @@ endsnippet
 snippet acr "Acronym" b
 \newacronym{${1:Reference name}}{${1/([a-z])[a-z]+_?/\u$1/g}}{${1/([a-z]+)_|([a-z]+)/(?1:\u$1 )(?2:\u$2)/g}}
 $0
-endsnippet
-
-snippet "gls?" "Glossary lookup singular lowercase" r
-\gls{$1} $0
-endsnippet
-
-snippet "glspl?" "Glossary lookup plural lowercase" r
-\glspl{$1} $0
-endsnippet
-
-snippet "Gls?" "Glossary lookup singular uppercase" r
-\Gls{$1} $0
-endsnippet
-
-snippet "Glspl?" "Glossary lookup plural uppercase" r
-\Glspl{$1} $0
-endsnippet
-
-snippet "cre?f?" "cref" r
-\cref{$1} $0
-endsnippet
-
-snippet "Cre?f?" "Cref" r
-\Cr{$1} $0
 endsnippet
 
 snippet env "New environment" b
@@ -233,10 +267,33 @@ snippet "tit?l?e?" "Title" rb
 \maketitle
 endsnippet
 
+<<<<<<< HEAD
+snippet "(G|g)ls(pl?)?" "Glossary reference completion" r
+`!p
+snip.rv = match_arg("pl")
+`{$1`!p
+regex = r".*\\(long)?new(glossaryentry|acronym)\{(.*?)\}"
+if not snip.c:
+	results = find_in_files(regex, 3)
+snip.rv = complete(t[1], results)
+`}
+endsnippet
+
+snippet "(C|c|(N|n)ame|(P|p)age)?ref(ra?n?g?e?)?" "Reference completion" r
+`!p
+snip.rv = match_arg("range")
+`{$1`!p
+regex = r"\\label\{(.*?)\}"
+if not snip.c:
+	results = find_in_files(regex, 1)
+snip.rv = complete(t[1], results)
+`}
+=======
 snippet "$\w+" "Inline math" ri
 `!p snip.rv = match.group(0)`\$
 endsnippet
 
 snippet $ "Inline math" i
 `!p snip.rv = match.group(0)`$1\$
+>>>>>>> 2aa92293118a6beb5e95597eab85dae9b07749f5
 endsnippet
