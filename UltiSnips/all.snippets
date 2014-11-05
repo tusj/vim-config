@@ -1,60 +1,37 @@
-snippet "(\d+(\.\d+)?)\+(\d+(\.\d+)?)?" "Add" ir
-`!p
-num = match.group(3)
-rest = num if num else "1"
-snip.rv = eval(match.group(1) + "+" + rest)`
-endsnippet
+global !p
+def match_bracket(n):
+	if n == '[':
+		return ']'
+	elif n == '{':
+		return '}'
+	elif n == '(':
+		return ')'
+	else:
+		return n
+endglobal
 
-snippet "(\d+(\.\d+)?)\-(\d+(\.\d+)?)?" "Subtract" ir
-`!p
-num = match.group(3)
-rest = num if num else "1"
-snip.rv = eval(match.group(1) + "-" + rest)`
+# Problem: Python only supports recursive regular expressions through pypi regex module
+# number = \d+(\.\d+)?
+# operator = (\*|/|\+|\-|\%|\*\*)
+# value = (number | (\(expression\)))
+# expression = value + operator + value
+# expressions = expression (operator + value)*
+snippet "(\d+(\.\d+)?)((\*|/|\+|\-|\%|\*\*)(\d+(\.\d+)?))+" "Maths" ri
+`!p snip.rv = eval(match.group(0))`
 endsnippet
-
-snippet "(\d+(\.\d+)?)\*(\d+(\.\d+)?)?" "Multiply" ir
-`!p
-num = match.group(3)
-rest = num if num else "2"
-snip.rv = eval(match.group(1) + "*" + rest)`
-endsnippet
-
-snippet "(\d+(\.\d+)?)\/(\d+(\.\d+)?)?" "Divide" ir
-`!p from __future__ import division
-num = match.group(3)
-rest = num if num else "2"
-snip.rv = eval(match.group(1) + "/" + rest)`
-endsnippet
-
-snippet "(\d+(\.\d+)?)\%(\d+)?" "Modulus" ir
-`!p
-num = match.group(3)
-rest = num if num else "2"
-snip.rv = eval(match.group(1) + "/" + rest)`
-endsnippet
-
 
 snippet "(\d+\.\d+)fl?o?o?r?" "Floor" ir
-`!p
-snip.rv = eval("int(" + match.group(1) + ")")`
+`!p snip.rv = eval("int(" + match.group(1) + ")")`
 endsnippet
 
 snippet "(\d+\.\d+)ce?i?l?" "Ceil" ir
-`!p
-snip.rv = eval("int(" + match.group(1) + "+1))")`
+`!p snip.rv = eval("int(" + match.group(1) + "+1))")`
 endsnippet
 
 snippet "(\d+\.\d+)ro?u?n?d?(\d+)?" "Round" ir
 `!p
 precision = ", " + match.group(2) if match.group(2) else ""
 snip.rv = eval("int(round(" + match.group(1) + precision + "))")`
-endsnippet
-
-snippet "(\d+(\.\d+)?)\*\*(\d+(\.\d+)?)?" "Exponential" ir
-`!p
-num = match.group(3)
-exp = num if num else "2"
-snip.rv = eval(match.group(1) + "**" + exp)`
 endsnippet
 
 snippet "(\d+(\.\d+)?)sq?r?t?(\d+(\.\d+)?)?" "Square Root" ir
@@ -86,7 +63,6 @@ ${1:`!v get(split(split(&comments, ",")[-1], ":"), 1)`} vim: $2 :
 $0
 endsnippet
 
-
-
-
-
+snippet '("|'|`|\[|\{|\()[\w,!,\-,\,\s,\=,:,\s]+' "Bracket completion with word" ir
+`!p snip.rv = match.group(0) + match_bracket(match.group(1))`
+endsnippet

@@ -5,11 +5,16 @@
 	set rtp+=~/.vim/bundle/Vundle.vim
 	call vundle#begin()
 
-	" Plugin 'git://github.com/bling/vim-bufferline'
+	" Plugin 'git://github.com/dhruvasagar/vim-prosession'
+	" Plugin 'git://github.com/eagletmt/ghcmod-vim'
+	" Plugin 'git://github.com/endel/vim-github-colorscheme'
+	" Plugin 'git://github.com/goldfeld/vim-seek'
+	" Plugin 'git://github.com/justinmk/vim-sneak'
 	" Plugin 'git://github.com/kana/vim-smartword'
-	" Plugin 'git://github.com/xolox/vim-easytags'
+	" Plugin 'git://github.com/kshenoy/vim-signature'
+	" Plugin 'git://github.com/maxbrunsfeld/vim-yankstack'
 	Plugin 'git://github.com/Julian/vim-textobj-brace'
-	" Plugin 'git://github.com/svermeulen/vim-easyclip'
+	Plugin 'git://github.com/Julian/vim-textobj-variable-segment.git'
 	Plugin 'git://github.com/Lokaltog/vim-easymotion'
 	Plugin 'git://github.com/Shougo/neocomplete.vim'
 	Plugin 'git://github.com/SirVer/ultisnips'
@@ -17,7 +22,6 @@
 	Plugin 'git://github.com/airblade/vim-gitgutter'
 	Plugin 'git://github.com/altercation/vim-colors-solarized'
 	Plugin 'git://github.com/beloglazov/vim-textobj-quotes'
-	Plugin 'git://github.com/bkad/CamelCaseMotion'
 	Plugin 'git://github.com/bronson/vim-visual-star-search'
 	Plugin 'git://github.com/dag/vim-fish'
 	Plugin 'git://github.com/dag/vim2hs'
@@ -26,18 +30,14 @@
 	Plugin 'git://github.com/glts/vim-textobj-comment'
 	Plugin 'git://github.com/gmarik/Vundle.vim'
 	Plugin 'git://github.com/godlygeek/tabular'
-	" Plugin 'git://github.com/goldfeld/vim-seek'
 	Plugin 'git://github.com/honza/vim-snippets'
 	Plugin 'git://github.com/itchyny/lightline.vim'
-	" Plugin 'git://github.com/justinmk/vim-sneak'
 	Plugin 'git://github.com/kana/vim-textobj-entire'
 	Plugin 'git://github.com/kana/vim-textobj-lastpat'
 	Plugin 'git://github.com/kana/vim-textobj-line'
 	Plugin 'git://github.com/kana/vim-textobj-user'
-	" Plugin 'git://github.com/kshenoy/vim-signature'
 	Plugin 'git://github.com/lervag/vim-latex'
 	Plugin 'git://github.com/majutsushi/tagbar'
-	" Plugin 'git://github.com/maxbrunsfeld/vim-yankstack'
 	Plugin 'git://github.com/michaeljsmith/vim-indent-object'
 	Plugin 'git://github.com/mileszs/ack.vim'
 	Plugin 'git://github.com/nanotech/jellybeans.vim'
@@ -45,7 +45,6 @@
 	Plugin 'git://github.com/scrooloose/syntastic'
 	Plugin 'git://github.com/sgur/vim-textobj-parameter'
 	Plugin 'git://github.com/sjl/gundo.vim'
-	Plugin 'git://github.com/skammer/vim-css-color'
 	Plugin 'git://github.com/thinca/vim-textobj-between'
 	Plugin 'git://github.com/tommcdo/vim-exchange'
 	Plugin 'git://github.com/tomtom/tcomment_vim'
@@ -57,6 +56,7 @@
 	Plugin 'git://github.com/tpope/vim-sensible'
 	Plugin 'git://github.com/tpope/vim-surround'
 	Plugin 'git://github.com/tpope/vim-unimpaired'
+	Plugin 'git://github.com/vim-scripts/ReplaceWithRegister'
 	Plugin 'git://github.com/vim-scripts/UnconditionalPaste'
 	Plugin 'git://github.com/vim-scripts/argtextobj.vim'
 	Plugin 'git://github.com/xolox/vim-misc'
@@ -139,6 +139,9 @@
 	set cursorline
 	set nowrap
 	set textwidth=80
+	set formatoptions=qrn1
+	set relativenumber
+	set number
 
 	" c: autowrap comments
 	" t: autowrap text
@@ -199,6 +202,7 @@
 	set lazyredraw " avoid redrawing screen while macro is running
 
 	set virtualedit=onemore,block " Allow for cursor beyond last character
+	set iskeyword-=_ " treat _ as a word boundary
 
 	" autocompletions
 		set completeopt=menuone,preview
@@ -209,7 +213,7 @@
 	" Completion
 		set wildmenu
 		set wildmode=list:longest,full
-		set wildignore=*.swp,*.acn,*.aux,*.bak,*.bmp,*.exe,*.glo,*.hi,*.jpg,*.log,*.o,*.out,*.pdf,*.pyc,*.thm,*.toc,*.xdy,*~,*.gz,*.xz,*.tar,*.zip
+		set wildignore=*.swp,*.acn,*.aux,*.bak,*.bmp,*.exe,*.glo,*.hi,*.jpg,*.log,*.o,*.out,*.pdf,*.pyc,*.thm,*.toc,*.xdy,*~,*.gz,*.xz,*.tar,*.zip,*.gz(busy)
 		set wildignorecase
 
 	" Fold
@@ -261,6 +265,7 @@
 			autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 			autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
 			autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
+			autocmd FileType python        setlocal tabstop=4 noexpandtab shiftwidth=4
 			autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
 			autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
 			" ISSUE doesn't work autocmd FileType markdown      setlocal makeprg=markdown\ %\ >%.html
@@ -343,13 +348,15 @@
 	" Sudo write
 		cnoremap w!! SudoWrite
 
-	" Brackets
-		" inoremap ` `<C-R>=UltiSnips#Anon("${1:${VISUAL}}`")<CR>
-		" inoremap ' '<C-R>=UltiSnips#Anon("${1:${VISUAL}}'")<CR>
-		" inoremap " "<C-R>=UltiSnips#Anon('${1:${VISUAL}}"')<CR>
-		" inoremap ( (<C-R>=UltiSnips#Anon('${1:${VISUAL}})')<CR>
-		" inoremap [ [<C-R>=UltiSnips#Anon('${1:${VISUAL}}]')<CR>
-		" inoremap { {<C-R>=UltiSnips#Anon('${1:${VISUAL}}}')<CR>
+
+	" Execute last ex command
+		nnoremap <leader>q q:k<CR>
+
+	" LEARN
+		inoremap <C-W> <esc>:w<CR>
+
+
+
 
 	" Vim-textobj-entire
 		xmap aE <Plug>(textobj-entire-a)
@@ -358,7 +365,6 @@
 		omap iE <Plug>(textobj-entire-i)
 
 
-	autocmd FileType tex inoremap $ $<C-R>=UltiSnips#Anon("${1:${VISUAL}}\$")<CR>
 
 	" Find last match in line
 		nnoremap gf $F
@@ -497,21 +503,7 @@
 
 	" Paste
 		nnoremap <Leader>v :Paste<CR>
-		imap <c-v> <plug>EasyClipInsertModePaste
-
-	" shift tab focus
-		"nnoremap <C-]> :tabnext<CR>
-		"nnoremap <C-[> :tabprevious<CR>
-		noremap <A-1> 1gt
-		noremap <A-2> 2gt
-		noremap <A-3> 3gt
-		noremap <A-4> 4gt
-		noremap <A-5> 5gt
-		noremap <A-6> 6gt
-		noremap <A-7> 7gt
-		noremap <A-8> 8gt
-		noremap <A-9> 9gt
-		noremap <A-0> :tablast<cr>
+		vnoremap <Leader>v :Paste<CR>
 
 	" make * and # search work in visual mode too
 		xnoremap * :<C-u>call myautoloads#VSetSearch('/')<CR>/<C-R>=@/<CR><CR>
@@ -522,6 +514,7 @@
 		vnoremap <leader>* :<C-u>call myautoloads#VSetSearch()<CR>:execute 'noautocmd vimgrep /' . @/ . '/ **'<CR>
 
 	" search without regex normally
+		cnoremap s/ s/\v
 		nnoremap / /\v
 		vnoremap / /\v
 
@@ -670,6 +663,17 @@
 		let g:tagbar_autoclose = 1
 		let g:tagbar_autofocus = 1
 
+" Functions
+	" Diff of current content with saved content
+		function! s:DiffWithSaved()
+			let filetype=&ft
+			diffthis
+			vnew | r # | normal! 1Gdd
+			diffthis
+			exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
+		endfunction
+		com! DiffSaved call s:DiffWithSaved()
+
 	" paste convenient
 		function! Paste()
 			set paste
@@ -704,14 +708,49 @@
 	\     'select': ['an', 'in'],
 	\   }
 	\ })
-	"    2.adfasdfa 2\bladfd
-	" \     'pattern': '\v\d+(\.\d+)?',
-	" call textobj#user#plugin('coordinate', {
-	" \   'coordinate': {
-	" \     'pattern': '\v\(\s*\zs\d+(\.\d+)?\s*(,\s*\d+(\.\d+)?)+\ze\s*\)',
-	" \     'select': ['ak', 'ik'],
-	" \   }
-	" \ })
+
+	call textobj#user#plugin('block', {
+	\   'vertical': {
+	\     'select-a-function': 'VerticalBlockOuter',
+	\     'select-a': 'aV',
+	\     'select-i-function': 'VerticalBlockInner',
+	\     'select-i': 'iV',
+	\   },
+	\   'horizontal': {
+	\     'select-a-function': 'HorizontalBlockOuter',
+	\     'select-a': 'aH',
+	\     'select-i-function': 'HorizontalBlockInner',
+	\     'select-i': 'iH',
+	\   },
+	\ })
+
+set rtp+=~/.vim/pythonx
+python << endpython
+from block_object import find_block
+endpython
+
+function! VerticalBlockInner()
+python << endpython
+find_block()
+endpython
+endfunction
+
+function! HorizontalBlockInner()
+find_block(vertical = False)
+endpython
+endfunction
+
+function! VerticalBlockOuter()
+python << endpython
+find_block(outer = True)
+endpython
+endfunction
+
+function! HorizontalBlockOuter()
+python << endpython
+find_block(vertical = False, outer = True)
+endpython
+endfunction
 
 " TODO
 	" unset hlsearch after substitute command
