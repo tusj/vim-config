@@ -36,6 +36,7 @@
 	Plugin 'git://github.com/kana/vim-textobj-lastpat'
 	Plugin 'git://github.com/kana/vim-textobj-line'
 	Plugin 'git://github.com/kana/vim-textobj-user'
+	Plugin 'git://github.com/kana/vim-textobj-diff'
 	Plugin 'git://github.com/lervag/vim-latex'
 	Plugin 'git://github.com/majutsushi/tagbar'
 	Plugin 'git://github.com/michaeljsmith/vim-indent-object'
@@ -737,6 +738,7 @@ endpython
 endfunction
 
 function! HorizontalBlockInner()
+python << endpython
 find_block(vertical = False)
 endpython
 endfunction
