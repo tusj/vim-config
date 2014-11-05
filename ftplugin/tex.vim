@@ -53,12 +53,6 @@ setlocal makeprg=lualatex\ \-file\-line\-error\ \-interaction=nonstopmode\ \-syn
 "set makeprg=pdflatex\ \-file\-line\-error\ \-interaction=nonstopmode\ \-synctex=1\ $*\\\|\ grep\ \-P\ ':\\d{1,5}:\ $:p'
 setlocal errorformat=%f:%l:\ %m
 
-function! Labels()
-	set grepprg=ack\ \-o
-	silent !grep "\\label\{(.*?)\}" %
-	copen
-endfunction
-
 nnoremap <LocalLeader>l :call Labels()<CR>
 setlocal formatoptions+=t " automatic hard line wrap
 " vim: set ft=vim:
