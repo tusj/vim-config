@@ -12,11 +12,15 @@
 	" Plugin 'git://github.com/justinmk/vim-sneak'
 	" Plugin 'git://github.com/kana/vim-smartword'
 	" Plugin 'git://github.com/kshenoy/vim-signature'
-	" Plugin 'git://github.com/maxbrunsfeld/vim-yankstack'
+	Plugin 'git://github.com/maxbrunsfeld/vim-yankstack'
+	Plugin 'git://github.com/junegunn/vim-easy-align'
+	Plugin 'git://github.com/nice/sweater'
+	Plugin 'git://github.com/freeo/vim-kalisi'
 	Plugin 'git://github.com/Julian/vim-textobj-brace'
 	Plugin 'git://github.com/Julian/vim-textobj-variable-segment.git'
 	Plugin 'git://github.com/Lokaltog/vim-easymotion'
 	Plugin 'git://github.com/Shougo/neocomplete.vim'
+	Plugin 'git://github.com/Shougo/vimproc.vim'
 	Plugin 'git://github.com/SirVer/ultisnips'
 	Plugin 'git://github.com/Twinside/vim-haskellConceal'
 	Plugin 'git://github.com/airblade/vim-gitgutter'
@@ -46,7 +50,7 @@
 	Plugin 'git://github.com/scrooloose/syntastic'
 	Plugin 'git://github.com/sgur/vim-textobj-parameter'
 	Plugin 'git://github.com/sjl/gundo.vim'
-	Plugin 'git://github.com/lilydjwg/colorizer'
+	Plugin 'git://github.com/chrisbra/Colorizer'
 	Plugin 'git://github.com/thinca/vim-textobj-between'
 	Plugin 'git://github.com/tommcdo/vim-exchange'
 	Plugin 'git://github.com/tomtom/tcomment_vim'
@@ -66,7 +70,7 @@
 	Plugin 'git://github.com/zeis/vim-kolor'
 
 	call vundle#end()
-	" call yankstack#setup() " initialization to hijack key bindings
+	call yankstack#setup() " initialization to hijack key bindings
 
 " Basic
 	set encoding=utf-8
@@ -89,9 +93,9 @@
 		set updatecount=0
 
 	" Terminal
-		if !has('gui')
-			set term=$TERM          " Make arrow and other keys work
-		endif
+		" if !has('gui')
+			" set term=$TERM          " Make arrow and other keys work
+		" endif
 		if &shell =~# 'fish$'
 			set shell=bash\ --login
 		endif
@@ -161,43 +165,43 @@
 	set matchtime=5
 
 	" Fold presentation
- 		set foldtext=MyFoldText()
- 		function! MyFoldText()
- 			let line = getline(v:foldstart)
- 			if match( line, '^[ \t]*\(\/\*\|\/\/\)[*/\\]*[ \t]*$' ) == 0
- 				let initial = substitute( line, '^\([ \t]\)*\(\/\*\|\/\/\)\(.*\)', '\1\2', '' )
- 				let linenum = v:foldstart + 1
- 				while linenum < v:foldend
- 				let line = getline( linenum )
- 				let comment_content = substitute( line, '^\([ \t\/\*]*\)\(.*\)$', '\2', 'g' )
- 				if comment_content != ''
- 					break
- 				endif
- 				let linenum = linenum + 1
- 				endwhile
- 				let sub = initial . ' ' . comment_content
- 			else
- 				let sub = line
- 				let startbrace = substitute( line, '^.*{[ \t]*$', '{', 'g')
- 				if startbrace == '{'
- 				let line = getline(v:foldend)
- 				let endbrace = substitute( line, '^[ \t]*}\(.*\)$', '}', 'g')
- 				if endbrace == '}'
- 					let sub = sub.substitute( line, '^[ \t]*}\(.*\)$', '...}\1', 'g')
- 				endif
- 				endif
- 			endif
- 			let n = v:foldend - v:foldstart + 1
- 			let info = " " . n . " lines"
- 			let sub = sub . "                                                                                                                  "
- 			let num_w = getwinvar( 0, '&number' ) * getwinvar( 0, '&numberwidth' )
- 			let fold_w = getwinvar( 0, '&foldcolumn' )
- 			" ↲ ↪ ⧽ 【 ▛ ▟ 】 ⤹ ⬇ ∋ 𝌞 ■ ▌ ▟ ▚ ▼ ◤ ┏ ⎩ ⎝ ⤥ ( ❨ ⟮ ⟫ ⎡ ▏ ▍ ▐
- 			let rsign = '⤶'
- 			let lsign = '𝌻'
- 			let sub = lsign .  strpart( sub, 0, winwidth(0) - strlen( info ) - num_w - fold_w - 1 )
- 			return sub . rsign . info
- 		endfunction
+		set foldtext=MyFoldText()
+		function! MyFoldText()
+			let line = getline(v:foldstart)
+			if match( line, '^[ \t]*\(\/\*\|\/\/\)[*/\\]*[ \t]*$' ) == 0
+				let initial = substitute( line, '^\([ \t]\)*\(\/\*\|\/\/\)\(.*\)', '\1\2', '' )
+				let linenum = v:foldstart + 1
+				while linenum < v:foldend
+				let line = getline( linenum )
+				let comment_content = substitute( line, '^\([ \t\/\*]*\)\(.*\)$', '\2', 'g' )
+				if comment_content != ''
+					break
+				endif
+				let linenum = linenum + 1
+				endwhile
+				let sub = initial . ' ' . comment_content
+			else
+				let sub = line
+				let startbrace = substitute( line, '^.*{[ \t]*$', '{', 'g')
+				if startbrace == '{'
+				let line = getline(v:foldend)
+				let endbrace = substitute( line, '^[ \t]*}\(.*\)$', '}', 'g')
+				if endbrace == '}'
+					let sub = sub.substitute( line, '^[ \t]*}\(.*\)$', '...}\1', 'g')
+				endif
+				endif
+			endif
+			let n = v:foldend - v:foldstart + 1
+			let info = " " . n . " lines"
+			let sub = sub . "                                                                                                                  "
+			let num_w = getwinvar( 0, '&number' ) * getwinvar( 0, '&numberwidth' )
+			let fold_w = getwinvar( 0, '&foldcolumn' )
+			" ↲ ↪ ⧽ 【 ▛ ▟ 】 ⤹ ⬇ ∋ 𝌞 ■ ▌ ▟ ▚ ▼ ◤ ┏ ⎩ ⎝ ⤥ ( ❨ ⟮ ⟫ ⎡ ▏ ▍ ▐
+			let rsign = '⤶'
+			let lsign = '𝌻'
+			let sub = lsign .  strpart( sub, 0, winwidth(0) - strlen( info ) - num_w - fold_w - 1 )
+			return sub . rsign . info
+		endfunction
 
 " Behavior
 	set autochdir " sync current directory with current file
@@ -213,6 +217,9 @@
 		set tags=./.tags,.tags,/home/s/.vim/tags;
 
 	" Completion
+		" to be able to use wildchar in macros
+		set wildcharm=<C-Z>
+
 		set wildmenu
 		set wildmode=list:longest,full
 		set wildignore=*.swp,*.acn,*.aux,*.bak,*.bmp,*.exe,*.glo,*.hi,*.jpg,*.log,*.o,*.out,*.pdf,*.pyc,*.thm,*.toc,*.xdy,*~,*.gz,*.xz,*.tar,*.zip,*.gz(busy),*.png
@@ -313,10 +320,19 @@
 
 		set gdefault   " default global on substitute command
 
+	" hack: avoid inserting characters instead of the action of an arrow in
+	" terminal
+		imap <ESC>oA <ESC>ki
+		imap <ESC>oB <ESC>ji
+		imap <ESC>oC <ESC>li
+		imap <ESC>oD <ESC>hi
+
 " Keymaps
 	let mapleader = "\\"
 	let maplocalleader = "-"
 
+	" Error on quickly quitting
+		nnoremap :W :w
 	" Repeat last Ex command
 		nnoremap <leader>q q:k<CR>
 
@@ -328,6 +344,9 @@
 
 	" Go to matching
 		nnoremap <Tab> %
+
+	" Bufferlist
+		nnoremap <Leader>b :b <C-Z>
 
 	" Display search matches in center of screen
 		nnoremap n nzzzv
@@ -410,10 +429,10 @@
 		inoremap <C-O>l <Esc>el
 
 	" Help
-		cabbrev h vert h
+		cabbrev h tab h
 
 	" Mru
-		nnoremap <leader>m :Mru<cr>
+		nnoremap <Leader>m :Mru<Space>
 
 	" Diff
 		nnoremap do do]c
@@ -529,6 +548,9 @@
 		command! Todo  :execute 'vimgrep TODO '.expand('%')  | :copen | :cc
 
 " Plugins
+	" Bufexplorer
+		let g:bufExplorerShowTabBuffer = 1
+
 	" Easyclip
 		let g:EasyClipUseSubstituteDefaults = 1
 		let g:EasyClipDoSystemSync = 0
@@ -604,8 +626,10 @@
 		let g:neocomplete#sources#syntax#min_keyword_length = 3
 		inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
 		function! s:my_cr_function()
-			return pumvisible() ? "\<C-n>" . neocomplete#close_popup() . "\<Esc>" : "\<CR>"
+			return pumvisible() ? neocomplete#close_popup() . "\<Esc>" : "\<CR>"
 		endfunction
+
+		ret
 
 		inoremap <expr><C-g> neocomplete#undo_completion()
 		inoremap <expr><C-l> neocomplete#complete_common_string()
@@ -644,11 +668,12 @@
 
 	" Most recently used
 		let MRU_File = $HOME . "/.vim/mru-files"
+		let MRU_Window_Height = 20
 
 	" YankStack
-	let g:yankstack_map_keys = 0
-	" nmap <c-p> <Plug>yankstack_substitute_older_paste
-	" nmap <c-n> <Plug>yankstack_substitute_newer_paste
+		let g:yankstack_map_keys = 0
+		nmap <c-p> <Plug>yankstack_substitute_older_paste
+		nmap <c-n> <Plug>yankstack_substitute_newer_paste
 
 	" nerdtree
 		" autocmd vimenter * if !argc() | NERDTree | endif
