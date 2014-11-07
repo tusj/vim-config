@@ -16,25 +16,25 @@ endglobal
 # value = (number | (\(expression\)))
 # expression = value + operator + value
 # expressions = expression (operator + value)*
-snippet "(\d+(\.\d+)?)((\*|/|\+|\-|\%|\*\*)(\d+(\.\d+)?))+" "Maths" ri
+snippet "([\-,\+]?\d+(\.\d+)?)((\*|/|\+|\-|\%|\*\*)([\-,\+]?\d+(\.\d+)?))+" "Maths" ri
 `!p snip.rv = eval(match.group(0))`
 endsnippet
 
-snippet "(\d+\.\d+)fl?o?o?r?" "Floor" ir
+snippet "([\-,\+]?\d+\.\d+)fl?o?o?r?" "Floor" ir
 `!p snip.rv = eval("int(" + match.group(1) + ")")`
 endsnippet
 
-snippet "(\d+\.\d+)ce?i?l?" "Ceil" ir
+snippet "([\-,\+]?\d+\.\d+)ce?i?l?" "Ceil" ir
 `!p snip.rv = eval("int(" + match.group(1) + "+1))")`
 endsnippet
 
-snippet "(\d+\.\d+)ro?u?n?d?(\d+)?" "Round" ir
+snippet "([\-,\+]?\d+\.\d+)ro?u?n?d?(\d+)?" "Round" ir
 `!p
 precision = ", " + match.group(2) if match.group(2) else ""
 snip.rv = eval("int(round(" + match.group(1) + precision + "))")`
 endsnippet
 
-snippet "(\d+(\.\d+)?)sq?r?t?(\d+(\.\d+)?)?" "Square Root" ir
+snippet "([\-,\+]?\d+(\.\d+)?)sq?r?t?(\d+(\.\d+)?)?" "Square Root" ir
 `!p from math import sqrt
 radicand = match.group(1)
 num = match.group(3)
