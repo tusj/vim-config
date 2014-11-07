@@ -122,12 +122,12 @@ endglobal
 
 snippet \\ "LaTeX environment" i
 \\begin{$1}`!p lb(2)`$2`!p rb(2)`
-	$0$
+	$3
 \\end{$1}
 endsnippet
 
 snippet \ "LaTeX command" i
-\\${1:begin}`!p snip.rv = command_complete(1)`{$2}`!p lb(3)`$3`!p rb(3)`
+\\${1:cref}`!p snip.rv = command_complete(t[1])`{$2}`!p lb(3)`$3`!p rb(3)`
 $4
 endsnippet
 
@@ -267,7 +267,6 @@ snippet "tit?l?e?" "Title" rb
 \maketitle
 endsnippet
 
-<<<<<<< HEAD
 snippet "(G|g)ls(pl?)?" "Glossary reference completion" r
 `!p
 snip.rv = match_arg("pl")
@@ -288,12 +287,8 @@ if not snip.c:
 	results = find_in_files(regex, 1)
 snip.rv = complete(t[1], results)
 `}
-=======
-snippet "$\w+" "Inline math" ri
-`!p snip.rv = match.group(0)`\$
 endsnippet
 
-snippet $ "Inline math" i
-`!p snip.rv = match.group(0)`$1\$
->>>>>>> 2aa92293118a6beb5e95597eab85dae9b07749f5
+snippet "$\w+" "Inline math" ri
+`!p snip.rv = match.group(0)`\$
 endsnippet
