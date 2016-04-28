@@ -36,6 +36,10 @@ end
 " set guifont=Ubuntu\ Mono\ derivative\ Powerline\ for\ Powerline
 " set guifont=Inconsolata-g\ Medium\ 12
 " set guifont=Inconsolata-dz\ \for\ Powerline\ Medium\ 11
-set guifont=monofur\ 13
+if has("gui_win32")
+	set guifont=monofur:h11:cANSI
+else
+    set guifont=monofur\ 13
+endif
 
 " vim: set ft=vim:

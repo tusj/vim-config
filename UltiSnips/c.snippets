@@ -1,0 +1,18 @@
+snippet struct
+typedef struct ${1:name} {
+  ${2:members}
+} $1;
+endsnippet
+
+snippet func
+${1:return_type} ${2:func_name} (UInt8* data) {
+	${3}
+
+  $1 payload;
+	UInt8 offset = 0;
+
+  payload.ax = conv_acc * (Float32)extract<SInt32>(data, offset);
+
+  return payload;
+}
+endsnippet
