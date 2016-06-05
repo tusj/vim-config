@@ -1,18 +1,60 @@
-snippet struct
-typedef struct ${1:name} {
-  ${2:members}
-} $1;
+global !p
+
+endglobal
+
+snippet "(header)|(#?ifndef)" "Insert #ifndef check for header" r
+#ifndef `!p
+import uuid
+if not snip.c:
+  uid = str(uuid.uuid4()).upper().replace("-", "_")
+  basename = snip.basename.upper()
+  define = basename + "_"+ uid + "_H"
+  visual = snip.v.text
+  end = "\n\n#endif // " + define
+  snip.rv = define + "\n#define " + define + "\n\n" + visual + end`
 endsnippet
 
-snippet func
-${1:return_type} ${2:func_name} (UInt8* data) {
-	${3}
+snippet incheader
+#include "`!p snip.rv = snip.basename + ".h"`$1"
+$2
+endsnippet
 
-  $1 payload;
-	UInt8 offset = 0;
+snippet comment
+`!p
+max_line_length = 60
 
-  payload.ax = conv_acc * (Float32)extract<SInt32>(data, offset);
+def join_line(line):
+  return "* " + " ".join(line).ljust(max_line_length) + "*"
 
-  return payload;
-}
+def format(data):
+  line_length = 0
+  text    = []
+  line    = []
+
+  for word in visual:
+    print(word)
+    wl = len(word)
+    if line_length + wl >= max_line_length:
+      line_length = 0
+      text.append(join_line(line))
+      line = []
+      print(text)
+    line_length += wl + 1
+    line.append(word)
+    print(line)
+  if len(line) != 0:
+    text.append(join_line(line))
+
+  return text
+
+visual   = snip.v.text.split()
+text     = format(visual)
+l        = min(len(text[0]), max_line_length)
+header   = [ '*' * (l + 3)
+           ,  '*' + ' ' * (l + 1) + '*'
+           ]
+middle   = text
+footer   = list(reversed(header))
+together = header + middle + footer
+snip.rv =  "\n".join(map(lambda x: "// " + x, together))`
 endsnippet
