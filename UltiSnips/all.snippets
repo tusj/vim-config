@@ -1,0 +1,99 @@
+global !p
+def match_bracket(n):
+	if n == '[':
+		return ']'
+	elif n == '{':
+		return '}'
+	elif n == '(':
+		return ')'
+	else:
+		return n
+
+def dec2hex(n):
+	return "%X" % int(n)
+
+def hex2dec(n):
+	return int(n, 16)
+
+endglobal
+
+# Problem: Python only supports recursive regular expressions through pypi regex module
+# number = \d+(\.\d+)?
+# operator = (\*|/|\+|\-|\%|\*\*)
+# value = (number | (\(expression\)))
+# expression = value + operator + value
+# expressions = expression (operator + value)*
+snippet "([\-,\+]?\d+(\.\d+)?)((\*|/|\+|\-|\%|\*\*)([\-,\+]?\d+(\.\d+)?))+" "Maths" ri
+`!p snip.rv = eval(match.group(0))`
+endsnippet
+
+snippet "([\-,\+]?\d+\.\d+)fl?o?o?r?" "Floor" ir
+`!p snip.rv = eval("int(" + match.group(1) + ")")`
+endsnippet
+
+snippet "([\-,\+]?\d+\.\d+)ce?i?l?" "Ceil" ir
+`!p snip.rv = eval("int(" + match.group(1) + "+1))")`
+endsnippet
+
+snippet "([\-,\+]?\d+\.\d+)ro?u?n?d?(\d+)?" "Round" ir
+`!p
+precision = ", " + match.group(2) if match.group(2) else ""
+snip.rv = eval("int(round(" + match.group(1) + precision + "))")`
+endsnippet
+
+snippet "([\-,\+]?\d+(\.\d+)?)sq?r?t?(\d+(\.\d+)?)?" "Square Root" ir
+`!p from math import sqrt
+radicand = match.group(1)
+num = match.group(3)
+degree = num if num else "2"
+snip.rv = eval("sqrt(" + radicand + ")")`
+endsnippet
+
+snippet uuid
+`!p import uuid
+if not snip.c:
+  snip.rv = str(uuid.uuid4())`
+endsnippet
+
+snippet FALSE
+TRUE
+endsnippet
+
+snippet TRUE
+FALSE
+endsnippet
+
+snippet false
+true
+endsnippet
+
+snippet true
+false
+endsnippet
+
+snippet False
+True
+endsnippet
+
+snippet True
+False
+endsnippet
+
+snippet "mod?e?l?i?n?e?" "Modeline" rb
+${1:`!v get(split(split(&comments, ",")[-1], ":"), 1)`} vim: $2 :
+$0
+endsnippet
+
+snippet '("|'|`|\[|\{|\()[\w,!,\-,\,\s,\=,:,\s]+' "Bracket completion with word" ir
+`!p snip.rv = match.group(0) + match_bracket(match.group(1))`
+endsnippet
+
+snippet '(0x([a-zA-Z0-9]+))|([0-9]+)' "Toggles between hexadecimal and binary encoding" ir
+`!p
+if match.group(1): # hex 2 dec
+	snip.rv = hex2dec(match.group(2))
+elif match.group(3): # dec 2 hex
+	snip.rv = "0x" + dec2hex(match.group(3))
+else:
+	snip.rv = "error"`
+endsnippet
